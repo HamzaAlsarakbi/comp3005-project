@@ -1,0 +1,120 @@
+.input-box-container {
+  /* border: 1px solid red; */
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.input-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid var(--neo-border);
+  border-bottom: 1px solid var(--neo-border);
+  border-radius: 20px;
+  font-size: 20px;
+  /* backdrop-filter: blur(4px); */
+  transition: background 100ms ease-in-out;
+  position: relative;
+}
+.input-box:hover {
+  background: hsla(223, 60%, 15%, .2);
+}
+
+.input-box:hover:not(:focus-within) {
+  background: linear-gradient(transparent, (223, 60%, 15%, .2));
+}
+.input-box:focus-within {
+  background: linear-gradient(transparent, hsla(223, 60%, 20%, .2));
+}
+.input-box:has( .input-box-input:not(:placeholder-shown)),
+.input-box:focus-within {
+  border-top-color: transparent;
+  border-bottom-color: var(--accent-1);
+}
+.input-box-placeholder {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  transition: transform 200ms ease-in-out;
+  user-select: none;
+}
+.input-box-placeholder, .input-box-input {
+  font-size: 20px;
+}
+.input-box-placeholder:has(+ .input-box-input:not(:placeholder-shown)),
+.input-box:focus-within .input-box-placeholder {
+  color: var(--accent-1);
+  transform: translate(-5%, -125%) scale(.9);
+}
+.input-box-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  margin: 0;
+  padding: 1em .25em 1em 1em;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.input-box-button {
+  border-radius: 0;
+  min-width: auto;
+  width: unset;
+  border: none;
+  background: hsla(0, 0%, 0%, .2);
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 1em;
+  transition: transform 100ms ease-in-out;
+}
+.input-box-button:hover {
+  background: hsla(0, 0%, 0%, .2);
+  color: unset;
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 4px hsla(0, 0%, 0%, 0.4);
+}
+.input-box-button:active {
+  box-shadow: inset 0px 4px 4px hsla(0, 0%, 0%, 0.4);
+  transform: translateY(1px);
+}
+
+.input-box-hint {
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+
+.input-box-hint.show {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.input-box-hint.emphasis {
+  animation: emphasis 300ms ease-in-out;
+}
+
+@keyframes emphasis {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(10px);
+  }
+  60% {
+    transform: translateX(-10px);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}

@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 
 import './Navbar.css'
-import './../Theme/Theme.css'
 import { Icons } from '../../lib/icons';
-import ThemeContext from '../../contexts/ThemeContext';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface NavbarProps {
   loggedIn: boolean;
@@ -33,13 +30,11 @@ const Navbar: React.FC<NavbarProps> = ({ loggedIn }) => {
     });
   }, []);
 
-
-  const { theme } = useContext(ThemeContext);
   return (
     <div className='navbar' ref={navbarRef}>
       <div className='navbar-section' id='navbar-left'>
         <Link to='/' className='navbar-link-container'>
-          <LazyLoadImage src={theme === 'dark' ? Icons.LOGO_LIGHT : Icons.LOGO_DARK} alt='logo' id='navbar-logo' />
+          <img src={Icons.FAVICO} alt='logo' id='navbar-logo' />
         </Link>
       </div>
       <div className='navbar-section' id='navbar-center'></div>

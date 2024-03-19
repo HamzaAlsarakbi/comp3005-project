@@ -1,25 +1,24 @@
 import React from 'react';
 import { Icons } from '../../lib/icons';
-import './IconButton.css'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import './IconButton.css';
 
 interface IconButtonProps {
-  name: string;
+  children: string;
   icon: Icons;
-  href: string;
+  href?: string;
   className: string;
   id: string;
 }
 
 
-const IconButton: React.FC<IconButtonProps> = ({ name, icon, href, className, id }) => {
+const IconButton: React.FC<IconButtonProps> = ({ children, icon, href, className, id }) => {
   return (
     <a className={`icon-button ${className}`} id={id} href={href}>
       <div className={`icon-button-icon ${className}`} id={id}>
-        <LazyLoadImage src={icon} alt={id} className={`icon-button-img ${className}`} id={id}/>
+        <img src={icon} alt={id} className={`icon-button-img ${className}`} id={id}/>
       </div>
       <span className={`icon-button-span ${className}`} id={id}>
-        {name}
+        {children}
       </span>
     </a>
   )

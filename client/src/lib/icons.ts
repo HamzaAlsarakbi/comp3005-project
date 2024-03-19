@@ -1,4 +1,5 @@
 export enum Icons {
+  FAVICO = '/favico.ico',
   TOAST_BLUE = '/img/icons/toast/Blue.png',
   TOAST_GREEN = '/img/icons/toast/Green.png',
   TOAST_RED = '/img/icons/toast/Red.png',
