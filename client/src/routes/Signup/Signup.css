@@ -1,0 +1,55 @@
+.signup-root {
+  box-shadow: 2px 2px 4px hsla(0, 0%, 90%, 0.2);
+  background: var(--bg-1-glass);
+  backdrop-filter: blur(4px) brightness(2);
+  width: 80%;
+  min-width: 400px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+  border-radius: 20px;
+  padding: 1em;
+  padding-bottom: 2em;
+  margin: 2em 0 10em 0;
+}
+.signup-root .input-box-container {
+  padding-bottom: 0;
+}
+#root {
+  min-height: 100vh;
+  justify-content: center;
+  --saturation:  10%;
+  --luminosity: 20%;
+  background: linear-gradient(-45deg,
+  hsl(200, var(--saturation), var(--luminosity)),
+  hsl(220, var(--saturation), var(--luminosity)),
+  hsl(240, var(--saturation), var(--luminosity)),
+  hsl(220, var(--saturation), var(--luminosity)),
+  hsl(200, var(--saturation), var(--luminosity)));
+	background-size: 400% 400%;
+	animation: wavy-animation 6s linear infinite;
+  height: 100%;
+}
+.signup-container-item#app-name {
+  align-self: center;
+}
+.signup-design {
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.signup-design-item#signup-design-img {
+  object-fit: scale-down;
+  --size: 1000px;
+  max-width: var(--size);
+  max-height: var(--size);
+}
+
+@keyframes wavy-animation {
+	0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}

@@ -6,7 +6,9 @@ import { phone } from 'phone';
 
 export enum InputType {
   INPUT,
-  TEXTAREA
+  TEXTAREA,
+  DATE,
+  SELECT,
 }
 
 interface InputBoxProps {
@@ -19,6 +21,7 @@ interface InputBoxProps {
   optional?: boolean;
   inputPolicy?: InputPolicy;
   hidden?: boolean;
+  options?: string[];
 }
 
 export enum InputPolicy {
@@ -43,7 +46,7 @@ class InputBox extends Component<InputBoxProps> {
 
   handleInput = () => {
     const { onInput } = this.props;
-    const value: string = this.inputRef.current?.value ?? this.textAreaRef.current!.value;
+    const value: string = this.value();
     if (onInput) {
       onInput(value);
     }
@@ -121,6 +124,9 @@ class InputBox extends Component<InputBoxProps> {
     this.textRef.current.setAttribute('style', `color: ${color}`);
     this.textRef.current.classList.add('show');
   }
+  value = (): string => this.inputRef.current?.value ?? this.textAreaRef.current!.value;
+  isEmpty = (): boolean => this.value() === '';
+  hasError = (): boolean => this.textRef.current!.classList.contains('show');
 
   emphasizeText = () => {
     if (this.textRef.current == null) return;
@@ -145,14 +151,19 @@ class InputBox extends Component<InputBoxProps> {
               placeholder={""}
               ref={this.textAreaRef}
               onInput={this.handleInput}
-            /> :
+            /> : inputType === InputType.SELECT ?
+            <select name={placeholder} id={id} className="input-box-select">
+              <option value="ommak">Ommak</option>
+            </select>
+            
+            :
             <input
               className="input-box-input"
               id={id}
               placeholder={""}
               ref={this.inputRef}
               onInput={this.handleInput}
-              type={hidden ? "password" : "text"}
+              type={inputType === InputType.DATE ? "date" : hidden ? "password" : "text"}
             />
           }
           {buttonText ?

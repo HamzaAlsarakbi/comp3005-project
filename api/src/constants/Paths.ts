@@ -12,4 +12,8 @@ export default {
     Update: '/update',
     Delete: '/delete/:id',
   },
+  Login: {
+    Base: '/login',
+    Add: '/login',
+  },
 } as const;
