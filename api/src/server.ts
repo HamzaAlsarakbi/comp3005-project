@@ -3,7 +3,9 @@
  */
 
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import morgan from 'morgan';
+import cors from 'cors';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
@@ -24,13 +26,22 @@ import { RouteError } from '@src/other/classes';
 
 const app = express();
 
-
 // **** Setup **** //
-
 // Basic middleware
 app.use(express.json());
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 48 * 60 * 60 * 1000 },
+}));
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
@@ -62,15 +73,5 @@ app.use((
   }
   return res.status(status).json({ error: err.message });
 });
-
-
-// ** Front-End Content ** //
-// Nav to users pg by default
-// app.get('/', (_: Request, res: Response) => {
-//   return res.redirect('/users');
-// });
-
-
-// **** Export default **** //
 
 export default app;

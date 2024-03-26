@@ -4,6 +4,7 @@ import './Login.css'
 import IconButton from "../../components/IconButton/IconButton";
 import { Icons } from "../../lib/icons";
 import { Color } from "../../lib/colors";
+import api from "../../lib/api";
 
 
 interface LoginProps {
@@ -14,20 +15,16 @@ const Login: React.FC<LoginProps> = () => {
   const passwordRef = useRef<InputBox>(null);
   useEffect(() => {
     document.title = 'Login';
-
-
-    
-
   }, []);
 
   const loginHandler = () => {
-    if(!verifyForm()) return;
-    const req = new XMLHttpRequest();
-    req.open('POST', 'http://localhost:3001/login');
-    req.onload = function() {
-      switch(req.status) {
+    if (!verifyForm()) return;
+
+    const onRes = (req: XMLHttpRequest) => {
+      switch (req.status) {
         case 200:
           passwordRef.current!.showText("Redirecting...", Color.Green);
+          document.location.replace('/')
           break;
         case 400:
           passwordRef.current!.showText("Username or password incorrect. Try again.", Color.Red);
@@ -35,11 +32,13 @@ const Login: React.FC<LoginProps> = () => {
           break;
       }
     };
-    const body = {
-      email: emailRef.current!.value(),
-      password: passwordRef.current!.value(),
-    }
-    req.send(JSON.stringify(body));
+    api.post({
+      path: 'logins/login',
+      body: {
+        email: emailRef.current!.value(),
+        password: passwordRef.current!.value(),
+      }, onload: onRes
+    });
   };
 
   const verifyForm = (): boolean => {
@@ -50,7 +49,7 @@ const Login: React.FC<LoginProps> = () => {
     ];
     for (let ref of refs) {
       ref.current!.handleInput();
-      if(ref.current!.hasError()) {
+      if (ref.current!.hasError()) {
         ref.current!.emphasizeText();
         valid = false;
       }
@@ -63,8 +62,8 @@ const Login: React.FC<LoginProps> = () => {
       <div className="login-container">
         <h1 className="login-container-item" id="app-name">Fitness App</h1>
         <h2 className="login-container-item" id="login">Login</h2>
-        <InputBox id="email" inputType={InputType.INPUT} placeholder="Email" inputPolicy={InputPolicy.EMAIL} ref={emailRef}/>
-        <InputBox id="password" inputType={InputType.INPUT} placeholder="Password" hidden inputPolicy={InputPolicy.WORDS}  ref={passwordRef}/>
+        <InputBox id="email" inputType={InputType.INPUT} placeholder="Email" inputPolicy={InputPolicy.EMAIL} ref={emailRef} />
+        <InputBox id="password" inputType={InputType.INPUT} placeholder="Password" hidden inputPolicy={InputPolicy.WORDS} ref={passwordRef} />
         <IconButton icon={Icons.TOAST_ORANGE} className="login-container-item" id="login" onClick={loginHandler}>Log in</IconButton>
         <a href="/signup">Sign up</a>
       </div>

@@ -1,40 +1,34 @@
 
+/**
+ * THIS IS A TEMPORARY MOCK DATABASE UNTIL WE GET POSTGRES DATABASE SETUP
+ */
 
 import jsonfile from 'jsonfile';
 
-import { IUser } from '@src/models/User';
-
-
-// **** Variables **** //
+import { IMember } from '@src/models/Member';
 
 const DB_FILE_NAME = 'database.json';
 
-
-// **** Types **** //
-
 interface IDb {
-  users: IUser[];
+  members: IMember[];
 }
 
-
-// **** Functions **** //
-
 /**
- * Fetch the json from the file.
+ * loads JSON "DB"
+ * @returns database
  */
 function openDb(): Promise<IDb> {
   return jsonfile.readFile(__dirname + '/' + DB_FILE_NAME) as Promise<IDb>;
 }
 
 /**
- * Update the file.
+ * saves the database
+ * @param db database
+ * @returns void
  */
 function saveDb(db: IDb): Promise<void> {
   return jsonfile.writeFile((__dirname + '/' + DB_FILE_NAME), db);
 }
-
-
-// **** Export default **** //
 
 export default {
   openDb,

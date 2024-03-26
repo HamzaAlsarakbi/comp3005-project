@@ -1,19 +1,29 @@
 /**
- * Express router paths go here.
+ * Express router paths
  */
-
-
 export default {
   Base: '/api',
-  Users: {
-    Base: '/users',
+  Members: {
+    Base: '/members',
     Get: '/all',
+    One: '/:email',
     Add: '/add',
     Update: '/update',
-    Delete: '/delete/:id',
+  },
+  Sessions: {
+    Base: '/sessions',
+    Get: '/check',
   },
   Login: {
-    Base: '/login',
+    Base: '/logins',
     Add: '/login',
+    Delete: '/logout',
+  },
+  Classes: {
+    Base: '/classes',
+    Get: '/all',
+    Add: '/add',
+    Update: '/update/:id',
+    Delete: '/delete/:id',
   },
 } as const;

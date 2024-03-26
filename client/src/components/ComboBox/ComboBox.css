@@ -6,10 +6,10 @@
 }
 .combo-box {
   width: fit-content;
-  padding: 1em;
+  padding: .5em;
   border-top: 1px solid var(--neo-border);
   border-bottom: 1px solid var(--neo-border);
-  border-radius: 20px;
+  border-radius: 10px;
   font-size: 20px;
   /* backdrop-filter: blur(4px); */
   transition: background 100ms ease-in-out;

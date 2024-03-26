@@ -2,9 +2,10 @@ import { Router } from 'express';
 import jetValidator from 'jet-validator';
 
 import Paths from '../constants/Paths';
-import User from '@src/models/User';
-import UserRoutes from './UserRoutes';
+import Member from '@src/models/Member';
+import UserRoutes from './MemberRoutes';
 import LoginRoutes from './LoginRoutes';
+import SessionRoutes from './SessionRoutes';
 
 
 // **** Variables **** //
@@ -14,39 +15,43 @@ const apiRouter = Router(), validate = jetValidator();
 
 // ** Add UserRouter ** //
 
-const userRouter = Router();
+const sessionRouter = Router();
 const loginRouter = Router();
+const userRouter = Router();
 
-loginRouter.post(Paths.Login.Add, LoginRoutes.post);
+sessionRouter.get(Paths.Sessions.Get, SessionRoutes.check);
+
+loginRouter.post(Paths.Login.Add, LoginRoutes.verifyLogin);
 
 
-// Get all users
-userRouter.get(Paths.Users.Get, UserRoutes.getAll);
+// Get all Members
+userRouter.get(Paths.Members.Get, UserRoutes.getAll);
 
 // Add one user
 userRouter.post(
-  Paths.Users.Add,
-  validate(['user', User.isUser]),
+  Paths.Members.Add,
+  validate(['member', Member.isMember]),
   UserRoutes.add,
 );
 
 // Update one user
 userRouter.put(
-  Paths.Users.Update,
-  validate(['user', User.isUser]),
+  Paths.Members.Update,
+  validate(['member', Member.isMember]),
   UserRoutes.update,
 );
 
 // Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
-  validate(['id', 'number', 'params']),
-  UserRoutes.delete,
-);
+// userRouter.delete(
+//   Paths.Members.Delete,
+//   validate(['id', 'number', 'params']),
+//   UserRoutes.delete,
+// );
 
 // Add routers
-apiRouter.use(Paths.Users.Base, userRouter);
 apiRouter.use(Paths.Login.Base, loginRouter);
+apiRouter.use(Paths.Sessions.Base, sessionRouter);
+apiRouter.use(Paths.Members.Base, userRouter);
 
 
 // **** Export default **** //

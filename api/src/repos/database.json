@@ -1,1 +1,53 @@
-{"users":[{"name":"Sean Maxwell","email":"sean.maxwell@gmail.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy","role":1,"id":159123164363},{"name":"Gordan Freeman","email":"gordan.freeman@halflife.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy","role":0,"id":906524522143},{"name":"John Smith","email":"jsmith@yahoo.com","pwdHash":"$2b$12$1mE2OI9hMS/rgH9Mi0s85OM2V5gzm7aF3gJIWH1y0S1MqVBueyjsy","role":0,"id":357437875835}]}
+{
+  "members": [
+    {
+      "first_name": "Hamza",
+      "last_name": "Alsarakbi",
+      "email": "hamzaalsarakbi@gmail.com",
+      "password": "hamza",
+      "phone": "+16135536640",
+      "gender": "male",
+      "birthday": "2004-05-05"
+    },
+    {
+      "first_name": "Jad",
+      "last_name": "Fakhoury",
+      "email": "jad.fakhoury@gmail.com",
+      "password": "jad",
+      "phone": "+16135536641",
+      "birthday": "2004-05-04",
+      "gender": "female"
+    }
+  ],
+  "trainers": [
+    {
+      "first_name": "Ahmad",
+      "last_name": "Ahmadi",
+      "email": "ahmad.ahmadi@gmail.com",
+      "password": "ahmad",
+      "phone": "+16135536642",
+      "gender": "male",
+      "birthday": "2001-05-05"
+    },
+    {
+      "first_name": "Leyla",
+      "last_name": "Leyli",
+      "email": "leyla.leyli@gmail.com",
+      "password": "leyla",
+      "phone": "+16135536643",
+      "birthday": "2005-05-04",
+      "gender": "female"
+    }
+  ],
+  "admins": [
+    {
+      "first_name": "Yassin",
+      "last_name": "Yassini",
+      "email": "yassin.yassini@gmail.com",
+      "password": "yassin",
+      "phone": "+16135536643",
+      "gender": "male",
+      "birthday": "1999-05-05"
+    }
+  ]
+}

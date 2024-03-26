@@ -13,8 +13,8 @@
   flex-direction: row;
   border-top: 1px solid var(--neo-border);
   border-bottom: 1px solid var(--neo-border);
-  border-radius: 20px;
-  font-size: 20px;
+  border-radius: 10px;
+  font-size: 18px;
   /* backdrop-filter: blur(4px); */
   transition: background 100ms ease-in-out;
   position: relative;
@@ -36,13 +36,13 @@
 }
 .input-box-placeholder {
   position: absolute;
-  top: 1em;
-  left: 1em;
+  top: .75em;
+  left: .75em;
   transition: transform 200ms ease-in-out;
   user-select: none;
 }
 .input-box-placeholder, .input-box-input {
-  font-size: 20px;
+  font-size: 18px;
 }
 .input-box-placeholder:has(+ .input-box-input:not(:placeholder-shown)),
 .input-box:focus-within .input-box-placeholder {
@@ -54,11 +54,11 @@
   height: 100%;
   background: transparent;
   margin: 0;
-  padding: 1em .25em 1em 1em;
+  padding: .75em .25em .75em .75em;
   border-radius: 20px 0 0 20px;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   z-index: 1;
 }
 
@@ -69,7 +69,7 @@
   border: none;
   background: hsla(0, 0%, 0%, .2);
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 18px;
   padding: 1em;
   transition: transform 100ms ease-in-out;
 }

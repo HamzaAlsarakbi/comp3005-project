@@ -5,8 +5,8 @@ import insertUrlParams from 'inserturlparams';
 
 import app from '@src/server';
 
-import UserRepo from '@src/repos/UserRepo';
-import User, { IUser } from '@src/models/User';
+import UserRepo from '@src/repos/MemberRepo';
+import User, { IMember } from '@src/models/Member';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { USER_NOT_FOUND_ERR } from '@src/services/UserService';
 
@@ -41,7 +41,7 @@ const DummyUserData = {
 
 type TRes = Omit<Response, 'body'> & {
   body: {
-    users: IUser[];
+    users: IMember[];
     error: string;
   }
 };
