@@ -15,9 +15,9 @@ export interface ISessionUser extends SessionData {
 }
 
 export enum UserRole {
-  ADMIN,
-  MEMBER,
-  TRAINER
+  ADMIN = 'ADMIN',
+  MEMBER = 'MEMBER',
+  TRAINER = 'TRAINER'
 }
 
 const new_ = (

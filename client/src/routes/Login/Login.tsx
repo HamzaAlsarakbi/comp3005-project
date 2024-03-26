@@ -5,6 +5,7 @@ import IconButton from "../../components/IconButton/IconButton";
 import { Icons } from "../../lib/icons";
 import { Color } from "../../lib/colors";
 import api from "../../lib/api";
+import axios from "axios";
 
 
 interface LoginProps {
@@ -19,9 +20,12 @@ const Login: React.FC<LoginProps> = () => {
 
   const loginHandler = () => {
     if (!verifyForm()) return;
-
-    const onRes = (req: XMLHttpRequest) => {
-      switch (req.status) {
+    const data = {
+      email: emailRef.current!.value(),
+      password: passwordRef.current!.value(),
+    }
+    axios.post(api.path('/logins/login'), data, { withCredentials: true}).then ((res) => {
+      switch (res.status) {
         case 200:
           passwordRef.current!.showText("Redirecting...", Color.Green);
           document.location.replace('/')
@@ -31,13 +35,6 @@ const Login: React.FC<LoginProps> = () => {
           passwordRef.current!.emphasizeText();
           break;
       }
-    };
-    api.post({
-      path: 'logins/login',
-      body: {
-        email: emailRef.current!.value(),
-        password: passwordRef.current!.value(),
-      }, onload: onRes
     });
   };
 

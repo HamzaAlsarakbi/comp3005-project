@@ -1,5 +1,8 @@
 export enum Icons {
   FAVICO = '/favico.ico',
+  MEMBER = '/img/icons/member/member.png',
+  TRAINER = '/img/icons/trainer/trainer.png',
+  ADMIN = '/img/icons/admin/admin.png',
   TOAST_BLUE = '/img/icons/toast/Blue.png',
   TOAST_GREEN = '/img/icons/toast/Green.png',
   TOAST_RED = '/img/icons/toast/Red.png',

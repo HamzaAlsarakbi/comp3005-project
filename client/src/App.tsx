@@ -9,6 +9,7 @@ import NoPage from './routes/NoPage/NoPage';
 import Signup from './routes/Signup/Signup';
 import api from './lib/api';
 import Dashboard from './routes/Dashboard/Dashboard';
+import axios from 'axios';
 
 function App() {
   const [sessionData, setSessionData] = useState<string | null>(null);
@@ -16,30 +17,24 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('color-scheme', 'dark');
-    
-    const onload = (req: XMLHttpRequest) => {
-      switch(req.status) {
-        case 401:
-          setLoggedIn(false);
-          break;
-        default:
-          setLoggedIn(true);
-          setSessionData(JSON.parse(req.responseText));
-          break;
-      }
-    }
     console.log('session check');
-    api.get({ path: 'sessions/check', onload: onload });
+    axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
+        setLoggedIn(true);
+        setSessionData(res.data.message);
+    }).catch((err) => {
+      setSessionData(null);
+      setLoggedIn(false);
+    });
 
   }, []);
   return (
     <BrowserRouter>
         <Routes>
+        {loggedIn ? 
           <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard session={sessionData} />} />
             <Route path="*" element={<NoPage />} />
           </Route>
-        {loggedIn ? 
-          <Route index element={<Dashboard session={sessionData} />} />
           : 
           <Route index element={<Login />} />
         }

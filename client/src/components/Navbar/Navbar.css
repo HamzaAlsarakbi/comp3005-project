@@ -36,7 +36,7 @@
   gap: 1em;
 }
 
-#navbar-left a.navbar-link-container {
+#navbar-left .navbar-link-container {
   height: 100%;
 }
 
@@ -45,14 +45,18 @@
   max-width: 100%;
 }
 
-a.navbar-link-container {
+.navbar-link-container {
   text-decoration: none;
   mix-blend-mode: color-dodge;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 .navbar-link {
+  margin: 0;
   display: inline-block;
   position: relative;
   text-decoration: none;

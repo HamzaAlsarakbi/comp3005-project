@@ -21,7 +21,8 @@ const userRouter = Router();
 
 sessionRouter.get(Paths.Sessions.Get, SessionRoutes.check);
 
-loginRouter.post(Paths.Login.Add, LoginRoutes.verifyLogin);
+loginRouter.post(Paths.Login.Add, LoginRoutes.login);
+loginRouter.get(Paths.Login.Delete, LoginRoutes.logout);
 
 
 // Get all Members
