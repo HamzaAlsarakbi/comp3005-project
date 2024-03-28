@@ -3,13 +3,13 @@ import orm from './MockOrm';
 
 /**
  * Gets one member
- * @param email member's email
- * @returns member if a member with the email exists, otherwise false.
+ * @param member_email member's email
+ * @returns member if a member with the member_email exists, otherwise false.
  */
-async function getOne(email: string): Promise<IMember | null> {
+async function getOne(member_email: string): Promise<IMember | null> {
   const db = await orm.openDb();
   for (const member of db.members) {
-    if (member.email === email) {
+    if (member.member_email === member_email) {
       return member;
     }
   }
@@ -17,14 +17,14 @@ async function getOne(email: string): Promise<IMember | null> {
 }
 
 /**
- * Checks if a member with the given email exists.
- * @param email email
+ * Checks if a member with the given member_email exists.
+ * @param member_email email
  * @returns true if the member exists, otherwise false.
  */
-async function exists(email: string): Promise<boolean> {
+async function exists(member_email: string): Promise<boolean> {
   const db = await orm.openDb();
   for (const member of db.members) {
-    if (member.email === email) {
+    if (member.member_email === member_email) {
       return true;
     }
   }
@@ -59,7 +59,7 @@ async function add(member: IMember): Promise<void> {
 async function update(member: IMember): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.members.length; i++) {
-    if (db.members[i].email === member.email) {
+    if (db.members[i].member_email === member.member_email) {
       db.members[i] = member;
       return orm.saveDb(db);
     }
@@ -68,13 +68,13 @@ async function update(member: IMember): Promise<void> {
 
 /**
  * Deletes a member
- * @param email email
+ * @param member_email member_email
  * @returns void
  */
-async function delete_(email: string): Promise<void> {
+async function delete_(member_email: string): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.members.length; i++) {
-    if (db.members[i].email === email) {
+    if (db.members[i].member_email === member_email) {
       db.members.splice(i, 1);
       return orm.saveDb(db);
     }

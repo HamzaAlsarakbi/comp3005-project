@@ -4,20 +4,22 @@ const INVALID_CONSTRUCTOR_PARAM = 'nameOrObj arg must a string or an ' +
   'object with the appropriate member keys.';
 
 export interface IMember {
+  member_email: string;
   first_name: string;
   last_name: string;
-  email: string;
   password: string;
   phone: string;
   birthday: string;
   gender: Gender;
+  current_weight: number;
+  current_height: number;
 }
 
 /**
  * Creates a new member
  * @param first_name first name
  * @param last_name last name
- * @param email email
+ * @param member_email member_email
  * @param password password
  * @param phone phone
  * @param birthday birthday
@@ -27,21 +29,25 @@ export interface IMember {
 function new_(
   first_name: string,
   last_name: string,
-  email: string,
+  member_email: string,
   password: string,
   phone: string,
   birthday: string,
   gender: Gender,
+  current_weight?: number,
+  current_height?: number
 
 ): IMember {
   return {
     first_name: first_name,
     last_name: last_name,
-    email: email,
+    member_email: member_email,
     password: password,
     phone: phone,
     birthday: birthday,
     gender: gender,
+    current_weight: current_weight?? 0,
+    current_height: current_weight?? 0,
   };
 }
 
@@ -57,7 +63,7 @@ function from(param: object): IMember {
   }
   // Get user instance
   const p = param as IMember;
-  return new_(p.first_name, p.last_name, p.email,
+  return new_(p.first_name, p.last_name, p.member_email,
     p.password, p.phone, p.birthday, p.gender);
 }
 
@@ -73,7 +79,7 @@ function isMember(arg: unknown): boolean {
     typeof arg === 'object' &&
     'first_name' in arg &&
     'last_name' in arg &&
-    'email' in arg &&
+    'member_email' in arg &&
     'password' in arg &&
     'phone' in arg &&
     'birthday' in arg &&

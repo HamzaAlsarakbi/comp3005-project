@@ -2,7 +2,7 @@
 import { randomInt } from 'crypto';
 import jsonfile from 'jsonfile';
 
-interface FullNameDB {
+export default interface FullNameDB {
   first_name: string;
   last_name: string;
 }

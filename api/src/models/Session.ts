@@ -41,7 +41,7 @@ const new_ = (
  * @returns user session
  */
 const memberSessionFrom = (m: IMember): UserSession => {
-  return new_(UserRole.MEMBER, m.email, m.first_name, m.last_name);
+  return new_(UserRole.MEMBER, m.member_email, m.first_name, m.last_name);
 };
 
 

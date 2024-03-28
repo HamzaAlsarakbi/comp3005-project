@@ -9,7 +9,8 @@
     "dev": "nodemon",
     "test": "nodemon --config ./spec/nodemon.json",
     "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec",
-    "name-generator": "npx ts-node src/db/util/name-generator.ts"
+    "name-generator": "npx ts-node src/db/util/name-generator.ts",
+    "generate-db": "npx ts-node src/db/database-generator.ts"
   },
   "nodemonConfig": {
     "watch": [
