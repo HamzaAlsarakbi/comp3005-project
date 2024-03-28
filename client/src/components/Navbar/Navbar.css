@@ -43,6 +43,7 @@
 #navbar-logo {
   max-height: 100%;
   max-width: 100%;
+  border-radius: 100px;
 }
 
 .navbar-link-container {
@@ -54,6 +55,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  gap: 10px;
 }
 .navbar-link {
   margin: 0;
@@ -62,6 +64,7 @@
   text-decoration: none;
   font-size: 18px;
   color: var(--color-1);
+  width: 100%;
 }
 
 .navbar-link::after {

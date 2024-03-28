@@ -63,19 +63,20 @@ const Navbar = () => {
             session?.role === 'MEMBER' ? Icons.MEMBER :
               session?.role === 'TRAINER' ? Icons.TRAINER : Icons.MEMBER
           } alt='logo' id='navbar-logo' />
-          <p className='navbar-link'>{`${session?.first_name ?? 'Profile'} ${session?.last_name ?? ''}`}</p>
+          <span className='navbar-link'>
+            {`${session?.first_name ?? 'Profile'} ${session?.last_name ?? ''}`}</span>
         </Link>
       </div>
       <div className='navbar-section' id='navbar-center'></div>
       <div className='navbar-section' id='navbar-right'>
         <Link to='/news' className='navbar-link-container'>
-          <p className='navbar-link'>Trainers</p>
+          <span className='navbar-link'>Trainers</span>
         </Link>
         <Link to='/contact' className='navbar-link-container'>
-          <p className='navbar-link'>Classes</p>
+          <span className='navbar-link'>Classes</span>
         </Link>
         <button className='navbar-link-container' onClick={logoutHandler}>
-          <p className='navbar-link'>Logout</p>
+          <span className='navbar-link'>Logout</span>
         </button>
       </div>
     </div>

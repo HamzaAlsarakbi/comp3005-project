@@ -25,16 +25,18 @@ const Login: React.FC<LoginProps> = () => {
       password: passwordRef.current!.value(),
     }
     axios.post(api.path('/logins/login'), data, { withCredentials: true}).then ((res) => {
-      switch (res.status) {
-        case 200:
-          passwordRef.current!.showText("Redirecting...", Color.Green);
-          document.location.replace('/')
-          break;
+      passwordRef.current!.showText("Redirecting...", Color.Green);
+      document.location.replace('/')
+    }).catch((err) => {
+      switch (err.request.status) {
         case 400:
           passwordRef.current!.showText("Username or password incorrect. Try again.", Color.Red);
-          passwordRef.current!.emphasizeText();
+          break;
+        default:
+          passwordRef.current!.showText("Internal server error.", Color.Red);
           break;
       }
+        passwordRef.current!.emphasizeText();
     });
   };
 
