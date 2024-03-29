@@ -5,6 +5,8 @@ import IconButton from "../../components/IconButton/IconButton";
 import { Icons } from "../../lib/icons";
 import { Color } from "../../lib/colors";
 import ComboBox, { ComboBoxOption } from "../../components/ComboBox/ComboBox";
+import axios from "axios";
+import api from "../../lib/api";
 
 
 interface SignupProps {
@@ -30,28 +32,32 @@ const Signup: React.FC<SignupProps> = () => {
 
   const signupHandler = () => {
     if (!verifyForm()) return;
-    const body = {
-      firstname: firstnameRef.current!.value(),
-      lastname: lastnameRef.current!.value(),
-      phone: phoneRef.current!.value(),
-      email: emailRef.current!.value(),
-      password: passwordRef.current!.value(),
-      gender: gender,
+    const data = {
+      member: {
+        member_email: emailRef.current!.value(),
+        first_name: firstnameRef.current!.value(),
+        last_name: lastnameRef.current!.value(),
+        password: passwordRef.current!.value(),
+        phone: phoneRef.current!.value(),
+        birthday: new Date(dobRef.current!.value()),
+        gender: gender,
+      }
     }
-    const req = new XMLHttpRequest();
-    req.open('POST', 'http://localhost:3001/member/add');
-    req.onload = function () {
-      switch (req.status) {
-        case 200:
-          dobRef.current!.showText("Redirecting...", Color.Green);
-          break;
+    console.log(JSON.stringify(data));
+    axios.post(api.path('/members/add'), data, { withCredentials: true }).then ((res) => {
+      dobRef.current!.showText("Redirecting...", Color.Green);
+      document.location.replace('/');
+    }).catch((err) => {
+      switch (err.request.status) {
         case 400:
-          dobRef.current!.showText("Username or password incorrect. Try again.", Color.Red);
-          dobRef.current!.emphasizeText();
+          dobRef.current!.showText(err.response.data.message ?? "Unknown error.", Color.Red);
+          break;
+        default:
+          dobRef.current!.showText("Internal server error.", Color.Red);
           break;
       }
-    };
-    req.send(JSON.stringify(body));
+        passwordRef.current!.emphasizeText();
+    });
   };
   /**
    * Verifies the sign up form
@@ -85,7 +91,7 @@ const Signup: React.FC<SignupProps> = () => {
       <InputBox id="first-name" inputType={InputType.INPUT} placeholder="First name" inputPolicy={InputPolicy.WORDS} ref={firstnameRef} />
       <InputBox id="last-name" inputType={InputType.INPUT} placeholder="Last name" inputPolicy={InputPolicy.WORDS} ref={lastnameRef} />
       <InputBox id="email" inputType={InputType.INPUT} placeholder="Email" inputPolicy={InputPolicy.EMAIL} ref={emailRef} />
-      <InputBox id="phone-number" inputType={InputType.INPUT} placeholder="Phone Number" inputPolicy={InputPolicy.WORDS} ref={phoneRef} />
+      <InputBox id="phone-number" inputType={InputType.INPUT} placeholder="Phone Number" inputPolicy={InputPolicy.PHONE_NUMBER} ref={phoneRef} />
       <InputBox id="password" inputType={InputType.INPUT} placeholder="Password" inputPolicy={InputPolicy.WORDS} ref={passwordRef} />
       <InputBox id="date-of-birth" inputType={InputType.DATE} placeholder="Date of Birth" ref={dobRef} />
       <ComboBox id="gender" name="Gender" options={options} onChange={genderComboBoxHandler} />

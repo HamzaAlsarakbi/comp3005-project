@@ -55,7 +55,7 @@ const generateAdmins = async (size: number) => {
   values.push(`('adminjad@gmail.com','A.Jad','Admin','jad')`);
   // eslint-disable-next-line max-len
   const insertionQuery =`insert into admins (admin_email, first_name, last_name, password) values ${values.join(',')};`;
-  console.log(`\tInserting ${insertionQuery.length} records into admins table.`);
+  console.log(`\tInserting ${values.length} records into admins table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
 };

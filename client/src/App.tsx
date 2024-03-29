@@ -17,7 +17,6 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('color-scheme', 'dark');
-    console.log('session check');
     axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
         setLoggedIn(true);
         setSessionData(res.data.message);

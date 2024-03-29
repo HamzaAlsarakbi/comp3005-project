@@ -1,45 +1,74 @@
-import MemberRepo from '@src/repos/MemberRepo';
-import { IMember } from '@src/models/Member';
-import { RouteError } from '@src/other/classes';
-import HttpStatusCodes from '@src/constants/HttpStatusCodes';
+import { postgresQuery } from '@src/db/postgres-helpers';
+import { AddMember, IMember, UMember } from '@src/models/Member';
 
-export const MEMBER_NOT_FOUND_ERR = 'Member not found';
 
 /**
- * Gets all members
+ * gets all members
  * @returns all members
  */
-function getAll(): Promise<IMember[]> {
-  return MemberRepo.getAll();
-}
+const getAll = async(): Promise<IMember[]> => {
+  const members = await postgresQuery<IMember>('select * from members');
+  return members;
+};
 
 /**
- * Adds a member
- * @param member member
- * @returns void
+ * Gets one member using the email
+ * @param email email address of member
+ * @returns the member if there is one with the provided email, otherwise null.
  */
-function addOne(member: IMember): Promise<void> {
-  return MemberRepo.add(member);
-}
+const getOne = async (email: string): Promise<IMember | null> => {
+  const member = await postgresQuery<IMember>(
+    `select * from members where member_email='${email}'`);
+
+  return member.length == 0 ? null : member[0];
+};
 
 /**
  * Updates a member
- * @param member member
+ * @param m member
  * @returns void
  */
-async function updateOne(member: IMember): Promise<void> {
-  const persists = await MemberRepo.persists(member.email);
-  if (!persists) {
-    throw new RouteError(
-      HttpStatusCodes.NOT_FOUND,
-      MEMBER_NOT_FOUND_ERR,
-    );
-  }
-  return MemberRepo.update(member);
-}
+const updateOne = async (m: UMember): Promise<void> => {
+  const birthday: string | null = m.birthday ?
+    new Date(m.birthday).toISOString().split('T')[0] : null;
+  const member = await postgresQuery<IMember>(`
+    update members
+    set
+      ${m.first_name ?      `first_name       ='${m.first_name}',`       : ''}
+      ${m.last_name ?       `last_name        ='${m.last_name}',`        : ''}
+      ${m.password ?        `password         ='${m.password}',`         : ''}
+      ${m.phone ?           `phone            ='${m.phone}',`            : ''}
+      ${m.gender ?          `gender           ='${m.gender}',`           : ''}
+      ${m.birthday ?        `birthday         ='${birthday}',` : ''}
+      ${m.current_weight ?  `current_weight   =${m.current_weight},`   : ''}
+      ${m.current_height ?  `current_height   =${m.current_height},`   : ''}
+    where member_email='${m.member_email}';
+    `);
+  console.log('UPDATING MEMBER', member); 
+};
+
+
+/**
+ * Updates a member
+ * @param m member
+ * @returns void
+ */
+const addOne = async (m: AddMember): Promise<void> => {
+  const birthday = new Date(m.birthday).toISOString().split('T')[0];
+  const member = await postgresQuery<AddMember>(`
+    insert into members (member_email,first_name, last_name,
+      password, phone, birthday, gender)
+    values ('${m.member_email}', '${m.first_name}', '${m.last_name}',
+      '${m.password}', '${m.phone}', '${birthday}', '${m.gender}')
+    `);
+  console.log('ADDING MEMBER', member); 
+};
+
+
 
 export default {
   getAll,
-  addOne,
+  getOne,
   updateOne,
-} as const;
+  addOne,
+};

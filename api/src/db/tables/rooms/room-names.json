@@ -1,0 +1,13 @@
+[
+  { "name": "Strength Zone", "variants": 4 },
+  { "name": "Cardio Corner", "variants": 2 },
+  { "name": "Flexibility Studio", "variants": 2 },
+  { "name": "Weightlifting Area", "variants": 4 },
+  { "name": "Yoga Room", "variants": 4 },
+  { "name": "Spin Studio", "variants": 2 },
+  { "name": "Functional Training Zone", "variants": 3 },
+  { "name": "Stretching Area", "variants": 3 },
+  { "name": "Circuit Training Room", "variants": 3 },
+  { "name": "Swimming Pool", "variants": 2 },
+  { "name": "Martial Arts Room", "variants": 4 }
+]

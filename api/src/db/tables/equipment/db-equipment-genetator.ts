@@ -27,7 +27,7 @@ const generateEquipment = async (variants_count: number) => {
   }
   // eslint-disable-next-line max-len
   const insertionQuery = `insert into equipment (name, wear_rate) values ${values.join(',')};`;
-  console.log(`\tInserting ${insertionQuery.length} records into equipment table.`);
+  console.log(`\tInserting ${values.length} records into equipment table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
 };

@@ -1,9 +1,11 @@
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { IReq, IRes } from './types/express/misc';
-import MemberRepo from '@src/repos/MemberRepo';
 import { ISessionUser } from '@src/models/Session';
 import SessionModel from '@src/models/Session';
 import logger from 'jet-logger';
+import MemberService from '@src/services/MemberService';
+import AdminService from '@src/services/AdminService';
+import TrainerService from '@src/services/TrainerService';
 
 
 const login = async (
@@ -11,14 +13,37 @@ const login = async (
   res: IRes,
 ) => {
   const { email: email, password: password } = req.body;
-  const member = await MemberRepo.getOne(email);
+  const session = req.session as ISessionUser;
+
+  // already logged in
+  if(session.user) {
+    return res.status(HttpStatusCodes.OK).json({ message: 'Already logged in.' });
+  }
+  
+  // member login
+  console.log(email);
+  const member = await MemberService.getOne(email);
   if (member && member.password === password) {
-    const session = req.session as ISessionUser;
-    session.user = SessionModel.memberSessionFrom(member);
+    session.user = SessionModel.fromMember(member);
+  }
+  // trainer login
+  const trainer = await TrainerService.getOne(email);
+  if (trainer && trainer.password === password) {
+    session.user = SessionModel.fromTrainer(trainer);
+  }
+  // admin login
+  const admin = await AdminService.getOne(email);
+  if (admin && admin.password === password) {
+    session.user = SessionModel.fromAdmin(admin);
+  }
+
+  // if there is a valid session
+  if(session.user) {
     logger.info(`Logged in ${email}`);
     return res.status(HttpStatusCodes.OK).json({ message: 'Logged in.' });
   }
 
+  // no valid session
   return res.status(HttpStatusCodes.BAD_REQUEST).json({
     message: 'Email or password incorrect.',
   });

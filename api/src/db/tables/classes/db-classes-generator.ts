@@ -28,12 +28,13 @@ const generateClasses = async (variants_count: number) => {
   for (const class0 of classesList) {
     for(let i = 0; i < variants_count; i++) {
       const classType = randomInt(0, 2) == 0 ? ClassType.GROUP : ClassType.PERSONAL;
-      values.push(`('${class0.name} #${i+1}','${classType}','${class0.description}')`);
+      const capacity = classType == ClassType.PERSONAL ? 2 : 21;
+      values.push(`('${class0.name} #${i+1}','${classType}','${class0.description}', ${capacity})`);
     }
   }
   // eslint-disable-next-line max-len
-  const insertionQuery = `insert into classes (name, type, description) values ${values.join(',')};`;
-  console.log(`\tInserting ${insertionQuery.length} records into classes table.`);
+  const insertionQuery = `insert into classes (name, type, description, capacity) values ${values.join(',')};`;
+  console.log(`\tInserting ${values.length} records into classes table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
 };

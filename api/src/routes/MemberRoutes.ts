@@ -1,27 +1,43 @@
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
-import memberservice from '@src/services/MemberService';
-import { IMember } from '@src/models/Member';
+import MemberService from '@src/services/MemberService';
+import { AddMember, UMember } from '@src/models/Member';
 import { IReq, IRes } from './types/express/misc';
+import { ISessionUser } from '@src/models/Session';
+import SessionModel from '@src/models/Session';
 
 // Routes //
 
 
 
 async function getAll(_: IReq, res: IRes) {
-  const members = await memberservice.getAll();
+  const members = await MemberService.getAll();
   return res.status(HttpStatusCodes.OK).json({ members });
 }
 
-async function add(req: IReq<{member: IMember}>, res: IRes) {
+async function add(req: IReq<{ member: AddMember }>, res: IRes) {
   const { member: member } = req.body;
-  await memberservice.addOne(member);
-  return res.status(HttpStatusCodes.CREATED).end();
+  if (await MemberService.getOne(member.member_email)) {
+    console.log('bad request');
+    return res.status(HttpStatusCodes.BAD_REQUEST)
+      .json({ message: 'Member with this email already exists.' });
+  }
+  console.log('adding');
+  await MemberService.addOne(member);
+
+  const session = req.session as ISessionUser;
+  if(!session.user) {
+    const addedMember = await MemberService.getOne(member.member_email);
+    if(addedMember)
+      session.user = SessionModel.fromMember(addedMember);
+  }
+  return res.status(HttpStatusCodes.CREATED)
+    .json({ message: 'Member added.' });
 }
 
-async function update(req: IReq<{member: IMember}>, res: IRes) {
+async function update(req: IReq<{ member: UMember }>, res: IRes) {
   const { member: member } = req.body;
-  await memberservice.updateOne(member);
+  await MemberService.updateOne(member);
   return res.status(HttpStatusCodes.OK).end();
 }
 

@@ -7,7 +7,7 @@ const sqlFilePath = `${__dirname}/trainers-table.sql`;
 import jsonfile from 'jsonfile';
 import FullNameDB from './../../util/name-generator';
 import { randomInt } from 'crypto';
-import { Gender } from './../../../models/misc';
+import { Gender } from '../../../models/Gender';
 import path from 'path';
 
 const generateTrainers = async (size: number) => {
@@ -60,7 +60,7 @@ const generateTrainers = async (size: number) => {
   values.push(`('trainerjad@gmail.com','T.Jad','Trainer','jad','16131234568', 'male')`);
   // eslint-disable-next-line max-len
   const insertionQuery =`insert into trainers (trainer_email, first_name, last_name, password, phone, gender) values ${values.join(',')};`;
-  console.log(`\tInserting ${insertionQuery.length} records into trainers table.`);
+  console.log(`\tInserting ${values.length} records into trainers table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
 };

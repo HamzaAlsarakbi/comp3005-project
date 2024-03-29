@@ -1,6 +1,8 @@
 import { SessionData } from 'express-session';
 import { IMember } from './Member';
 import { randomInt } from 'crypto';
+import { IAdmin } from './Admin';
+import { ITrainer } from './Trainer';
 
 export interface UserSession {
   id: number;
@@ -37,14 +39,34 @@ const new_ = (
 
 /**
  * Creates a user session from a member's data
- * @param m member
+ * @param u member
  * @returns user session
  */
-const memberSessionFrom = (m: IMember): UserSession => {
-  return new_(UserRole.MEMBER, m.member_email, m.first_name, m.last_name);
+const fromMember = (u: IMember): UserSession => {
+  return new_(UserRole.MEMBER, u.member_email, u.first_name, u.last_name);
+};
+
+/**
+ * Creates a user session from an admin's data
+ * @param u admin
+ * @returns user session
+ */
+const fromAdmin = (m: IAdmin): UserSession => {
+  return new_(UserRole.ADMIN, m.admin_email, m.first_name, m.last_name);
+};
+
+/**
+ * Creates a user session from an trainer's data
+ * @param u trainer
+ * @returns user session
+ */
+const fromTrainer = (m: ITrainer): UserSession => {
+  return new_(UserRole.TRAINER, m.trainer_email, m.first_name, m.last_name);
 };
 
 
 export default {
-  memberSessionFrom: memberSessionFrom,
+  fromMember: fromMember,
+  fromAdmin: fromAdmin,
+  fromTrainer: fromTrainer,
 } as const;

@@ -7,7 +7,7 @@ const sqlFilePath = `${__dirname}/members-table.sql`;
 import jsonfile from 'jsonfile';
 import FullNameDB from './../../util/name-generator';
 import { randomInt } from 'crypto';
-import { Gender } from './../../../models/misc';
+import { Gender } from '../../../models/Gender';
 import { randomDate } from './../../util/date-generator';
 import path from 'path';
 
@@ -54,7 +54,7 @@ const generateMembers = async (size: number) => {
 
     emails.push(email);
     // eslint-disable-next-line max-len
-    values.push(`('${email}','${first_name}','${last_name}','${password}','${phone}','${birthday!.toISOString().split('T')[0]}', '${gender}', ${randomInt(100, 200)}, ${randomInt(100, 200)})`)
+    values.push(`('${email}','${first_name}','${last_name}','${password}','${phone}','${birthday.toISOString().split('T')[0]}', '${gender}', ${randomInt(100, 200)}, ${randomInt(100, 200)})`)
     // INSERT INTO members (first_name, last_name, bio) VALUES 
   }
   // eslint-disable-next-line max-len, quotes
@@ -63,7 +63,7 @@ const generateMembers = async (size: number) => {
   values.push(`('jadfakhoury@gmail.com','Jad','Fakhoury','jad','16131234568','2000-01-02', 'male', 200, 200)`);
   // eslint-disable-next-line max-len
   const insertionQuery =`insert into members (member_email, first_name, last_name, password, phone, birthday, gender, current_weight, current_height) values ${values.join(',')};`;
-  console.log(`\tInserting ${insertionQuery.length} records into members table.`);
+  console.log(`\tInserting ${values.length} records into members table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
 };

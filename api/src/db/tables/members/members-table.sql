@@ -7,20 +7,20 @@ create table members (
     phone varchar(11) not null,
     birthday date not null,
     gender varchar(6) not null,
-    current_weight int not null,
-    current_height int not null
+    current_weight int,
+    current_height int
 );
 drop table if exists health_goals;
 create table health_goals (
     health_goal_id serial primary key,
     member_email varchar(255),
     description text not null,
-    timeline Date not null,
     foreign key (member_email) references members(member_email) on delete cascade
 );
 drop table if exists routines;
 create table routines (
     routine_id serial primary key,
     member_email varchar(255),
+    description text not null,
     foreign key (member_email) references members(member_email) on delete cascade
 );

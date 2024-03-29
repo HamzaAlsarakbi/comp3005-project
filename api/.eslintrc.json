@@ -14,9 +14,6 @@
   },
   "rules": {
     "@typescript-eslint/explicit-member-accessibility": "warn",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/prefer-const": "warn",
-    "prefer-const": "warn",
     "@typescript-eslint/no-misused-promises": 0,
     "@typescript-eslint/no-floating-promises": 0,
     "max-len": [
