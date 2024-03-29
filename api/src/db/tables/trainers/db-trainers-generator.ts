@@ -13,9 +13,11 @@ import path from 'path';
 const generateTrainers = async (size: number) => {
   const baseQueries = parseSqlFile(sqlFilePath);
   await using client = await connect(DB_CONFIG);
+  console.log('Trainers table generator.');
+  console.log('\tDropping table.');
   for (const query of baseQueries) {
     const res = await client.query(query);
-    console.log(query, res);
+    console.log(`\t\t${res.status}`);
   }
   const fullNames: FullNameDB[] = await jsonfile.readFile(
     path.join(__dirname, './../../util/fullnames.json'),
@@ -58,9 +60,9 @@ const generateTrainers = async (size: number) => {
   values.push(`('trainerjad@gmail.com','T.Jad','Trainer','jad','16131234568', 'male')`);
   // eslint-disable-next-line max-len
   const insertionQuery =`insert into trainers (trainer_email, first_name, last_name, password, phone, gender) values ${values.join(',')};`;
-  console.log(insertionQuery);
+  console.log(`\tInserting ${insertionQuery.length} records into trainers table.`);
   const res = await client.query(insertionQuery);
-  console.log(res);
+  console.log(`\t\t${res.status}`);
 };
 
 
