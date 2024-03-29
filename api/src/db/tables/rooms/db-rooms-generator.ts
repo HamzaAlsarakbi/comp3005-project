@@ -11,7 +11,7 @@ interface RoomName {
   variants: number;
 }
 
-const generateRooms = async (variants_count: number) => {
+const generateRooms = async () => {
   const baseQueries = parseSqlFile(sqlFilePath);
   await using client = await connect(DB_CONFIG);
   console.log('Rooms table generator.');
