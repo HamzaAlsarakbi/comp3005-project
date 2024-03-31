@@ -20,7 +20,7 @@ async function add(req: IReq<{ member: AddMember }>, res: IRes) {
   if (await MemberService.getOne(member.member_email)) {
     console.log('bad request');
     return res.status(HttpStatusCodes.BAD_REQUEST)
-      .json({ message: 'Member with this email already exists.' });
+      .json({ error: 'Member with this email already exists.' });
   }
   console.log('adding');
   await MemberService.addOne(member);

@@ -13,7 +13,7 @@ const ItemBrowser: React.FC<ItemBrowserProps> = ({ title, tiles }) => {
       <div className="item-browser-section item-browser-title">{title}</div>
       <div className="item-browser-section item-browser-body">
         {tiles.map(e => (
-          <Tile title={e.title} description={e.description} href={e.href} id={e.id} img={e.img}></Tile>
+          <Tile key={e.id} title={e.title} description={e.description} href={e.href} id={e.id} img={e.img}></Tile>
         ))
         }
       </div>

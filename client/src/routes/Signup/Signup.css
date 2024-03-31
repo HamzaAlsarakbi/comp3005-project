@@ -17,7 +17,7 @@
 .signup-root .input-box-container {
   padding-bottom: 0;
 }
-#root {
+#root:has(.signup-root) {
   min-height: 100vh;
   justify-content: center;
   --saturation:  10%;

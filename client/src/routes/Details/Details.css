@@ -1,0 +1,31 @@
+.details-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-self: start;
+  justify-self: start;
+}
+
+.details-overview {
+  border-right: 2px solid var(--neo-border);
+  background: hsla(0, 0%, 100%, .05);
+  padding: 1em;
+  height: 100%;
+  max-width: 450px;
+  box-shadow: 8px 0 8px hsla(0, 0%, 0%, .2);
+}
+#details-icon {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#details-title {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin: 1em 0 .5em 0;
+}
+
+.details-content {
+  padding: 1em;
+}

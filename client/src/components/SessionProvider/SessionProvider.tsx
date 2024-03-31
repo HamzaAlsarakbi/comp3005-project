@@ -34,21 +34,12 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children, sessionCall
     console.log('QUERY!!!');
     axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
       sessionCallback(true, res.data as UserSession);
-      // console.log(res.data);
-      // const data = res.data;
-      // const newSession = {
-      //   id: data.id,
-      //   first_name: data.first_name,
-      //   last_name: data.last_name,
-      //   email: data.email,
-      //   role: data.role === 'ADMIN' ? UserRole.ADMIN :
-      //     data.role === 'TRAINER' ? UserRole.TRAINER :
-      //       UserRole.MEMBER,
-      // }
       setSession(res.data);
     }).catch((err) => {
       setSession(null);
       sessionCallback(false, null);
+      if(document.location.pathname !== '/login')
+        document.location.replace('/login');
     });
   }, [sessionCallback]);
 

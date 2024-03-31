@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { TileProps } from "../../components/Tile/Tile";
+import { TileProps } from "../../../components/Tile/Tile";
 import axios from "axios";
-import api from "../../lib/api";
-import ItemBrowser from "../../components/ItemBrowser/ItemBrowser";
-import Spacer from "../../components/Spacer/Spacer";
-import { Gender } from "../../lib/Gender";
+import api from "../../../lib/api";
+import ItemBrowser from "../../../components/ItemBrowser/ItemBrowser";
+import Spacer from "../../../components/Spacer/Spacer";
+import { Room } from "../../../lib/models/Room";
 
-interface Room {
-  room_id: number;
-  name: string;
-}
+
 
 interface RoomBrowserProps {
 

@@ -65,7 +65,7 @@ const Navbar = () => {
         <Link to='/members' className='navbar-link-container'>
           <span className='navbar-link'>Members</span>
         </Link>
-        <Link to='/contact' className='navbar-link-container'>
+        <Link to='/classes' className='navbar-link-container'>
           <span className='navbar-link'>Classes</span>
         </Link>
         <Link to='/equipment' className='navbar-link-container'>

@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
-import { TileProps } from "../../components/Tile/Tile";
+import { TileProps } from "../../../components/Tile/Tile";
 import axios from "axios";
-import api from "../../lib/api";
-import ItemBrowser from "../../components/ItemBrowser/ItemBrowser";
-import Spacer from "../../components/Spacer/Spacer";
-import { Gender } from "../../lib/Gender";
+import api from "../../../lib/api";
+import ItemBrowser from "../../../components/ItemBrowser/ItemBrowser";
+import Spacer from "../../../components/Spacer/Spacer";
+import { Member } from "../../../lib/models/Member";
 
-interface Member {
-  member_email: string;
-  first_name: string;
-  last_name: string;
-  password: string;
-  phone: string;
-  gender: Gender;
-}
 
 interface MemberBrowserProps {
 

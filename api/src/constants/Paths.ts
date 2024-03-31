@@ -32,6 +32,7 @@ export default {
   },
   Equipment: {
     Base: '/equipment',
+    One: '/:id',
     All: '/all',
     Update: 'update/:id',
   },

@@ -11,6 +11,19 @@ const getAll = async(): Promise<IEquipment[]> => {
   return equipment;
 };
 
+
+/**
+ * Gets one equipment by id
+ * @param id id of the equipment
+ * @returns the equipment if there is one with the provided id, otherwise null.
+ */
+const getOne = async (id: number): Promise<IEquipment | null> => {
+  const equipment = await postgresQuery<IEquipment>(
+    `select * from equipment where equipment_id='${id}'`);
+
+  return equipment.length == 0 ? null : equipment[0];
+};
+
 /**
  * gets all equipment
  * @returns all equipment
@@ -30,5 +43,6 @@ const updateOne = async(e: UEquipment): Promise<UEquipment[]> => {
 
 export default {
   getAll,
+  getOne,
   updateOne,
 } as const;

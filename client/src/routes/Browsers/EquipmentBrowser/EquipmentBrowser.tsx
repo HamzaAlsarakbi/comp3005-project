@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-import { TileProps } from "../../components/Tile/Tile";
+import { TileProps } from "../../../components/Tile/Tile";
 import axios from "axios";
-import api from "../../lib/api";
-import ItemBrowser from "../../components/ItemBrowser/ItemBrowser";
-import Spacer from "../../components/Spacer/Spacer";
+import api from "../../../lib/api";
+import ItemBrowser from "../../../components/ItemBrowser/ItemBrowser";
+import Spacer from "../../../components/Spacer/Spacer";
+import { Equipment } from "../../../lib/models/Equipment";
 
-interface Equipment {
-  equipment_id: number;
-  name: string;
-  wear_rate: number;
-  condition: number;
-  last_checkup: Date;
-}
+
 
 interface EquipmentBrowserProps {
 

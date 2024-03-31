@@ -12,7 +12,7 @@ const check = (req: IReq, res: IRes) => {
   }
   logger.warn('Session Invalid!!');
   return res.status(HttpStatusCodes.UNAUTHORIZED).json({
-    message: 'Unauthorized. Need to login.',
+    error: 'Unauthorized. Need to login.',
   });
 };
 

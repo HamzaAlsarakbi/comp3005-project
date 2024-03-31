@@ -10,11 +10,13 @@ import Signup from './routes/Signup/Signup';
 import api from './lib/api';
 import Dashboard from './routes/Dashboard/Dashboard';
 import axios from 'axios';
-import EquipmentBrowser from "./routes/EquipmentBrowser/EquipmentBrowser";
+import EquipmentBrowser from "./routes/Browsers/EquipmentBrowser/EquipmentBrowser";
 import SessionProvider from './components/SessionProvider/SessionProvider';
-import TrainerBrowser from './routes/TrainerBrowser/TrainerBrowser';
-import MemberBrowser from './routes/MemberBrowser/MemberBrowser';
-import RoomBrowser from './routes/RoomBrowser/RoomBrowser';
+import TrainerBrowser from './routes/Browsers/TrainerBrowser/TrainerBrowser';
+import MemberBrowser from './routes/Browsers/MemberBrowser/MemberBrowser';
+import RoomBrowser from './routes/Browsers/RoomBrowser/RoomBrowser';
+import ClassBrowser from './routes/Browsers/ClassBrowser/ClassBrowser';
+import EquipmentDetails from './routes/Details/EquipmentDetails/EquipmentDetails';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -34,7 +36,8 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="/equipment" element={<EquipmentBrowser />} />
-              <Route path="/classes" element={<Dashboard />} />
+              <Route path="/equipment/:id" element={<EquipmentDetails />} />
+              <Route path="/classes" element={<ClassBrowser />} />
               <Route path="/trainers" element={<TrainerBrowser />} />
               <Route path="/members" element={<MemberBrowser />} />
               <Route path="/rooms" element={<RoomBrowser />} />

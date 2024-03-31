@@ -50,7 +50,7 @@ const Signup: React.FC<SignupProps> = () => {
     }).catch((err) => {
       switch (err.request.status) {
         case 400:
-          dobRef.current!.showText(err.response.data.message ?? "Unknown error.", Color.Red);
+          dobRef.current!.showText(err.response.data.error ?? "Unknown error.", Color.Red);
           break;
         default:
           dobRef.current!.showText("Internal server error.", Color.Red);

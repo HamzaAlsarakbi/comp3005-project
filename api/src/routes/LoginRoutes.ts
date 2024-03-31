@@ -45,7 +45,7 @@ const login = async (
 
   // no valid session
   return res.status(HttpStatusCodes.BAD_REQUEST).json({
-    message: 'Email or password incorrect.',
+    error: 'Email or password incorrect.',
   });
 };
 
@@ -65,7 +65,7 @@ const logout = (
     if (err) {
       logger.err(`Logging ${email} out failed. Error: ${err}`);
       return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: 'Logging out failed.',
+        error: 'Logging out failed.',
       });
     } else {
       logger.info(`Logged out ${email}`);
