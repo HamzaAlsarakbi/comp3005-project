@@ -20,3 +20,8 @@ export function tick(milliseconds: number): Promise<void> {
     }, milliseconds);
   });
 }
+
+
+export function toSQLDate(date: Date): string {
+  return date.toISOString().split('T')[0];
+}

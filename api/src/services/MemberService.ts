@@ -1,5 +1,6 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
 import { AddMember, IMember, UMember } from '@src/models/Member';
+import { toSQLDate } from '@src/util/misc';
 
 
 /**
@@ -29,9 +30,8 @@ const getOne = async (email: string): Promise<IMember | null> => {
  * @returns void
  */
 const updateOne = async (m: UMember): Promise<void> => {
-  const birthday: string | null = m.birthday ?
-    new Date(m.birthday).toISOString().split('T')[0] : null;
-  const member = await postgresQuery<IMember>(`
+  const birthday: string | null = m.birthday ? toSQLDate(new Date(m.birthday)) : null;
+  const member = await postgresQuery<IMember>(` 
     update members
     set
       ${m.first_name ?      `first_name       ='${m.first_name}',`       : ''}

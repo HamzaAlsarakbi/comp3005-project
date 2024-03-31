@@ -1,0 +1,15 @@
+.item-browser {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.item-browser-title {
+  font-size: 48px;
+}
+
+.item-browser-body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

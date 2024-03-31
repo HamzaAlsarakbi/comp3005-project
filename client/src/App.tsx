@@ -1,4 +1,4 @@
-import  {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import './App.css';
@@ -10,37 +10,44 @@ import Signup from './routes/Signup/Signup';
 import api from './lib/api';
 import Dashboard from './routes/Dashboard/Dashboard';
 import axios from 'axios';
+import EquipmentBrowser from "./routes/EquipmentBrowser/EquipmentBrowser";
+import SessionProvider from './components/SessionProvider/SessionProvider';
+import TrainerBrowser from './routes/TrainerBrowser/TrainerBrowser';
+import MemberBrowser from './routes/MemberBrowser/MemberBrowser';
+import RoomBrowser from './routes/RoomBrowser/RoomBrowser';
 
 function App() {
-  const [sessionData, setSessionData] = useState<string | null>(null);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('color-scheme', 'dark');
-    axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
-        setLoggedIn(true);
-        setSessionData(res.data.message);
-    }).catch((err) => {
-      setSessionData(null);
-      setLoggedIn(false);
-    });
-
   }, []);
+
+  const sessionCallback = (valid: boolean, session: string | null) => {
+    setLoggedIn(valid);
+  }
   return (
-    <BrowserRouter>
+    <SessionProvider sessionCallback={sessionCallback}>
+      <BrowserRouter>
         <Routes>
-        {loggedIn ? 
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard session={sessionData} />} />
-            <Route path="*" element={<NoPage />} />
-          </Route>
-          : 
-          <Route index element={<Login />} />
-        }
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+          {loggedIn ?
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="/equipment" element={<EquipmentBrowser />} />
+              <Route path="/classes" element={<Dashboard />} />
+              <Route path="/trainers" element={<TrainerBrowser />} />
+              <Route path="/members" element={<MemberBrowser />} />
+              <Route path="/rooms" element={<RoomBrowser />} />
+              <Route path="*" element={<NoPage />} />
+            </Route>
+            :
+            <Route index element={<Login />} />
+          }
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
+    </SessionProvider>
   );
 }
 

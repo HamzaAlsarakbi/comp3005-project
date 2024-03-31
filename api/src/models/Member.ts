@@ -53,8 +53,8 @@ const isMember = (arg: unknown): boolean => {
     'birthday' in arg &&
     'gender' in arg
   );
-}
+};
 
 export default {
-  isMember: isMember,
-};
+  isMember,
+} as const;

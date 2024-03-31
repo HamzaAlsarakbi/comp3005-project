@@ -1,25 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 
 import './Navbar.css'
 import { Icons } from '../../lib/icons';
 import axios from 'axios';
 import api from '../../lib/api';
+import { useSession } from '../SessionProvider/SessionProvider';
 
 
-interface UserSession {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  role: string;
-}
+
 
 const Navbar = () => {
   const navbarRef = useRef<HTMLDivElement>(null);
-  const [session, setSession] = useState<UserSession | null>(null);
+  const session = useSession();
 
   useEffect(() => {
+    console.log(session);
     let prevScrollPos = window.scrollY;
     let downLength = 0;
 
@@ -37,22 +33,13 @@ const Navbar = () => {
       prevScrollPos = currentScrollPos;
     });
 
-    axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
-      if (res.status === 200) {
-        setSession(res.data);
-      }
-    }).catch((err) => {
-      console.error(err);
-    })
-
-
-  }, []);
+  }, [session]);
 
 
   const logoutHandler = () => {
     axios.get(api.path('/logins/logout'), { withCredentials: true }).then((res) => {
       if (res.status === 200) window.location.replace('/');
-    })
+    });
   }
 
   return (
@@ -69,11 +56,23 @@ const Navbar = () => {
       </div>
       <div className='navbar-section' id='navbar-center'></div>
       <div className='navbar-section' id='navbar-right'>
-        <Link to='/news' className='navbar-link-container'>
+        <Link to='/trainers' className='navbar-link-container'>
           <span className='navbar-link'>Trainers</span>
+        </Link>
+        <Link to='/bookings' className='navbar-link-container'>
+          <span className='navbar-link'>Class Bookings</span>
+        </Link>
+        <Link to='/members' className='navbar-link-container'>
+          <span className='navbar-link'>Members</span>
         </Link>
         <Link to='/contact' className='navbar-link-container'>
           <span className='navbar-link'>Classes</span>
+        </Link>
+        <Link to='/equipment' className='navbar-link-container'>
+          <span className='navbar-link'>Equipment (ADMIN ONLY)</span>
+        </Link>
+        <Link to='/rooms' className='navbar-link-container'>
+          <span className='navbar-link'>Rooms</span>
         </Link>
         <button className='navbar-link-container' onClick={logoutHandler}>
           <span className='navbar-link'>Logout</span>

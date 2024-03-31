@@ -5,10 +5,14 @@ export default {
   Base: '/api',
   Members: {
     Base: '/members',
-    Get: '/all',
+    All: '/all',
     One: '/:email',
     Add: '/add',
     Update: '/update',
+  },
+  Trainers: {
+    Base: '/trainers',
+    All: '/all',
   },
   Sessions: {
     Base: '/sessions',
@@ -21,9 +25,18 @@ export default {
   },
   Classes: {
     Base: '/classes',
-    Get: '/all',
+    All: '/all',
     Add: '/add',
     Update: '/update/:id',
     Delete: '/delete/:id',
+  },
+  Equipment: {
+    Base: '/equipment',
+    All: '/all',
+    Update: 'update/:id',
+  },
+  Rooms: {
+    Base: '/rooms',
+    All: '/all',
   },
 } as const;
