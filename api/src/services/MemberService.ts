@@ -45,7 +45,7 @@ const updateOne = async (m: UMember): Promise<void> => {
 
 
 /**
- * Updates a member
+ * Adds a member
  * @param m member
  * @returns void
  */

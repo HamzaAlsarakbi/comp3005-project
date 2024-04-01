@@ -8,7 +8,6 @@ export enum InputType {
   INPUT,
   TEXTAREA,
   DATE,
-  SELECT,
 }
 
 interface InputBoxProps {
@@ -21,7 +20,7 @@ interface InputBoxProps {
   optional?: boolean;
   inputPolicy?: InputPolicy;
   hidden?: boolean;
-  options?: string[];
+  value?: string;
 }
 
 export enum InputPolicy {
@@ -187,10 +186,8 @@ class InputBox extends Component<InputBoxProps> {
               placeholder=""
               ref={this.textAreaRef}
               onInput={this.handleInput}
-            /> : inputType === InputType.SELECT ?
-            <select name={placeholder} id={id} className="input-box-select">
-              <option value="ommak">Ommak</option>
-            </select>
+              defaultValue={this.props.value}
+            />
             :
             <input
               className="input-box-input"
@@ -198,6 +195,7 @@ class InputBox extends Component<InputBoxProps> {
               placeholder=""
               ref={this.inputRef}
               onInput={this.handleInput}
+              defaultValue={this.props.value}
               type={inputType === InputType.DATE ? "date" : hidden ? "password" : "text"}
             />
           }

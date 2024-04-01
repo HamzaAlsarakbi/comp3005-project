@@ -72,7 +72,6 @@ const Signup: React.FC<SignupProps> = () => {
     ];
     let valid = true;
     for (let ref of refs) {
-      ref.current!.handleInput();
       if(ref.current!.hasError()) {
         ref.current!.emphasizeText();
         valid = false;

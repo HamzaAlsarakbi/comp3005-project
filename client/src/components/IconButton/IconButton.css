@@ -15,6 +15,7 @@
   -webkit-user-drag: none;
   padding: 10px;
   margin: 1em;
+  margin-bottom: 0;
 }
 
 .icon-button:hover {

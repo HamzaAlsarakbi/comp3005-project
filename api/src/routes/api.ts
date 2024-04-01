@@ -6,11 +6,11 @@ import Member from '@src/models/Member';
 import MemberRoutes from './MemberRoutes';
 import LoginRoutes from './LoginRoutes';
 import SessionRoutes from './SessionRoutes';
-import Admin from '@src/models/Admin';
 import EquipmentRoutes from './EquipmentRoutes';
 import TrainerRoutes from './TrainerRoutes';
 import RoomRoutes from './RoomRoutes';
 import ClassRoutes from './ClassRoutes';
+import HealthGoalRoutes from './HealthGoalRoutes';
 
 
 // ==== Variables ==== //
@@ -25,6 +25,7 @@ const classRouter = Router();
 const trainerRouter = Router();
 const roomRouter = Router();
 const memberRouter = Router();
+const healthGoalRouter = Router();
 
 // ==== Sessions ==== //
 sessionRouter.get(Paths.Sessions.Get, SessionRoutes.check);
@@ -54,6 +55,11 @@ roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
 // ==== Trainers ==== //
 trainerRouter.get(Paths.Trainers.All, TrainerRoutes.getAll);
 
+// ==== Health Goals ==== //
+healthGoalRouter.get(Paths.HealthGoals.All, HealthGoalRoutes.getAll);
+healthGoalRouter.post(Paths.HealthGoals.Add, HealthGoalRoutes.addOne);
+healthGoalRouter.put(Paths.HealthGoals.Update, HealthGoalRoutes.updateOne);
+healthGoalRouter.delete(Paths.HealthGoals.Delete, HealthGoalRoutes.deleteOne);
 
 
 // ==== Members ==== //
@@ -81,6 +87,7 @@ memberRouter.put(
 apiRouter.use(Paths.Login.Base, loginRouter);
 apiRouter.use(Paths.Sessions.Base, sessionRouter);
 apiRouter.use(Paths.Members.Base, memberRouter);
+apiRouter.use(Paths.HealthGoals.Base, healthGoalRouter);
 apiRouter.use(Paths.Equipment.Base, equipmentRouter);
 apiRouter.use(Paths.Classes.Base, classRouter);
 apiRouter.use(Paths.Trainers.Base, trainerRouter);

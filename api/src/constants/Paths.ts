@@ -10,6 +10,13 @@ export default {
     Add: '/add',
     Update: '/update',
   },
+  HealthGoals: {
+    Base: '/health-goals',
+    All: '/all',
+    Add: '/add',
+    Update: '/update',
+    Delete: '/delete/:id',
+  },
   Trainers: {
     Base: '/trainers',
     All: '/all',

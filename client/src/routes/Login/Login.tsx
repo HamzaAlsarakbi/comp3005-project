@@ -47,7 +47,6 @@ const Login: React.FC<LoginProps> = () => {
       passwordRef
     ];
     for (let ref of refs) {
-      ref.current!.handleInput();
       if (ref.current!.hasError()) {
         ref.current!.emphasizeText();
         valid = false;
