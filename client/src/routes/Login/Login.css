@@ -10,21 +10,6 @@
   border-radius: 20px;
   padding: 1em;
 }
-#root {
-  min-height: 100vh;
-  justify-content: center;
-  --saturation:  10%;
-  --luminosity: 20%;
-  background: linear-gradient(-45deg,
-  hsl(200, var(--saturation), var(--luminosity)),
-  hsl(220, var(--saturation), var(--luminosity)),
-  hsl(240, var(--saturation), var(--luminosity)),
-  hsl(220, var(--saturation), var(--luminosity)),
-  hsl(200, var(--saturation), var(--luminosity)));
-	background-size: 400% 400%;
-	animation: wavy-animation 6s linear infinite;
-	height: 100vh;
-}
 .login-container {
   display: flex;
   flex-direction: column;
@@ -47,8 +32,4 @@
   max-height: var(--size);
 }
 
-@keyframes wavy-animation {
-	0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
-}
+

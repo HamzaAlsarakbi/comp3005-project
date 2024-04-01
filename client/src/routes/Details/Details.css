@@ -4,6 +4,7 @@
   height: 100%;
   align-self: start;
   justify-self: start;
+  width: 100%;
 }
 
 .details-overview {
@@ -17,15 +18,20 @@
 #details-icon {
   max-width: 100%;
   max-height: 100%;
+  border-radius: 500px;
+  border: 12px solid var(--neo-border);
+  box-shadow: 4px 4px 8px hsla(0, 0%, 0%, .2);
 }
 
 #details-title {
   font-size: 36px;
   font-weight: bold;
-  text-align: center;
   margin: 1em 0 .5em 0;
 }
 
 .details-content {
+  width: 100%;
   padding: 1em;
+  max-height: calc(100vh - 78px);
+  overflow: auto;
 }

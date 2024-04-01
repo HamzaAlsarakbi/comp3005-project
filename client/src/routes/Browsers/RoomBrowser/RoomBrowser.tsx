@@ -15,6 +15,7 @@ interface RoomBrowserProps {
 const RoomBrowser: React.FC<RoomBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
+    document.title = 'Rooms Browser';
     axios.get(api.path('/rooms/all'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const room = res.data.rooms as Room[];

@@ -73,8 +73,8 @@ memberRouter.post(
 // Update one member
 memberRouter.put(
   Paths.Members.Update,
-  validate(['member', Member.isMember]),
-  MemberRoutes.update,
+  validate(['member', Member.isUMember]),
+  MemberRoutes.updateOne,
 );
 
 // Add routers

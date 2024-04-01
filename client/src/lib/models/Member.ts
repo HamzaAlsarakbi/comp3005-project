@@ -7,4 +7,7 @@ export interface Member {
   password: string;
   phone: string;
   gender: Gender;
+  birthday: Date;
+  current_weight?: number;
+  current_height?: number;
 }

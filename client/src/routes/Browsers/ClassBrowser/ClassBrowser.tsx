@@ -17,6 +17,7 @@ interface ClassBrowserProps {
 const ClassBrowser: React.FC<ClassBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
+    document.title = 'Classes Browser';
     axios.get(api.path('/classes/all'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const classes = res.data.classes as Class[];

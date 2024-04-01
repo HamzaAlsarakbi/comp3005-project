@@ -34,6 +34,8 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children, sessionCall
     console.log('QUERY!!!');
     axios.get(api.path('/sessions/check'), { withCredentials: true }).then((res) => {
       sessionCallback(true, res.data as UserSession);
+      if(document.location.pathname === '/login')
+        document.location.replace('/');
       setSession(res.data);
     }).catch((err) => {
       setSession(null);

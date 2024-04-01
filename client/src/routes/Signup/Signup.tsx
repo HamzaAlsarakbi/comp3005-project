@@ -7,6 +7,7 @@ import { Color } from "../../lib/colors";
 import ComboBox, { ComboBoxOption } from "../../components/ComboBox/ComboBox";
 import axios from "axios";
 import api from "../../lib/api";
+import { genderOptions } from "../../lib/Gender";
 
 
 interface SignupProps {
@@ -20,10 +21,7 @@ const Signup: React.FC<SignupProps> = () => {
   const emailRef = useRef<InputBox>(null);
   const passwordRef = useRef<InputBox>(null);
   const [gender, setGender] = useState("male");
-  const options: ComboBoxOption[] = [
-    { value: 'male', name: 'Male' },
-    { value: 'female', name: 'Female' },
-  ];
+  
   useEffect(() => {
     document.title = 'Sign Up';
   }, []);
@@ -94,7 +92,7 @@ const Signup: React.FC<SignupProps> = () => {
       <InputBox id="phone-number" inputType={InputType.INPUT} placeholder="Phone Number" inputPolicy={InputPolicy.PHONE_NUMBER} ref={phoneRef} />
       <InputBox id="password" inputType={InputType.INPUT} placeholder="Password" inputPolicy={InputPolicy.WORDS} ref={passwordRef} />
       <InputBox id="date-of-birth" inputType={InputType.DATE} placeholder="Date of Birth" ref={dobRef} />
-      <ComboBox id="gender" name="Gender" options={options} onChange={genderComboBoxHandler} />
+      <ComboBox id="gender" name="Gender" options={genderOptions} onChange={genderComboBoxHandler} />
       <IconButton icon={Icons.TOAST_ORANGE} className="signup-container-item" id="signup" onClick={signupHandler}>Sign up</IconButton>
       <a href="/login">Log in</a>
     </div>

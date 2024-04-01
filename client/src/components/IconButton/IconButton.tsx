@@ -5,7 +5,7 @@ import './IconButton.css';
 interface IconButtonProps {
   children: string;
   icon: Icons;
-  className: string;
+  className?: string;
   id: string;
   onClick(): void;
 }

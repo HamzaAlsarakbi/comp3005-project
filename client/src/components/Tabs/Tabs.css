@@ -1,0 +1,16 @@
+.tabs-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  border: 1px solid red;
+}
+
+.tabs-selector-item {
+  padding: .5em;
+  border: 1px solid green;
+  cursor: pointer;
+}
+.tab-content {
+  padding: 1em;
+  border: 1px solid red;
+}

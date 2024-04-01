@@ -14,6 +14,7 @@ interface MemberBrowserProps {
 const MemberBrowser: React.FC<MemberBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
+    document.title = 'Members Browser';
     axios.get(api.path('/members/all'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const member = res.data.members as Member[];

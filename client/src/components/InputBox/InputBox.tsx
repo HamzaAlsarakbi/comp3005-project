@@ -30,6 +30,7 @@ export enum InputPolicy {
   PHONE_NUMBER,
   EMAIL,
   WORDS,
+  PASSWORD,
 }
 
 class InputBox extends Component<InputBoxProps> {
@@ -61,8 +62,14 @@ class InputBox extends Component<InputBoxProps> {
       case InputPolicy.WORDS:
         this.checkWords(value);
         break;
+      case InputPolicy.NUMBERS:
+        this.checkNumbers(value);
+        break;
+      case InputPolicy.PASSWORD:
+        this.checkPassword(value);
+        break;
       default:
-        console.log('ERROR InputBox ' + this.props.id + ', unknown input policy ' + this.props.inputPolicy);
+        console.error('ERROR InputBox ' + this.props.id + ', unknown input policy ' + this.props.inputPolicy);
     }
   };
   private checkEmail = (value: string) => {
@@ -80,14 +87,14 @@ class InputBox extends Component<InputBoxProps> {
   }
   private checkPhoneNumber = (value: string) => {
     const normalized = phone(value);
-    if (!normalized.isValid) {
-      this.showText('Please enter a valid phone number.', Color.Red);
-    } else if (value.trim() === '') {
+    if (value.trim() === '') {
       if (this.props.optional) { 
         this.hideText();
       } else {
         this.showText('Phone number field cannot be empty.', Color.Red);
       }
+    } else if (!normalized.isValid) {
+      this.showText('Please enter a valid phone number.', Color.Red);
     } else {
       this.hideText();
     }
@@ -101,6 +108,35 @@ class InputBox extends Component<InputBoxProps> {
       }
     } else if (!WORDS_REGEX.test(value)) {
       this.showText('Input field must contain at least 1 word.', Color.Red);
+    } else {
+      this.hideText();
+    }
+  }
+
+  private checkNumbers = (value: string) => {
+    if (value.trim() === '') {
+      if (this.props.optional) {
+        this.hideText();
+      } else {
+        this.showText('Field cannot be empty.', Color.Red);
+      }
+    } else if (isNaN(Number(value))) {
+      this.showText('Input field must have numbers only.', Color.Red);
+    } else {
+      this.hideText();
+    }
+  }
+
+  private checkPassword = (value: string) => {
+    const v = value.trim();
+    if (v === '') {
+      if (this.props.optional) {
+        this.hideText();
+      } else {
+        this.showText('Password cannot be empty.', Color.Red);
+      }
+    } else if (v.length < 8) {
+      this.showText('Password must be at least 8 characters long.', Color.Red);
     } else {
       this.hideText();
     }
@@ -148,19 +184,18 @@ class InputBox extends Component<InputBoxProps> {
             <textarea
               className="input-box-input"
               id={id}
-              placeholder={""}
+              placeholder=""
               ref={this.textAreaRef}
               onInput={this.handleInput}
             /> : inputType === InputType.SELECT ?
             <select name={placeholder} id={id} className="input-box-select">
               <option value="ommak">Ommak</option>
             </select>
-            
             :
             <input
               className="input-box-input"
               id={id}
-              placeholder={""}
+              placeholder=""
               ref={this.inputRef}
               onInput={this.handleInput}
               type={inputType === InputType.DATE ? "date" : hidden ? "password" : "text"}

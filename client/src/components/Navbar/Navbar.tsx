@@ -45,7 +45,7 @@ const Navbar = () => {
   return (
     <div className='navbar' ref={navbarRef}>
       <div className='navbar-section' id='navbar-left'>
-        <Link to='/' className='navbar-link-container'>
+        <Link to={`/${session?.role.toLowerCase()}s/${session?.email}`} className='navbar-link-container'>
           <img src={
             session?.role === 'MEMBER' ? Icons.MEMBER :
               session?.role === 'TRAINER' ? Icons.TRAINER : Icons.MEMBER

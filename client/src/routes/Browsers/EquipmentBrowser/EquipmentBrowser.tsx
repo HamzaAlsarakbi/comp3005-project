@@ -15,6 +15,7 @@ interface EquipmentBrowserProps {
 const EquipmentBrowser: React.FC<EquipmentBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
+    document.title = 'Equipment Browser';
     axios.get(api.path('/equipment/all'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const equipment = res.data.equipment as Equipment[];

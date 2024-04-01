@@ -13,6 +13,7 @@ interface TrainerBrowserProps {
 const TrainerBrowser: React.FC<TrainerBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
+    document.title = 'Trainers Browser';
     axios.get(api.path('/trainers/all'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const trainer = res.data.trainers as Trainer[];

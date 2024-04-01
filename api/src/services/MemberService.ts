@@ -7,7 +7,7 @@ import { toSQLDate } from '@src/util/misc';
  * gets all members
  * @returns all members
  */
-const getAll = async(): Promise<IMember[]> => {
+const getAll = async (): Promise<IMember[]> => {
   const members = await postgresQuery<IMember>('select * from members');
   return members;
 };
@@ -30,21 +30,17 @@ const getOne = async (email: string): Promise<IMember | null> => {
  * @returns void
  */
 const updateOne = async (m: UMember): Promise<void> => {
-  const birthday: string | null = m.birthday ? toSQLDate(new Date(m.birthday)) : null;
-  const member = await postgresQuery<IMember>(` 
-    update members
-    set
-      ${m.first_name ?      `first_name       ='${m.first_name}',`       : ''}
-      ${m.last_name ?       `last_name        ='${m.last_name}',`        : ''}
-      ${m.password ?        `password         ='${m.password}',`         : ''}
-      ${m.phone ?           `phone            ='${m.phone}',`            : ''}
-      ${m.gender ?          `gender           ='${m.gender}',`           : ''}
-      ${m.birthday ?        `birthday         ='${birthday}',` : ''}
-      ${m.current_weight ?  `current_weight   =${m.current_weight},`   : ''}
-      ${m.current_height ?  `current_height   =${m.current_height},`   : ''}
-    where member_email='${m.member_email}';
-    `);
-  console.log('UPDATING MEMBER', member); 
+  const newAttributes: string[] = [];
+  for (const key of Object.keys(m)) {
+    if (!m[key] || key === 'member_email') continue;
+    newAttributes.push(`${key}=${typeof m[key] === 'string' ?
+      `'${m[key] as string}'` :
+      String(m[key])}`);
+  }
+  if(newAttributes.length === 0) return;
+  await postgresQuery<IMember>(
+    `update members set ${newAttributes.join(',')} where member_email='${m.member_email}';`,
+  );
 };
 
 
@@ -61,7 +57,7 @@ const addOne = async (m: AddMember): Promise<void> => {
     values ('${m.member_email}', '${m.first_name}', '${m.last_name}',
       '${m.password}', '${m.phone}', '${birthday}', '${m.gender}')
     `);
-  console.log('ADDING MEMBER', member); 
+  console.log('ADDING MEMBER', member);
 };
 
 
