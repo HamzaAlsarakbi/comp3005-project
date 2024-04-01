@@ -3,6 +3,9 @@
   flex-direction: column;
   padding: 1em;
 }
+#root:has(.item-browser) {
+  height: unset;
+}
 
 .item-browser-title {
   font-size: 48px;
