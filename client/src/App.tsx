@@ -18,6 +18,7 @@ import RoomBrowser from './routes/Browsers/RoomBrowser/RoomBrowser';
 import ClassBrowser from './routes/Browsers/ClassBrowser/ClassBrowser';
 import EquipmentDetails from './routes/Details/EquipmentDetails/EquipmentDetails';
 import MemberDetails from './routes/Details/MemberDetails/MemberDetails';
+import TrainerDetails from './routes/Details/TrainerDetails/TrainerDetails';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -40,6 +41,7 @@ function App() {
               <Route path="/equipment/:id" element={<EquipmentDetails />} />
               <Route path="/classes" element={<ClassBrowser />} />
               <Route path="/trainers" element={<TrainerBrowser />} />
+              <Route path="/trainers/:email" element={<TrainerDetails />} />
               <Route path="/members" element={<MemberBrowser />} />
               <Route path="/members/:email" element={<MemberDetails />} />
               <Route path="/rooms" element={<RoomBrowser />} />

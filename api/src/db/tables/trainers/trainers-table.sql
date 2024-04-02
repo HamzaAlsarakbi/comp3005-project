@@ -1,4 +1,4 @@
-drop table if exists trainers;
+drop table if exists trainers cascade;
 create table trainers (
     trainer_email varchar(255) unique primary key,
     first_name varchar(255) not null,

@@ -5,15 +5,13 @@ import { DB_CONFIG } from '../../../constants/DBConfig';
 
 const sqlFilePath = `${__dirname}/classes-table.sql`;
 import jsonfile from 'jsonfile';
-import { randomInt } from 'crypto';
-import { ClassType } from '../../../models/Class';
 
 interface ClassName {
   name: string;
   description: string;
 }
 
-const generateClasses = async (variants_count: number) => {
+const generateClasses = async () => {
   const baseQueries = parseSqlFile(sqlFilePath);
   await using client = await connect(DB_CONFIG);
   console.log('Classes table generator.');
@@ -26,14 +24,10 @@ const generateClasses = async (variants_count: number) => {
     readFile(__dirname + '/class-names.json') as ClassName[];
   const values = [];
   for (const class0 of classesList) {
-    for(let i = 0; i < variants_count; i++) {
-      const classType = randomInt(0, 2) == 0 ? ClassType.GROUP : ClassType.PERSONAL;
-      const capacity = classType == ClassType.PERSONAL ? 2 : 21;
-      values.push(`('${class0.name} #${i+1}','${classType}','${class0.description}', ${capacity})`);
-    }
+    values.push(`('${class0.name}','${class0.description}')`);
   }
   // eslint-disable-next-line max-len
-  const insertionQuery = `insert into classes (name, type, description, capacity) values ${values.join(',')};`;
+  const insertionQuery = `insert into classes (name, description) values ${values.join(',')};`;
   console.log(`\tInserting ${values.length} records into classes table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);

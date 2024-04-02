@@ -58,6 +58,7 @@ roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
 
 // ==== Trainers ==== //
 trainerRouter.get(Paths.Trainers.All, TrainerRoutes.getAll);
+trainerRouter.get(Paths.Trainers.One, TrainerRoutes.getOne);
 
 // ==== Health Goals ==== //
 healthGoalRouter.get(Paths.HealthGoals.All, HealthGoalRoutes.getAll);

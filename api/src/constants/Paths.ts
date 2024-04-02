@@ -33,6 +33,7 @@ export default {
   },
   Trainers: {
     Base: '/trainers',
+    One: '/:email',
     All: '/all',
   },
   Sessions: {

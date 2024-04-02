@@ -7,7 +7,17 @@ async function getAll(_: IReq, res: IRes) {
   return res.status(HttpStatusCodes.OK).json({ trainers: trainers });
 }
 
+async function getOne(req: IReq, res: IRes) {
+  const email = req.params.email;
+  const trainer = await TrainerService.getOne(email);
+  if(!trainer) return res.status(HttpStatusCodes.NOT_FOUND).json({
+    error: 'No trainer exists with the given email address.',
+  });
+  return res.status(HttpStatusCodes.OK).json({ trainer: trainer });
+}
+
 
 export default {
   getAll,
+  getOne,
 } as const;

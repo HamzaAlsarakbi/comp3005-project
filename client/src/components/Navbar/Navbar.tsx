@@ -5,7 +5,7 @@ import './Navbar.css'
 import { Icons } from '../../lib/icons';
 import axios from 'axios';
 import api from '../../lib/api';
-import { useSession } from '../SessionProvider/SessionProvider';
+import { UserRole, useSession } from '../SessionProvider/SessionProvider';
 
 
 
@@ -45,14 +45,20 @@ const Navbar = () => {
   return (
     <div className='navbar' ref={navbarRef}>
       <div className='navbar-section' id='navbar-left'>
-        <Link to={`/${session?.role.toLowerCase()}s/${session?.email}`} className='navbar-link-container'>
-          <img src={
-            session?.role === 'MEMBER' ? Icons.MEMBER :
-              session?.role === 'TRAINER' ? Icons.TRAINER : Icons.MEMBER
-          } alt='logo' id='navbar-logo' />
-          <span className='navbar-link'>
-            {`${session?.first_name ?? 'Profile'} ${session?.last_name ?? ''}`}</span>
+        <Link to={`/`} className='navbar-link-container'>
+          <img src={Icons.EYE} alt='logo' id='navbar-logo' />
+          <span className='navbar-link'>Fitness App</span>
         </Link>
+        {session?.role !== UserRole.ADMIN ?
+          <Link to={`/${session?.role.toLowerCase()}s/${session?.email}`} className='navbar-link-container'>
+            <img src={
+              session?.role === 'MEMBER' ? Icons.MEMBER :
+                session?.role === 'TRAINER' ? Icons.TRAINER : Icons.MEMBER
+            } alt='logo' id='navbar-logo' />
+            <span className='navbar-link'>
+              {`${session?.first_name ?? 'Profile'} ${session?.last_name ?? ''}`}</span>
+          </Link>
+          : <></>}
       </div>
       <div className='navbar-section' id='navbar-center'></div>
       <div className='navbar-section' id='navbar-right'>
@@ -68,12 +74,16 @@ const Navbar = () => {
         <Link to='/classes' className='navbar-link-container'>
           <span className='navbar-link'>Classes</span>
         </Link>
-        <Link to='/equipment' className='navbar-link-container'>
-          <span className='navbar-link'>Equipment (ADMIN ONLY)</span>
-        </Link>
-        <Link to='/rooms' className='navbar-link-container'>
-          <span className='navbar-link'>Rooms</span>
-        </Link>
+        {session?.role === UserRole.ADMIN ?
+          <Link to='/equipment' className='navbar-link-container'>
+            <span className='navbar-link'>Equipment</span>
+          </Link>
+          : <></>}
+        {session?.role === UserRole.ADMIN ?
+          <Link to='/rooms' className='navbar-link-container'>
+            <span className='navbar-link'>Rooms</span>
+          </Link>
+          : <></>}
         <button className='navbar-link-container' onClick={logoutHandler}>
           <span className='navbar-link'>Logout</span>
         </button>

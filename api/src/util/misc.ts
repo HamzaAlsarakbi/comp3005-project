@@ -25,3 +25,7 @@ export function tick(milliseconds: number): Promise<void> {
 export function toSQLDate(date: Date): string {
   return date.toISOString().split('T')[0];
 }
+
+export const toSQLTimestamp = (timestamp: Date): number => {
+  return Math.floor(timestamp.getTime() / 1000);
+};

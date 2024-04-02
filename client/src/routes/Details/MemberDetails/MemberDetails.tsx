@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './../Details.css';
 import axios from "axios";
@@ -9,8 +9,6 @@ import { Icons } from "../../../lib/icons";
 import { UserRole, useSession } from "../../../components/SessionProvider/SessionProvider";
 import Tabs from "../../../components/Tabs/Tabs";
 import Tab from "../../../components/Tabs/Tab";
-import InputBox, { InputPolicy, InputType } from "../../../components/InputBox/InputBox";
-import IconButton from "../../../components/IconButton/IconButton";
 import PersonalInfo from "../../../components/PersonalInfo/PersonalInfo";
 import HealthGoals from "../../../components/HealthGoals/HealthGoals";
 import Payments from "../../../components/Payments/Payments";
