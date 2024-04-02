@@ -56,7 +56,7 @@ export default {
     Base: '/equipment',
     One: '/:id',
     All: '/all',
-    Update: 'update/:id',
+    Update: '/update',
   },
   Rooms: {
     Base: '/rooms',

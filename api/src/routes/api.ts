@@ -53,6 +53,11 @@ equipmentRouter.get(
   EquipmentRoutes.getOne,
 );
 
+equipmentRouter.put(
+  Paths.Equipment.Update,
+  EquipmentRoutes.update,
+);
+
 // ==== Rooms ==== //
 roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
 

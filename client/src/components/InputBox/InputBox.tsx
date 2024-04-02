@@ -47,9 +47,6 @@ class InputBox extends Component<InputBoxProps> {
   handleInput = () => {
     const { onInput } = this.props;
     const value: string = this.value();
-    if (onInput) {
-      onInput(value);
-    }
     if (!this.props.inputPolicy) return;
     switch (this.props.inputPolicy) {
       case InputPolicy.EMAIL:
@@ -69,6 +66,9 @@ class InputBox extends Component<InputBoxProps> {
         break;
       default:
         console.error('ERROR InputBox ' + this.props.id + ', unknown input policy ' + this.props.inputPolicy);
+    }
+    if (onInput) {
+      onInput(value);
     }
   };
   private checkEmail = (value: string) => {

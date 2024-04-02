@@ -29,14 +29,10 @@ const getOne = async (id: number): Promise<IEquipment | null> => {
  * @returns all equipment
  */
 const updateOne = async(e: UEquipment): Promise<UEquipment[]> => {
-  const equipment = await postgresQuery<UEquipment>(`
-  update equipment
-  set
-    ${e.name ?          `name           ='${e.name}',` : ''}
-    ${e.condition ?     `condition      =${e.condition},`   : ''}
-    ${e.last_checkup ?  `last_checkup   =${toSQLDate(e.last_checkup)},`   : ''}
-  where equipment_id='${e.equipment_id}';
-  `);
+  const equipment = await postgresQuery<UEquipment>(
+    `update equipment set condition=${e.condition}
+      where equipment_id=${e.equipment_id}`
+    );
   return equipment;
 };
 

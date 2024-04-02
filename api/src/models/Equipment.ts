@@ -8,8 +8,6 @@ export interface IEquipment {
 
 export interface UEquipment {
   equipment_id: number;
-  name?: string;
   // no need to include wear_rate because it is const
-  condition?: number;
-  last_checkup?: Date;
+  condition: number;
 }

@@ -25,7 +25,7 @@ const getOne = async (req: IReq, res: IRes) => {
 async function update(req: IReq<{ equipment: UEquipment }>, res: IRes) {
   const { equipment: equipment } = req.body;
   await EquipmentService.updateOne(equipment);
-  return res.status(HttpStatusCodes.OK).end();
+  return res.status(HttpStatusCodes.OK).json({ message: 'Equipment updated.' });
 }
 
 export default {
