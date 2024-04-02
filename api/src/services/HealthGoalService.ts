@@ -40,7 +40,7 @@ const updateOne = async (hg: IHealthGoal): Promise<void> => {
 
 /**
  * Deletes a health goal
- * @param hg health goal
+ * @param id health goal id
  */
 const deleteOne = async (id: number): Promise<void> => {
   await postgresQuery<IHealthGoal>(

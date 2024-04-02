@@ -24,6 +24,13 @@ export default {
     Process: '/process/:id',
     Cancel: '/cancel/:id',
   },
+  Routines: {
+    Base: '/routines',
+    All: '/all',
+    Add: '/add',
+    Update: '/update',
+    Delete: '/delete/:id',
+  },
   Trainers: {
     Base: '/trainers',
     All: '/all',

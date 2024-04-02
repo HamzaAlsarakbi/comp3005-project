@@ -14,6 +14,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import PersonalInfo from "../../../components/PersonalInfo/PersonalInfo";
 import HealthGoals from "../../../components/HealthGoals/HealthGoals";
 import Payments from "../../../components/Payments/Payments";
+import Routines from "../../../components/Routines/Routines";
 
 
 const MemberDetails = () => {
@@ -65,12 +66,17 @@ const MemberDetails = () => {
             </Tab>
             {isProfileOwner ?
               <Tab title="Update Personal Info">
-                <PersonalInfo onUpdate={personalInfoHandler}/>
+                <PersonalInfo onUpdate={personalInfoHandler} />
               </Tab>
               : <></>}
             {isProfileOwner ?
               <Tab title="Health Goals">
                 <HealthGoals />
+              </Tab>
+              : <></>}
+            {isProfileOwner ?
+              <Tab title="Routines">
+                <Routines />
               </Tab>
               : <></>}
             {(isProfileOwner || session?.role === UserRole.ADMIN) && member ?
