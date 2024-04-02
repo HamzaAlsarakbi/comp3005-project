@@ -17,6 +17,13 @@ export default {
     Update: '/update',
     Delete: '/delete/:id',
   },
+  Payments: {
+    Base: '/payments',
+    All: '/all/:member_email',
+    Add: '/add',
+    Process: '/process/:id',
+    Cancel: '/cancel/:id',
+  },
   Trainers: {
     Base: '/trainers',
     All: '/all',

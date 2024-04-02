@@ -1,7 +1,6 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
 import { AddMember, IMember, UMember } from '@src/models/Member';
-import { toSQLDate } from '@src/util/misc';
-
+import logger from 'jet-logger';
 
 /**
  * gets all members
@@ -57,7 +56,7 @@ const addOne = async (m: AddMember): Promise<void> => {
     values ('${m.member_email}', '${m.first_name}', '${m.last_name}',
       '${m.password}', '${m.phone}', '${birthday}', '${m.gender}')
     `);
-  console.log('ADDING MEMBER', member);
+  logger.info('ADDING MEMBER ' + m.member_email);
 };
 
 

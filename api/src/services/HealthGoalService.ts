@@ -7,10 +7,10 @@ import logger from 'jet-logger';
  * @returns all health goals of a specific member
  */
 const getAll = async (member_email: string): Promise<IHealthGoal[]> => {
-  const members = await postgresQuery<IHealthGoal>(
-    `select * from health_goals where member_email='${member_email}'`
+  const healthGoals = await postgresQuery<IHealthGoal>(
+    `select * from health_goals where member_email='${member_email}'`,
   );
-  return members;
+  return healthGoals;
 };
 
 /**
@@ -55,4 +55,4 @@ export default {
   addOne,
   updateOne,
   deleteOne,
-}
+} as const;

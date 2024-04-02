@@ -15,13 +15,13 @@ const getAll = async (req: IReq, res: IRes) => {
 const addOne = async (req: IReq<{ health_goal: AHealthGoal }>, res: IRes) => {
   const { health_goal } = req.body;
   await HealthGoalService.addOne(health_goal);
-  res.status(HttpStatusCodes.OK).json({ message: 'Added health goal' });
+  res.status(HttpStatusCodes.OK).json({ message: 'Added health goal.' });
 };
 
 const updateOne = async (req: IReq<{ health_goal: IHealthGoal }>, res: IRes) => {
   const { health_goal } = req.body;
   await HealthGoalService.updateOne(health_goal);
-  res.status(HttpStatusCodes.OK).json({ message: 'Added health goal' });
+  res.status(HttpStatusCodes.OK).json({ message: 'Updated health goal.' });
 };
 
 const deleteOne = async (req: IReq, res: IRes) => {
@@ -30,7 +30,7 @@ const deleteOne = async (req: IReq, res: IRes) => {
     error: 'Health goal ID must be a number.',
   });
   await HealthGoalService.deleteOne(id);
-  res.status(HttpStatusCodes.OK).json({ message: 'Added health goal' });
+  res.status(HttpStatusCodes.OK).json({ message: 'Deleted health goal.' });
 };
 
 export default {

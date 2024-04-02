@@ -6,13 +6,14 @@ import api from "../../../lib/api";
 import { Member } from "../../../lib/models/Member";
 import Spacer from "../../../components/Spacer/Spacer";
 import { Icons } from "../../../lib/icons";
-import { useSession } from "../../../components/SessionProvider/SessionProvider";
+import { UserRole, useSession } from "../../../components/SessionProvider/SessionProvider";
 import Tabs from "../../../components/Tabs/Tabs";
 import Tab from "../../../components/Tabs/Tab";
 import InputBox, { InputPolicy, InputType } from "../../../components/InputBox/InputBox";
 import IconButton from "../../../components/IconButton/IconButton";
 import PersonalInfo from "../../../components/PersonalInfo/PersonalInfo";
 import HealthGoals from "../../../components/HealthGoals/HealthGoals";
+import Payments from "../../../components/Payments/Payments";
 
 
 const MemberDetails = () => {
@@ -72,9 +73,9 @@ const MemberDetails = () => {
                 <HealthGoals />
               </Tab>
               : <></>}
-            {isProfileOwner ?
+            {(isProfileOwner || session?.role === UserRole.ADMIN) && member ?
               <Tab title="Payments">
-                <>TODO Payments</>
+                <Payments member_email={member!.member_email} />
               </Tab>
               : <></>}
           </Tabs>

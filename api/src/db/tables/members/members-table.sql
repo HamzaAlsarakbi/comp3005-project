@@ -24,3 +24,12 @@ create table routines (
     description text not null,
     foreign key (member_email) references members(member_email) on delete cascade
 );
+drop table if exists payments;
+create table payments (
+    payment_id serial primary key,
+    member_email varchar(255),
+    amount int check(amount > 0) not null,
+    status varchar(9) check(status in ('processed', 'pending', 'cancelled')) not null default 'pending',
+    due_date date not null default current_date + interval '14 day',
+    foreign key (member_email) references members(member_email) on delete set null
+);

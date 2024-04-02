@@ -11,6 +11,7 @@ import TrainerRoutes from './TrainerRoutes';
 import RoomRoutes from './RoomRoutes';
 import ClassRoutes from './ClassRoutes';
 import HealthGoalRoutes from './HealthGoalRoutes';
+import PaymentRoutes from './PaymentRoutes';
 
 
 // ==== Variables ==== //
@@ -26,6 +27,7 @@ const trainerRouter = Router();
 const roomRouter = Router();
 const memberRouter = Router();
 const healthGoalRouter = Router();
+const paymentRouter = Router();
 
 // ==== Sessions ==== //
 sessionRouter.get(Paths.Sessions.Get, SessionRoutes.check);
@@ -48,7 +50,7 @@ equipmentRouter.get(
   // validate(['admin', Admin.isAdmin]),
   EquipmentRoutes.getOne,
 );
-  
+
 // ==== Rooms ==== //
 roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
 
@@ -61,29 +63,27 @@ healthGoalRouter.post(Paths.HealthGoals.Add, HealthGoalRoutes.addOne);
 healthGoalRouter.put(Paths.HealthGoals.Update, HealthGoalRoutes.updateOne);
 healthGoalRouter.delete(Paths.HealthGoals.Delete, HealthGoalRoutes.deleteOne);
 
+// ==== Pauments ==== //
+paymentRouter.get(Paths.Payments.All, PaymentRoutes.getAll);
+paymentRouter.post(Paths.Payments.Add, PaymentRoutes.addOne);
+paymentRouter.put(Paths.Payments.Process, PaymentRoutes.processOne);
+paymentRouter.put(Paths.Payments.Cancel, PaymentRoutes.cancelOne);
 
 // ==== Members ==== //
-// Get all Members
 memberRouter.get(Paths.Members.All, MemberRoutes.getAll);
-
-// Get one Member
 memberRouter.get(Paths.Members.One, MemberRoutes.getOne);
-
-// Add one member
 memberRouter.post(
   Paths.Members.Add,
   validate(['member', Member.isMember]),
   MemberRoutes.add,
 );
-
-// Update one member
 memberRouter.put(
   Paths.Members.Update,
   validate(['member', Member.isUMember]),
   MemberRoutes.updateOne,
 );
 
-// Add routers
+// ==== Add Routers ==== //
 apiRouter.use(Paths.Login.Base, loginRouter);
 apiRouter.use(Paths.Sessions.Base, sessionRouter);
 apiRouter.use(Paths.Members.Base, memberRouter);
@@ -92,6 +92,7 @@ apiRouter.use(Paths.Equipment.Base, equipmentRouter);
 apiRouter.use(Paths.Classes.Base, classRouter);
 apiRouter.use(Paths.Trainers.Base, trainerRouter);
 apiRouter.use(Paths.Rooms.Base, roomRouter);
+apiRouter.use(Paths.Payments.Base, paymentRouter);
 
 
 // ==== Export default ==== //
