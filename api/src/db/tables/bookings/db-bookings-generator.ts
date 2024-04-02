@@ -2,11 +2,11 @@
 import { connect } from 'ts-postgres';
 import parseSqlFile from './../../util/sql-query-parser';
 import { DB_CONFIG } from '../../../constants/DBConfig';
-import BookingsService from '@src/services/BookingsService';
-import { BookingType } from '@src/models/Booking';
-import RoomService from '@src/services/RoomService';
+import BookingsService from './../../../services/BookingsService';
+import { BookingType } from './../../../models/Booking';
+import { IRoom } from './../../../models/Room';
+import RoomService from './../../../services/RoomService';
 import { randomInt } from 'crypto';
-import { IRoom } from '@src/models/Room';
 
 const sqlFilePath = `${__dirname}/bookings-table.sql`;
 
@@ -49,7 +49,7 @@ const generateBookings = async (size: number) => {
 const getValidBooking = (currentBookings: TempBooking[], rooms: IRoom[]): TempBooking | null => {
   for(const room of rooms) {
     for(const cb of currentBookings) {
-      if(cb.room_id == )
+      // if(cb.room_id == )
     }
   }
   return null;

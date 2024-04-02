@@ -1,6 +1,6 @@
-import { postgresQuery } from '@src/db/postgres-helpers';
-import { BookingStatus, BookingType, IBooking } from '@src/models/Booking';
-import { toSQLTimestamp } from '@src/util/misc';
+import { postgresQuery } from './../db/postgres-helpers';
+import { BookingStatus, BookingType, IBooking } from './../models/Booking';
+import { toSQLTimestamp } from './../util/misc';
 
 
 const addOne = async (

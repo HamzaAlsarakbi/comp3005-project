@@ -1,5 +1,5 @@
-import { DB_CONFIG } from "@src/constants/DBConfig";
-import { connect } from "ts-postgres";
+import { DB_CONFIG } from './../constants/DBConfig';
+import { connect } from 'ts-postgres';
 
 /**
  * Runs a Postgres query

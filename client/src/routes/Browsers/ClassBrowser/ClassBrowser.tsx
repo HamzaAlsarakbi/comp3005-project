@@ -26,7 +26,7 @@ const ClassBrowser: React.FC<ClassBrowserProps> = () => {
         for(const c of classes) {
           newTiles.push({
             id: 'c-'+c.class_id,
-            title: `${c.name} - ${c.type}`,
+            title: c.name,
             description: c.description,
             href: '/classes/'+c.class_id,
           });

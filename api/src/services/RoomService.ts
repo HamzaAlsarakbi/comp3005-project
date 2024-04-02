@@ -1,5 +1,5 @@
-import { postgresQuery } from '@src/db/postgres-helpers';
-import { IRoom } from '@src/models/Room';
+import { postgresQuery } from './../db/postgres-helpers';
+import { IRoom } from './../models/Room';
 
 /**
  * gets all rooms
