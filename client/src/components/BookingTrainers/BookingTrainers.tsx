@@ -11,7 +11,7 @@ interface BookingTrainersProps {
 const BookingTrainers: React.FC<BookingTrainersProps> = ({ booking_id }) => {
   const [trainers, setTrainers] = useState<Trainer[]>([]);
   useEffect(() => {
-    axios.get(api.path(`/trainers/booking/${booking_id}`)).then((res) => {
+    axios.get(api.path(`/trainers/booking/${booking_id}`), { withCredentials: true }).then((res) => {
       setTrainers(res.data.trainers);
     }).catch((err) => {
       console.error(err);
@@ -20,7 +20,7 @@ const BookingTrainers: React.FC<BookingTrainersProps> = ({ booking_id }) => {
 
   return (
     <div className="booking-trainers">
-      <h2>Trainers</h2>
+      <h2>Trainer</h2>
       {trainers.map((m, i) => (
         <Tile id={`m-${i}`} key={i} title={`${m.first_name} ${m.last_name}`} description={""} href={`/trainers/${m.trainer_email}`}></Tile>
       ))}

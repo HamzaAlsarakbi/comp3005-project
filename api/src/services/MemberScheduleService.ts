@@ -36,6 +36,12 @@ const getAllBookings = async(member_email: string): Promise<IBooking[]> => {
   return periods;
 };
 
+const deleteAllByBooking = async(booking_id: number): Promise<void> => {
+  await postgresQuery<AMemberSchedule>(
+    `delete from member_schedules
+      where booking_id=${booking_id}`,
+  );
+};
 
 
 export default {
@@ -43,4 +49,5 @@ export default {
   isEnrolled,
   addOne,
   deleteOne,
+  deleteAllByBooking,
 } as const;

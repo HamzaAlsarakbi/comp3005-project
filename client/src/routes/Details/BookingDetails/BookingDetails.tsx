@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import './../Details.css';
 import axios from "axios";
 import api from "../../../lib/api";
-import { Booking, BookingType, FBooking } from "../../../lib/models/Booking";
+import { Booking, BookingStatus, BookingType, FBooking } from "../../../lib/models/Booking";
 import Spacer from "../../../components/Spacer/Spacer";
 import { Icons } from "../../../lib/icons";
 import { UserRole, useSession } from "../../../components/SessionProvider/SessionProvider";
@@ -13,6 +13,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import BookingMembers from "../../../components/BookingMembers/BookingMembers";
 import Tile from "../../../components/Tile/Tile";
 import BookingTrainers from "../../../components/BookingTrainers/BookingTrainers";
+import { CANCELLED } from "dns";
 
 
 const BookingDetails = () => {
@@ -50,7 +51,6 @@ const BookingDetails = () => {
       if (res.data.booking)
         setSpacesLeft(session?.role === UserRole.MEMBER ? (b!.capacity - b!.member_count - 1) : (1 - b!.trainer_count));
       document.title = b?.class_name ?? 'Unknown Booking';
-      console.log('updated');
     }).catch((err) => {
       console.error(err);
     });
@@ -70,7 +70,9 @@ const BookingDetails = () => {
     });
   }
   const cancelHandler = () => {
-    console.error('TODO: cancelHandler()');
+    axios.put(api.path(`/bookings/cancel/${id}`), {}, { withCredentials: true }).then((res) => {
+      fetchBookingDetails();
+    });
   }
 
   return (
@@ -101,38 +103,41 @@ const BookingDetails = () => {
                   <div className="details-body-item" id="booking-end">End: {booking?.end_time.toString()}</div>
                 }
                 <div className="details-body-item" id="booking-spaces-left">Spots left: {spacesLeft}</div>
-                <p>{typeof conflictWith}</p>
-                {enrolled ?
-                  <IconButton icon={Icons.TOAST_RED} id="leave" onClick={leaveHandler}>Leave</IconButton> :
-                  conflictWith ?
-                    <>
-                      <h2>Booking Issue</h2>
-                      <Tile
-                        id="conflicts-with"
-                        title={"Conflicts with a booking"}
-                        description=""
-                        href={`/bookings/${conflictWith.booking_id}`} />
-                    </>
-                    :
-                    <IconButton icon={Icons.TOAST_GREEN} id="enroll" onClick={enrollHandler}>Enroll</IconButton>
+                {booking?.status === BookingStatus.CANCELLED ?
+                  <h2 className="details-body-item" id="booking-spaces-left">Cancelled</h2>
+                  : <>
+                    {session?.role === UserRole.ADMIN ?
+                      <IconButton icon={Icons.TOAST_RED} id="cancel" onClick={cancelHandler}>Cancel</IconButton>
+                      : enrolled ?
+                        <IconButton icon={Icons.TOAST_RED} id="leave" onClick={leaveHandler}>Leave</IconButton> :
+                        conflictWith ?
+                          <>
+                            <h2>Booking Issue</h2>
+                            <Tile
+                              id="conflicts-with"
+                              title={"Conflicts with a booking"}
+                              description=""
+                              href={`/bookings/${conflictWith.booking_id}`} />
+                          </>
+                          :
+                          <IconButton icon={Icons.TOAST_GREEN} id="enroll" onClick={enrollHandler}>Enroll</IconButton>
+                    }
+                  </>
                 }
 
-                {session?.role === UserRole.ADMIN &&
-                  <IconButton icon={Icons.TOAST_RED} id="leave" onClick={cancelHandler}>Cancel</IconButton>
-                }
               </div>
             </Tab>
-            {booking &&
+            {booking && booking.member_count > 0 &&
               <Tab title="Members">
                 <BookingMembers booking_id={booking?.booking_id} />
               </Tab>
             }
-            {booking &&
+            {booking && booking.trainer_count > 0 &&
               <Tab title="Trainer">
                 <BookingTrainers booking_id={booking?.booking_id} />
               </Tab>
             }
-            {enrolled && booking?.type === BookingType.PERSONAL &&
+            {enrolled && booking?.type === BookingType.PERSONAL && booking.trainer_count > 0 &&
               <Tab title="Reschedule">
                 <BookingMembers booking_id={booking?.booking_id} />
               </Tab>

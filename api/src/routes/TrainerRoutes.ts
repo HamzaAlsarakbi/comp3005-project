@@ -118,6 +118,7 @@ const leave = async (req: IReq, res: IRes) => {
 export default {
   getAll,
   getOne,
+  getAllByBooking,
   enroll,
   leave,
   isEnrolled,

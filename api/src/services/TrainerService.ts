@@ -32,7 +32,7 @@ const getOne = async (email: string): Promise<ITrainer | null> => {
 const getAllByBooking = async (booking_id: number): Promise<ITrainer[]> => {
   const trainers = await postgresQuery<ITrainer>(
     `select t.* from trainers as t
-      join trainers_schedules as ts on ts.trainer_email=t.trainer_email
+      join trainer_schedules as ts on ts.trainer_email=t.trainer_email
       where ts.booking_id=${booking_id}`,
   );
   return trainers;

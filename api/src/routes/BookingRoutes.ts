@@ -2,6 +2,8 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { IReq, IRes } from './types/express/misc';
 import BookingService from '@src/services/BookingService';
 import { ABooking, BookingType, UBooking } from '@src/models/Booking';
+import MemberScheduleService from '@src/services/MemberScheduleService';
+import TrainerScheduleService from '@src/services/TrainerScheduleService';
 
 const getAll = async (_: IReq, res: IRes) => {
   const bookings = await BookingService.getAll();
@@ -49,6 +51,8 @@ const cancelOne = async (req: IReq, res: IRes) => {
     error: 'booking id must be a number.',
   });
   await BookingService.cancelOne(bookingId);
+  await MemberScheduleService.deleteAllByBooking(bookingId);
+  await TrainerScheduleService.deleteAllByBooking(bookingId);
   res.status(HttpStatusCodes.OK).json({ message: 'Cancelled booking.' });
 };
 

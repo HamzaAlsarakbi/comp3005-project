@@ -48,6 +48,13 @@ const deleteOne = async (schedule: ATrainerSchedule): Promise<void> => {
   );
 };
 
+const deleteAllByBooking = async(booking_id: number): Promise<void> => {
+  await postgresQuery<ATrainerSchedule>(
+    `delete from trainer_schedules
+      where booking_id=${booking_id}`,
+  );
+};
+
 
 
 export default {
@@ -57,4 +64,5 @@ export default {
   isEnrolled,
   getAllBookings,
   deleteOne,
+  deleteAllByBooking,
 } as const;

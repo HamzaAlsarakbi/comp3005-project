@@ -75,6 +75,7 @@ roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
 // ==== Trainers ==== //
 trainerRouter.get(Paths.Trainers.All, TrainerRoutes.getAll);
 trainerRouter.get(Paths.Trainers.One, TrainerRoutes.getOne);
+trainerRouter.get(Paths.Trainers.AllByBooking, TrainerRoutes.getAllByBooking);
 trainerRouter.put(Paths.Trainers.Enroll, TrainerRoutes.enroll);
 trainerRouter.put(Paths.Trainers.Leave, TrainerRoutes.leave);
 trainerRouter.get(Paths.Trainers.IsEnrolled, TrainerRoutes.isEnrolled);
