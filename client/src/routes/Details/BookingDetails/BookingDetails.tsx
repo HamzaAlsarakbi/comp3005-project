@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import './../Details.css';
 import axios from "axios";
 import api from "../../../lib/api";
-import { Booking, FBooking } from "../../../lib/models/Booking";
+import { Booking, BookingType, FBooking } from "../../../lib/models/Booking";
 import Spacer from "../../../components/Spacer/Spacer";
 import { Icons } from "../../../lib/icons";
 import { UserRole, useSession } from "../../../components/SessionProvider/SessionProvider";
@@ -12,6 +12,7 @@ import Tab from "../../../components/Tabs/Tab";
 import IconButton from "../../../components/IconButton/IconButton";
 import BookingMembers from "../../../components/BookingMembers/BookingMembers";
 import Tile from "../../../components/Tile/Tile";
+import BookingTrainers from "../../../components/BookingTrainers/BookingTrainers";
 
 
 const BookingDetails = () => {
@@ -21,20 +22,21 @@ const BookingDetails = () => {
   const [spacesLeft, setSpacesLeft] = useState<number>(Number.MAX_SAFE_INTEGER);
   const [conflictWith, setConflictsWith] = useState<Booking | null>(null);
   const session = useSession();
+  const participantPathname = session?.role.toLocaleLowerCase() + 's';
   useEffect(() => {
     document.title = 'Booking Profile';
     fetchBookingDetails();
   }, [id]);
 
   const enrollHandler = () => {
-    axios.put(api.path(`/members/booking/enroll/${id}`), {}, { withCredentials: true }).then((res) => {
+    axios.put(api.path(`/${participantPathname}/booking/enroll/${id}`), {}, { withCredentials: true }).then((res) => {
       fetchBookingDetails();
     }).catch((err) => {
       console.error(err);
     });
   };
   const leaveHandler = () => {
-    axios.put(api.path(`/members/booking/leave/${id}`), {}, { withCredentials: true }).then((res) => {
+    axios.put(api.path(`/${participantPathname}/booking/leave/${id}`), {}, { withCredentials: true }).then((res) => {
       fetchBookingDetails();
     }).catch((err) => {
       console.error(err);
@@ -52,11 +54,11 @@ const BookingDetails = () => {
     }).catch((err) => {
       console.error(err);
     });
-    axios.get(api.path(`/members/booking/is-enrolled/${id}`), { withCredentials: true }).then((res) => {
+    axios.get(api.path(`/${participantPathname}/booking/is-enrolled/${id}`), { withCredentials: true }).then((res) => {
       const ie = res.data.isEnrolled;
       setEnrolled(ie);
       if (!ie) {
-        axios.get(api.path(`/members/booking/conflicts/${id}`), { withCredentials: true }).then((res) => {
+        axios.get(api.path(`/${participantPathname}/booking/conflicts/${id}`), { withCredentials: true }).then((res) => {
           console.log('conflict result');
           setConflictsWith(res.data.conflictsWith as Booking);
         }).catch((err) => {
@@ -127,6 +129,11 @@ const BookingDetails = () => {
             }
             {booking &&
               <Tab title="Trainer">
+                <BookingTrainers booking_id={booking?.booking_id} />
+              </Tab>
+            }
+            {enrolled && booking?.type === BookingType.PERSONAL &&
+              <Tab title="Reschedule">
                 <BookingMembers booking_id={booking?.booking_id} />
               </Tab>
             }

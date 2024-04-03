@@ -1,5 +1,5 @@
-import { postgresQuery } from "@src/db/postgres-helpers";
-import { AHealthGoal, IHealthGoal } from "@src/models/HealthGoal";
+import { postgresQuery } from '@src/db/postgres-helpers';
+import { AHealthGoal, IHealthGoal } from '@src/models/HealthGoal';
 import logger from 'jet-logger';
 
 /**

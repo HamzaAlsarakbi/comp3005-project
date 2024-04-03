@@ -24,8 +24,23 @@ const getOne = async (email: string): Promise<ITrainer | null> => {
 };
 
 
+/**
+ * gets all trainers by a booking
+ * @param booking_id the booking id to get all trainer
+ * @returns all trainers
+ */
+const getAllByBooking = async (booking_id: number): Promise<ITrainer[]> => {
+  const trainers = await postgresQuery<ITrainer>(
+    `select t.* from trainers as t
+      join trainers_schedules as ts on ts.trainer_email=t.trainer_email
+      where ts.booking_id=${booking_id}`,
+  );
+  return trainers;
+};
+
 
 export default {
   getAll,
   getOne,
+  getAllByBooking,
 };

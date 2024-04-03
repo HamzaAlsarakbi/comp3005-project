@@ -1,5 +1,5 @@
-import { postgresQuery } from "@src/db/postgres-helpers";
-import { APayment, IPayment, PaymentStatus } from "@src/models/Payment";
+import { postgresQuery } from '@src/db/postgres-helpers';
+import { APayment, IPayment, PaymentStatus } from '@src/models/Payment';
 import logger from 'jet-logger';
 
 /**

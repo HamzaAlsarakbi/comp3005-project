@@ -40,6 +40,11 @@ export default {
     Base: '/trainers',
     One: '/:email',
     All: '/all',
+    AllByBooking: '/booking/:id',
+    Enroll: '/booking/enroll/:id',
+    Leave: '/booking/leave/:id',
+    IsEnrolled: '/booking/is-enrolled/:id',
+    Conflicts: '/booking/conflicts/:id',
   },
   Sessions: {
     Base: '/sessions',

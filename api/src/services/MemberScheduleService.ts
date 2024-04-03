@@ -1,6 +1,6 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
-import { IBooking, Period } from '@src/models/Booking';
-import { AMemberSchedule, IMemberSchedule } from '@src/models/MemberSchedule';
+import { IBooking } from '@src/models/Booking';
+import { AMemberSchedule } from '@src/models/MemberSchedule';
 
 
 
