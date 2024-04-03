@@ -52,6 +52,14 @@ export default {
     Update: '/update/:id',
     Delete: '/delete/:id',
   },
+  Bookings: {
+    Base: '/bookings',
+    All: '/all',
+    Add: '/add',
+    AllByClass: '/class/:id',
+    Update: '/update/:id',
+    Delete: '/delete/:id',
+  },
   Equipment: {
     Base: '/equipment',
     One: '/:id',

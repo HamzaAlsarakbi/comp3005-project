@@ -2,7 +2,6 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import PaymentService from '@src/services/PaymentService';
 import { IReq, IRes } from './types/express/misc';
-import { ISessionUser } from '@src/models/Session';
 import { APayment } from '@src/models/Payment';
 
 

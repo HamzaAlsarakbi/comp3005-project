@@ -2,7 +2,7 @@
 import { connect } from 'ts-postgres';
 import parseSqlFile from './../../util/sql-query-parser';
 import { DB_CONFIG } from '../../../constants/DBConfig';
-import BookingsService from './../../../services/BookingsService';
+import BookingsService from '../../../services/BookingService';
 import { BookingType } from './../../../models/Booking';
 import { IRoom } from './../../../models/Room';
 import RoomService from './../../../services/RoomService';
@@ -47,15 +47,24 @@ const generateBookings = async (size: number) => {
 
 
 const getValidBooking = (currentBookings: TempBooking[], rooms: IRoom[]): TempBooking | null => {
-  for(const room of rooms) {
-    for(const cb of currentBookings) {
-      // if(cb.room_id == )
-    }
-  }
+  // const timings: {hour: number, minute: number} = [
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  //   {hour: 9, minute: 30},
+  // ]
+  // for(const room of rooms) {
+  //   for(const cb of currentBookings) {
+  //     if(cb.room_id === room.room_id) {
+  //       const start = new Date()
+
+  //     }
+  //   }
+  // }
   return null;
-}
-
-
-
+};
 
 export default generateBookings;

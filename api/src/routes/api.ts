@@ -13,6 +13,7 @@ import ClassRoutes from './ClassRoutes';
 import HealthGoalRoutes from './HealthGoalRoutes';
 import PaymentRoutes from './PaymentRoutes';
 import RoutineRoutes from './RoutineRoutes';
+import BookingRoutes from './BookingRoutes';
 
 
 // ==== Variables ==== //
@@ -30,6 +31,7 @@ const memberRouter = Router();
 const healthGoalRouter = Router();
 const paymentRouter = Router();
 const routineRouter = Router();
+const bookingRouter = Router();
 
 // ==== Sessions ==== //
 sessionRouter.get(Paths.Sessions.Get, SessionRoutes.check);
@@ -40,6 +42,12 @@ loginRouter.get(Paths.Login.Delete, LoginRoutes.logout);
 
 // ==== Classes ==== //
 classRouter.get(Paths.Classes.All, ClassRoutes.getAll);
+
+// ==== Bookings ==== //
+bookingRouter.get(Paths.Bookings.All, BookingRoutes.getAll);
+bookingRouter.get(Paths.Bookings.AllByClass, BookingRoutes.getAllClass);
+bookingRouter.post(Paths.Bookings.Add, BookingRoutes.addOne);
+bookingRouter.put(Paths.Bookings.Update, BookingRoutes.updateOne);
 
 // ==== Equipment ==== //
 equipmentRouter.get(
@@ -104,6 +112,7 @@ apiRouter.use(Paths.Members.Base, memberRouter);
 apiRouter.use(Paths.HealthGoals.Base, healthGoalRouter);
 apiRouter.use(Paths.Equipment.Base, equipmentRouter);
 apiRouter.use(Paths.Classes.Base, classRouter);
+apiRouter.use(Paths.Bookings.Base, bookingRouter);
 apiRouter.use(Paths.Trainers.Base, trainerRouter);
 apiRouter.use(Paths.Rooms.Base, roomRouter);
 apiRouter.use(Paths.Payments.Base, paymentRouter);

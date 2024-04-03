@@ -1,21 +1,36 @@
-import { postgresQuery } from './../db/postgres-helpers';
-import { BookingStatus, BookingType, IBooking } from './../models/Booking';
-import { toSQLTimestamp } from './../util/misc';
+import { postgresQuery } from '../db/postgres-helpers';
+import { ABooking, BookingStatus, BookingType, IBooking } from '../models/Booking';
+import { toSQLTimestamp } from '../util/misc';
 
-
-const addOne = async (
-  type: BookingType,
-  room_id: number,
-  start_time: Date,
-  end_time: Date,
-  capacity?: number,
-): Promise<void> => {
-  const start = toSQLTimestamp(start_time);
-  const end = toSQLTimestamp(end_time);
-  await postgresQuery<IBooking>(
-    `insert into bookings (type, room_id, start_time, end_time, capacity) values
-      ('${type}', ${room_id}, ${start}, ${end}, ${capacity ?? 21})`,
+const addClassBooking = async (booking: ABooking): Promise<void> => {
+  const start = toSQLTimestamp(new Date(booking.start_time));
+  const end = toSQLTimestamp(new Date(booking.end_time));
+  await postgresQuery<ABooking>(
+    `insert into bookings (type, room_id, class_id, start_time, end_time, capacity) values
+      ('${booking.type}',
+      ${booking.room_id},
+      ${booking.class_id!},
+      '${start}', '${end}',
+      ${booking.type === BookingType.PERSONAL ? 2 : 21})`,
   );
+};
+
+const addRegularBooking = async (booking: ABooking): Promise<void> => {
+  const start = toSQLTimestamp(booking.start_time);
+  const end = toSQLTimestamp(booking.end_time);
+  await postgresQuery<ABooking>(
+    `insert into bookings (type, room_id, start_time, end_time, capacity) values
+      ('${BookingType.OTHER}',
+      ${booking.room_id},
+      ${start}, ${end},
+      ${booking.type === BookingType.PERSONAL ? 2 : 21})`,
+  );
+};
+const getAllClass = async (class_id: number): Promise<IBooking[]> => {
+  const bookings = await postgresQuery<IBooking>(
+    `select * from bookings where class_id='${class_id}'`,
+  );
+  return bookings;
 };
 /**
  * Gets all bookings
@@ -58,9 +73,11 @@ const getByRoom = async (id: number): Promise<IBooking[]> => {
 
 
 export default {
-  addOne,
+  addRegularBooking,
+  addClassBooking,
   getAll,
   getAllScheduled,
+  getAllClass,
   getOne,
   getByRoom,
 } as const;

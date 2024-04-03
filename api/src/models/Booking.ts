@@ -12,9 +12,18 @@ export enum BookingStatus {
 export interface IBooking {
   booking_id: number;
   type: BookingType;
-  room_id: number;
+  room_id?: number;
+  class_id?: number;
   start_time: Date;
   end_time: Date;
   status: BookingStatus;
   capacity: number;
+}
+
+export interface ABooking {
+  type: BookingType;
+  room_id?: number;
+  class_id?: number;
+  start_time: Date;
+  end_time: Date;
 }

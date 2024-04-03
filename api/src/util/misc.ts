@@ -26,6 +26,13 @@ export function toSQLDate(date: Date): string {
   return date.toISOString().split('T')[0];
 }
 
-export const toSQLTimestamp = (timestamp: Date): number => {
-  return Math.floor(timestamp.getTime() / 1000);
+export const toSQLTimestamp = (timestamp: Date): string => {
+  return timestamp.toISOString().slice(0, 19).replace('T', ' ');
 };
+
+export const getTime = (hour: number, minute: number): Date => {
+  const currentDate = new Date();
+  currentDate.setHours(hour, minute, 0, 0);
+  currentDate.setDate(currentDate.getDate() + 7);
+  return currentDate;
+}
