@@ -1,31 +1,46 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
-import { IMemberSchedule } from '@src/models/MemberSchedule';
+import { IBooking, Period } from '@src/models/Booking';
+import { AMemberSchedule, IMemberSchedule } from '@src/models/MemberSchedule';
 
 
 
-const addOne = async (member_email: string, booking_id: number): Promise<void> => {
-  await postgresQuery<IMemberSchedule>(
+const addOne = async (schedule: AMemberSchedule): Promise<void> => {
+  await postgresQuery<AMemberSchedule>(
     `insert into member_schedules (member_email, booking_id) values
-      ('${member_email}', ${booking_id})`,
+      ('${schedule.member_email}', ${schedule.booking_id})`,
   );
 };
 
-const getAllByEmail = async (member_email: string): Promise<IMemberSchedule[]> => {
-  return await postgresQuery<IMemberSchedule>(
-    `select * from member_schedules where member_email='${member_email}'`,
+const deleteOne = async (schedule: AMemberSchedule): Promise<void> => {
+  await postgresQuery<AMemberSchedule>(
+    `delete from member_schedules
+      where member_email='${schedule.member_email}' and booking_id=${schedule.booking_id}`,
   );
 };
 
-const getAllByBookingId = async (booking_id: number): Promise<IMemberSchedule[]> => {
-  return await postgresQuery<IMemberSchedule>(
-    `select * from member_schedules where booking_id=${booking_id}`,
+const isEnrolled = async(schedule: AMemberSchedule): Promise<boolean> => {
+  const s =  await postgresQuery<AMemberSchedule>(
+    `select *
+      from member_schedules
+      where member_email='${schedule.member_email}' and booking_id=${schedule.booking_id}`,
   );
+  return s.length > 0;
+};
+
+const getAllBookings = async(member_email: string): Promise<IBooking[]> => {
+  const periods =  await postgresQuery<IBooking>(
+    `select b.* from member_schedules as ms
+    join bookings as b on b.booking_id=ms.booking_id
+    where ms.member_email='${member_email}';`,
+  );
+  return periods;
 };
 
 
 
 export default {
+  getAllBookings,
+  isEnrolled,
   addOne,
-  getAllByEmail,
-  getAllByBookingId,
+  deleteOne,
 } as const;

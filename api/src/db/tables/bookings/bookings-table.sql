@@ -2,8 +2,8 @@ drop table if exists bookings cascade;
 create table bookings (
   booking_id serial primary key,
   type varchar(8) check (type in ('personal', 'group', 'other')) not null,
-  room_id int,
-  class_id int,
+  room_id int not null,
+  class_id int default null,
   start_time timestamp not null,
   end_time timestamp not null,
   status varchar(9) check(status in('scheduled', 'cancelled')) default 'scheduled',

@@ -45,9 +45,12 @@ classRouter.get(Paths.Classes.All, ClassRoutes.getAll);
 
 // ==== Bookings ==== //
 bookingRouter.get(Paths.Bookings.All, BookingRoutes.getAll);
-bookingRouter.get(Paths.Bookings.AllByClass, BookingRoutes.getAllClass);
+bookingRouter.get(Paths.Bookings.AllByClass, BookingRoutes.getByClass);
+bookingRouter.get(Paths.Bookings.AllByRoom, BookingRoutes.getByRoom);
+bookingRouter.get(Paths.Bookings.One, BookingRoutes.getOne);
 bookingRouter.post(Paths.Bookings.Add, BookingRoutes.addOne);
 bookingRouter.put(Paths.Bookings.Update, BookingRoutes.updateOne);
+bookingRouter.put(Paths.Bookings.Cancel, BookingRoutes.cancelOne);
 
 // ==== Equipment ==== //
 equipmentRouter.get(
@@ -94,6 +97,7 @@ routineRouter.delete(Paths.HealthGoals.Delete, RoutineRoutes.deleteOne);
 // ==== Members ==== //
 memberRouter.get(Paths.Members.All, MemberRoutes.getAll);
 memberRouter.get(Paths.Members.One, MemberRoutes.getOne);
+memberRouter.get(Paths.Members.AllByBooking, MemberRoutes.getAllByBooking);
 memberRouter.post(
   Paths.Members.Add,
   validate(['member', Member.isMember]),
@@ -104,6 +108,10 @@ memberRouter.put(
   validate(['member', Member.isUMember]),
   MemberRoutes.updateOne,
 );
+memberRouter.put(Paths.Members.Enroll, MemberRoutes.enroll);
+memberRouter.put(Paths.Members.Leave, MemberRoutes.leave);
+memberRouter.get(Paths.Members.IsEnrolled, MemberRoutes.isEnrolled);
+memberRouter.get(Paths.Members.Conflicts, MemberRoutes.conflicts);
 
 // ==== Add Routers ==== //
 apiRouter.use(Paths.Login.Base, loginRouter);

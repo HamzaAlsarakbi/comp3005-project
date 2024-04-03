@@ -3,8 +3,11 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import MemberService from '@src/services/MemberService';
 import { AddMember, UMember } from '@src/models/Member';
 import { IReq, IRes } from './types/express/misc';
-import { ISessionUser } from '@src/models/Session';
+import { ISessionUser, UserSession } from '@src/models/Session';
 import SessionModel from '@src/models/Session';
+import MemberScheduleService from '@src/services/MemberScheduleService';
+import { AMemberSchedule } from '@src/models/MemberSchedule';
+import BookingService from '@src/services/BookingService';
 
 // Routes //
 
@@ -14,11 +17,104 @@ async function getAll(_: IReq, res: IRes) {
   const members = await MemberService.getAll();
   return res.status(HttpStatusCodes.OK).json({ members });
 }
+const getAllByBooking = async (req: IReq, res: IRes) => {
+  const bookingId = Number(req.params.id);
+  if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'Booking id must be a number.',
+  });
+  const members = await MemberService.getAllByBooking(bookingId);
+  return res.status(HttpStatusCodes.OK).json({ members });
+};
+
+const enroll = async (req: IReq, res: IRes) => {
+  // verify booking id
+  const bookingId = Number(req.params.id);
+  if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'Booking id must be a number.',
+  });
+  // verify session
+  const session = req.session as ISessionUser;
+  if (!session.user) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'No user session.',
+  });
+  // construct schedule
+  const schedule: AMemberSchedule = {
+    member_email: session.user.email,
+    booking_id: bookingId,
+  };
+  await MemberScheduleService.addOne(schedule);
+  return res.status(HttpStatusCodes.OK).json({ message: 'Member enrolled.' });
+};
+
+const isEnrolled = async (req: IReq, res: IRes) => {
+  // verify booking id
+  const bookingId = Number(req.params.id);
+  if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'Booking id must be a number.',
+  });
+  // verify session
+  const session = req.session as ISessionUser;
+  if (!session.user) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'No user session.',
+  });
+  // construct schedule
+  const schedule: AMemberSchedule = {
+    member_email: session.user.email,
+    booking_id: bookingId,
+  };
+  const enrolled = await MemberScheduleService.isEnrolled(schedule);
+  res.status(HttpStatusCodes.OK).json({ isEnrolled: enrolled });
+};
+
+const conflicts = async (req: IReq, res: IRes) => {
+  // verify booking id
+  const bookingId = Number(req.params.id);
+  if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'Booking id must be a number.',
+  });
+  // verify session
+  const session = req.session as ISessionUser;
+  if (!session.user) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'No user session.',
+  });
+  const bookings = await MemberScheduleService.getAllBookings(session.user.email);
+  const booking = await BookingService.getOne(bookingId);
+
+  for (const b of bookings) {
+    if(booking?.booking_id === b.booking_id) continue;
+    console.log(b.end_time, booking!.start_time, b.end_time > booking!.start_time);
+    console.log(booking!.end_time, b.start_time, booking!.end_time < b.start_time);
+    if (b.end_time > booking!.start_time || booking!.end_time < b.start_time) {
+      return res.status(HttpStatusCodes.OK).json({ conflictsWith: b });
+    }
+  }
+  return res.status(HttpStatusCodes.OK).json({ conflictsWith: null });
+};
+
+const leave = async (req: IReq, res: IRes) => {
+  // verify booking id
+  const bookingId = Number(req.params.id);
+  if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'Booking id must be a number.',
+  });
+  // verify session
+  const session = req.session as ISessionUser;
+  if (!session.user) return res.status(HttpStatusCodes.BAD_REQUEST).json({
+    message: 'No user session.',
+  });
+  // construct schedule
+  const schedule: AMemberSchedule = {
+    member_email: session.user.email,
+    booking_id: bookingId,
+  };
+  await MemberScheduleService.deleteOne(schedule);
+  return res.status(HttpStatusCodes.OK).json({ message: 'Member left.' });
+};
 
 async function getOne(req: IReq, res: IRes) {
   const email = req.params.email;
   const member = await MemberService.getOne(email);
-  if(!member) return res.status(HttpStatusCodes.NOT_FOUND).json({
+  if (!member) return res.status(HttpStatusCodes.NOT_FOUND).json({
     error: 'No Member exists with the given email address.',
   });
   return res.status(HttpStatusCodes.OK).json({ member });
@@ -35,9 +131,9 @@ async function add(req: IReq<{ member: AddMember }>, res: IRes) {
   await MemberService.addOne(member);
 
   const session = req.session as ISessionUser;
-  if(!session.user) {
+  if (!session.user) {
     const addedMember = await MemberService.getOne(member.member_email);
-    if(addedMember)
+    if (addedMember)
       session.user = SessionModel.fromMember(addedMember);
   }
   return res.status(HttpStatusCodes.CREATED)
@@ -59,7 +155,12 @@ async function updateOne(req: IReq<{ member: UMember }>, res: IRes) {
 
 export default {
   getAll,
+  getAllByBooking,
   getOne,
+  isEnrolled,
+  conflicts,
+  enroll,
+  leave,
   add,
   updateOne,
   // delete: delete_,

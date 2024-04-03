@@ -12,14 +12,28 @@ const getAll = async (): Promise<IMember[]> => {
 };
 
 /**
+ * gets all members by a booking
+ * @param booking_id the booking id to get all members 
+ * @returns all members
+ */
+const getAllByBooking = async (booking_id: number): Promise<IMember[]> => {
+  const members = await postgresQuery<IMember>(
+    `select m.* from members as m
+      join member_schedules as ms on ms.member_email=m.member_email
+      where ms.booking_id=${booking_id}`,
+  );
+  return members;
+};
+
+/**
  * Gets one member using the email
  * @param email email address of member
  * @returns the member if there is one with the provided email, otherwise null.
  */
 const getOne = async (email: string): Promise<IMember | null> => {
   const member = await postgresQuery<IMember>(
-    `select * from members where member_email='${email}'`);
-
+    `select * from members where member_email='${email}'`,
+  );
   return member.length == 0 ? null : member[0];
 };
 
@@ -36,7 +50,7 @@ const updateOne = async (m: UMember): Promise<void> => {
       `'${m[key] as string}'` :
       String(m[key])}`);
   }
-  if(newAttributes.length === 0) return;
+  if (newAttributes.length === 0) return;
   await postgresQuery<IMember>(
     `update members set ${newAttributes.join(',')} where member_email='${m.member_email}';`,
   );
@@ -63,6 +77,7 @@ const addOne = async (m: AddMember): Promise<void> => {
 
 export default {
   getAll,
+  getAllByBooking,
   getOne,
   updateOne,
   addOne,

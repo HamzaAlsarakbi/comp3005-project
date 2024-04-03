@@ -35,13 +35,13 @@ const generateBookings = async (size: number) => {
     if (!newBooking) break;
     
 
-    BookingsService.addOne(
-      bookingType,
-      newBooking.room_id,
-      newBooking.start,
-      newBooking.end,
-      bookingType == BookingType.PERSONAL ? 2 : randomInt(4, 21),
-    )
+    // BookingsService.addOne(
+    //   bookingType,
+    //   newBooking.room_id,
+    //   newBooking.start,
+    //   newBooking.end,
+    //   bookingType == BookingType.PERSONAL ? 2 : randomInt(4, 21),
+    // );
   }
 };
 
