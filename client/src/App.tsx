@@ -21,6 +21,7 @@ import MemberDetails from './routes/Details/MemberDetails/MemberDetails';
 import TrainerDetails from './routes/Details/TrainerDetails/TrainerDetails';
 import BookingBrowser from './routes/Browsers/BookingBrowser/BookingBrowser';
 import BookingDetails from './routes/Details/BookingDetails/BookingDetails';
+import BookingForm from './routes/BookingForm/BookingForm';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -49,6 +50,7 @@ function App() {
               <Route path="/rooms" element={<RoomBrowser />} />
               <Route path="/bookings" element={<BookingBrowser />} />
               <Route path="/bookings/:id" element={<BookingDetails />} />
+              <Route path="/new-booking" element={<BookingForm />} />
               <Route path="*" element={<NoPage />} />
             </Route>
             :

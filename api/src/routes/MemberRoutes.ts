@@ -3,7 +3,7 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import MemberService from '@src/services/MemberService';
 import { AddMember, UMember } from '@src/models/Member';
 import { IReq, IRes } from './types/express/misc';
-import { ISessionUser, UserSession } from '@src/models/Session';
+import { ISessionUser } from '@src/models/Session';
 import SessionModel from '@src/models/Session';
 import MemberScheduleService from '@src/services/MemberScheduleService';
 import { AMemberSchedule } from '@src/models/MemberSchedule';
@@ -17,6 +17,12 @@ async function getAll(_: IReq, res: IRes) {
   const members = await MemberService.getAll();
   return res.status(HttpStatusCodes.OK).json({ members });
 }
+
+const getSchedule = async (req: IReq, res: IRes) => {
+  const schedule = await MemberService.getSchedule(req.params.email);
+  return res.status(HttpStatusCodes.OK).json({ schedule: schedule });
+};
+
 const getAllByBooking = async (req: IReq, res: IRes) => {
   const bookingId = Number(req.params.id);
   if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
@@ -25,6 +31,7 @@ const getAllByBooking = async (req: IReq, res: IRes) => {
   const members = await MemberService.getAllByBooking(bookingId);
   return res.status(HttpStatusCodes.OK).json({ members });
 };
+
 
 const enroll = async (req: IReq, res: IRes) => {
   // verify booking id
@@ -82,9 +89,9 @@ const conflicts = async (req: IReq, res: IRes) => {
 
   for (const b of bookings) {
     if(booking?.booking_id === b.booking_id) continue;
-    console.log(b.end_time, booking!.start_time, b.end_time > booking!.start_time);
-    console.log(booking!.end_time, b.start_time, booking!.end_time < b.start_time);
-    if (b.end_time > booking!.start_time || booking!.end_time < b.start_time) {
+    console.log(b.end_time, booking!.start_time, b.end_time <= booking!.start_time);
+    console.log(booking!.end_time, b.start_time, b.start_time >= booking!.end_time);
+    if (!(b.end_time <= booking!.start_time || b.start_time >= booking!.end_time)) {
       return res.status(HttpStatusCodes.OK).json({ conflictsWith: b });
     }
   }
@@ -155,6 +162,7 @@ async function updateOne(req: IReq<{ member: UMember }>, res: IRes) {
 
 export default {
   getAll,
+  getSchedule,
   getAllByBooking,
   getOne,
   isEnrolled,

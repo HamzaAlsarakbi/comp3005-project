@@ -45,6 +45,7 @@ classRouter.get(Paths.Classes.All, ClassRoutes.getAll);
 
 // ==== Bookings ==== //
 bookingRouter.get(Paths.Bookings.All, BookingRoutes.getAll);
+bookingRouter.get(Paths.Bookings.AllScheduled, BookingRoutes.getAllScheduled);
 bookingRouter.get(Paths.Bookings.AllByClass, BookingRoutes.getByClass);
 bookingRouter.get(Paths.Bookings.AllByRoom, BookingRoutes.getByRoom);
 bookingRouter.get(Paths.Bookings.One, BookingRoutes.getOne);
@@ -71,6 +72,7 @@ equipmentRouter.put(
 
 // ==== Rooms ==== //
 roomRouter.get(Paths.Rooms.All, RoomRoutes.getAll);
+roomRouter.put(Paths.Rooms.Available, RoomRoutes.getAllAvailable);
 
 // ==== Trainers ==== //
 trainerRouter.get(Paths.Trainers.All, TrainerRoutes.getAll);
@@ -87,7 +89,7 @@ healthGoalRouter.post(Paths.HealthGoals.Add, HealthGoalRoutes.addOne);
 healthGoalRouter.put(Paths.HealthGoals.Update, HealthGoalRoutes.updateOne);
 healthGoalRouter.delete(Paths.HealthGoals.Delete, HealthGoalRoutes.deleteOne);
 
-// ==== Pauments ==== //
+// ==== Payments ==== //
 paymentRouter.get(Paths.Payments.All, PaymentRoutes.getAll);
 paymentRouter.post(Paths.Payments.Add, PaymentRoutes.addOne);
 paymentRouter.put(Paths.Payments.Process, PaymentRoutes.processOne);
@@ -103,6 +105,7 @@ routineRouter.delete(Paths.HealthGoals.Delete, RoutineRoutes.deleteOne);
 memberRouter.get(Paths.Members.All, MemberRoutes.getAll);
 memberRouter.get(Paths.Members.One, MemberRoutes.getOne);
 memberRouter.get(Paths.Members.AllByBooking, MemberRoutes.getAllByBooking);
+memberRouter.get(Paths.Members.Schedule, MemberRoutes.getSchedule);
 memberRouter.post(
   Paths.Members.Add,
   validate(['member', Member.isMember]),

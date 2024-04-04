@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useSession } from "../../components/SessionProvider/SessionProvider";
 
+import './Dashboard.css';
+import Spacer from "../../components/Spacer/Spacer";
+
 interface DashboardProps {
 
 }
@@ -12,7 +15,12 @@ const Dashboard: React.FC<DashboardProps> = ({ }) => {
     document.title = `${session?.first_name}'s Dashboard`
   }, [session])
   return (
-    <span>dashboard</span>
+    <div className="dashboard">
+      <Spacer></Spacer>
+      <h1>My Schedule</h1>
+           
+    </div>
+
   )
 };
 

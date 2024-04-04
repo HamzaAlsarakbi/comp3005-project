@@ -1,12 +1,16 @@
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { IReq, IRes } from './types/express/misc';
 import BookingService from '@src/services/BookingService';
-import { ABooking, BookingType, UBooking } from '@src/models/Booking';
+import { ABooking, BookingType, Schedule } from '@src/models/Booking';
 import MemberScheduleService from '@src/services/MemberScheduleService';
 import TrainerScheduleService from '@src/services/TrainerScheduleService';
 
 const getAll = async (_: IReq, res: IRes) => {
   const bookings = await BookingService.getAll();
+  return res.status(HttpStatusCodes.OK).json({ bookings: bookings });
+};
+const getAllScheduled = async (_: IReq, res: IRes) => {
+  const bookings = await BookingService.getAllScheduled();
   return res.status(HttpStatusCodes.OK).json({ bookings: bookings });
 };
 
@@ -39,7 +43,7 @@ const addOne = async (req: IReq<{ booking: ABooking }>, res: IRes) => {
   res.status(HttpStatusCodes.OK).json({ message: 'Added booking.' });
 };
 
-const updateOne = async (req: IReq<{ booking: UBooking }>, res: IRes) => {
+const updateOne = async (req: IReq<{ booking: Schedule }>, res: IRes) => {
   const { booking: booking } = req.body;
   await BookingService.updateOne(booking);
   res.status(HttpStatusCodes.OK).json({ message: 'Updated booking.' });
@@ -72,6 +76,7 @@ export default {
   updateOne,
   cancelOne,
   getAll,
+  getAllScheduled,
   getByClass,
   getByRoom,
   getOne,

@@ -6,6 +6,7 @@ export default {
   Members: {
     Base: '/members',
     All: '/all',
+    Schedule: '/schedule/:email',
     AllByBooking: '/booking/:id',
     Enroll: '/booking/enroll/:id',
     Leave: '/booking/leave/:id',
@@ -65,6 +66,7 @@ export default {
   Bookings: {
     Base: '/bookings',
     All: '/all',
+    AllScheduled: '/all-scheduled',
     Add: '/add',
     One: '/:id',
     AllByClass: '/class/:id',
@@ -81,5 +83,6 @@ export default {
   Rooms: {
     Base: '/rooms',
     All: '/all',
+    Available: '/available',
   },
 } as const;

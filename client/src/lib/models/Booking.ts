@@ -33,3 +33,18 @@ export enum BookingStatus {
   SCHEDULED = 'scheduled',
   CANCELLED = 'cancelled',
 }
+
+export const bookingTypeOptions = [
+  {
+    value: BookingType.PERSONAL,
+    name: 'Personal',
+  },
+  {
+    value: BookingType.GROUP,
+    name: 'Group',
+  },
+  {
+    value: BookingType.OTHER,
+    name: 'Other',
+  },
+]

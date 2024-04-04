@@ -1,4 +1,5 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
+import { Schedule } from '@src/models/Booking';
 import { AddMember, IMember, UMember } from '@src/models/Member';
 import logger from 'jet-logger';
 
@@ -10,6 +11,15 @@ const getAll = async (): Promise<IMember[]> => {
   const members = await postgresQuery<IMember>('select * from members');
   return members;
 };
+
+const getSchedule = async(member_email: string): Promise<Schedule[]> => {
+  const bookings = await postgresQuery<Schedule>(
+    `select b.booking_id, b.start_time, b.end_time from member_schedules as ms
+    join bookings as b on b.booking_id=ms.booking_id
+    where ms.member_email='${member_email}';`,
+  );
+  return bookings;
+}
 
 /**
  * gets all members by a booking
@@ -64,7 +74,7 @@ const updateOne = async (m: UMember): Promise<void> => {
  */
 const addOne = async (m: AddMember): Promise<void> => {
   const birthday = new Date(m.birthday).toISOString().split('T')[0];
-  const member = await postgresQuery<AddMember>(`
+  await postgresQuery<AddMember>(`
     insert into members (member_email,first_name, last_name,
       password, phone, birthday, gender)
     values ('${m.member_email}', '${m.first_name}', '${m.last_name}',
@@ -77,6 +87,7 @@ const addOne = async (m: AddMember): Promise<void> => {
 
 export default {
   getAll,
+  getSchedule,
   getAllByBooking,
   getOne,
   updateOne,

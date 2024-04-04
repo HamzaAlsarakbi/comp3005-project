@@ -8,6 +8,7 @@ export enum InputType {
   INPUT,
   TEXTAREA,
   DATE,
+  TIME,
 }
 
 interface InputBoxProps {
@@ -47,25 +48,26 @@ class InputBox extends Component<InputBoxProps> {
   handleInput = () => {
     const { onInput } = this.props;
     const value: string = this.value();
-    if (!this.props.inputPolicy) return;
-    switch (this.props.inputPolicy) {
-      case InputPolicy.EMAIL:
-        this.checkEmail(value);
-        break;
-      case InputPolicy.PHONE_NUMBER:
-        this.checkPhoneNumber(value);
-        break;
-      case InputPolicy.WORDS:
-        this.checkWords(value);
-        break;
-      case InputPolicy.NUMBERS:
-        this.checkNumbers(value);
-        break;
-      case InputPolicy.PASSWORD:
-        this.checkPassword(value);
-        break;
-      default:
-        console.error('ERROR InputBox ' + this.props.id + ', unknown input policy ' + this.props.inputPolicy);
+    if (this.props.inputPolicy) {
+      switch (this.props.inputPolicy) {
+        case InputPolicy.EMAIL:
+          this.checkEmail(value);
+          break;
+        case InputPolicy.PHONE_NUMBER:
+          this.checkPhoneNumber(value);
+          break;
+        case InputPolicy.WORDS:
+          this.checkWords(value);
+          break;
+        case InputPolicy.NUMBERS:
+          this.checkNumbers(value);
+          break;
+        case InputPolicy.PASSWORD:
+          this.checkPassword(value);
+          break;
+        default:
+          console.error('ERROR InputBox ' + this.props.id + ', unknown input policy ' + this.props.inputPolicy);
+      }
     }
     if (onInput) {
       onInput(value);
@@ -87,7 +89,7 @@ class InputBox extends Component<InputBoxProps> {
   private checkPhoneNumber = (value: string) => {
     const normalized = phone(value);
     if (value.trim() === '') {
-      if (this.props.optional) { 
+      if (this.props.optional) {
         this.hideText();
       } else {
         this.showText('Phone number field cannot be empty.', Color.Red);
@@ -172,6 +174,16 @@ class InputBox extends Component<InputBoxProps> {
     }, 1000);
   }
 
+  clearValue = () => {
+    if(this.inputRef.current) {
+      this.inputRef.current.value = '';
+      return;
+    }
+    if(this.textAreaRef.current) {
+      this.textAreaRef.current.value = '';
+    }
+  }
+
   render() {
     const { id, placeholder, buttonText, inputType, optional, hidden } = this.props;
 
@@ -194,9 +206,10 @@ class InputBox extends Component<InputBoxProps> {
               id={id}
               placeholder=""
               ref={this.inputRef}
-              onInput={this.handleInput}
+              onInput={() => { if (inputType === InputType.INPUT) this.handleInput() }}
+              onChange={() => { if (inputType !== InputType.INPUT) this.handleInput() }}
               defaultValue={this.props.value}
-              type={inputType === InputType.DATE ? "date" : hidden ? "password" : "text"}
+              type={inputType === InputType.DATE ? "date" : inputType === InputType.TIME ? "time" : hidden ? "password" : "text"}
             />
           }
           {buttonText ?

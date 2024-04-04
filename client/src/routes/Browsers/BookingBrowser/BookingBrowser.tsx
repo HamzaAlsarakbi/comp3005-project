@@ -18,7 +18,7 @@ const BookingBrowser: React.FC<BookingBrowserProps> = () => {
   const [tiles, setTiles] = useState<TileProps[]>([]);
   useEffect(() => {
     document.title = 'Booking Browser';
-    axios.get(api.path('/bookings/all'), { withCredentials: true }).then((res) => {
+    axios.get(api.path('/bookings/all-scheduled'), { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         const bookings = res.data.bookings as FBooking[];
         // console.log(booking);
@@ -27,8 +27,8 @@ const BookingBrowser: React.FC<BookingBrowserProps> = () => {
           const spaceLeft = session?.role === UserRole.MEMBER ? (b.capacity-b.member_count-1) : (1-b.trainer_count);
           newTiles.push({
             id: 'e-'+b.booking_id,
-            title: `${b.class_name} - ${b.room_name}`,
-            description: `${b.description}. ${spaceLeft} spots left`,
+            title: `${b.class_name ?? 'Regular Booking'} - ${b.room_name}`,
+            description: `${b.description ?? ''}. ${spaceLeft} spots left`,
             href: '/bookings/'+b.booking_id,
           });
         }

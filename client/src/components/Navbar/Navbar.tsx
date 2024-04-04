@@ -74,16 +74,18 @@ const Navbar = () => {
         <Link to='/classes' className='navbar-link-container'>
           <span className='navbar-link'>Classes</span>
         </Link>
-        {session?.role === UserRole.ADMIN ?
+        {session?.role === UserRole.ADMIN &&
           <Link to='/equipment' className='navbar-link-container'>
             <span className='navbar-link'>Equipment</span>
-          </Link>
-          : <></>}
-        {session?.role === UserRole.ADMIN ?
+          </Link>}
+        {session?.role === UserRole.ADMIN &&
           <Link to='/rooms' className='navbar-link-container'>
             <span className='navbar-link'>Rooms</span>
-          </Link>
-          : <></>}
+          </Link>}
+          {session?.role === UserRole.ADMIN &&
+          <Link to='/new-booking' className='navbar-link-container'>
+            <span className='navbar-link'>New Booking</span>
+          </Link>}
         <button className='navbar-link-container' onClick={logoutHandler}>
           <span className='navbar-link'>Logout</span>
         </button>

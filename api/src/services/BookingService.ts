@@ -1,5 +1,5 @@
 import { postgresQuery } from '../db/postgres-helpers';
-import { ABooking, BookingStatus, BookingType, FBooking, UBooking } from '../models/Booking';
+import { ABooking, BookingStatus, BookingType, FBooking, Schedule } from '../models/Booking';
 import { toSQLTimestamp } from '../util/misc';
 
 const addClassBooking = async (booking: ABooking): Promise<void> => {
@@ -27,10 +27,10 @@ const addRegularBooking = async (booking: ABooking): Promise<void> => {
   );
 };
 
-const updateOne = async (booking: UBooking): Promise<void> => {
+const updateOne = async (booking: Schedule): Promise<void> => {
   const start = toSQLTimestamp(new Date(booking.start_time));
   const end = toSQLTimestamp(new Date(booking.end_time));
-  await postgresQuery<UBooking>(
+  await postgresQuery<Schedule>(
     `update bookings
       set start_time='${start}', end_time='${end}'
       where booking_id=${booking.booking_id}`,
@@ -38,7 +38,7 @@ const updateOne = async (booking: UBooking): Promise<void> => {
 };
 
 const cancelOne = async (booking_id: number): Promise<void> => {
-  await postgresQuery<UBooking>(
+  await postgresQuery<Schedule>(
     `update bookings set status='${BookingStatus.CANCELLED}'
       where booking_id=${booking_id}`,
   );
@@ -53,7 +53,7 @@ const getByClass = async (class_id: number): Promise<FBooking[]> => {
     (select count(*) from trainer_schedules as ts where ts.booking_id=b.booking_id) as trainer_count
     
     from bookings as b
-    join classes as c on b.class_id=c.class_id
+    left join classes as c on b.class_id=c.class_id
     join rooms as r on b.room_id=r.room_id
     where c.class_id='${class_id}'`,
   );
@@ -74,7 +74,7 @@ const getAll = async (): Promise<FBooking[]> => {
     (select count(*) from trainer_schedules as ts where ts.booking_id=b.booking_id) as trainer_count
     
     from bookings as b
-    join classes as c on b.class_id=c.class_id
+    left join classes as c on b.class_id=c.class_id
     join rooms as r on b.room_id=r.room_id;`,
   );
   return bookings.map(e => ({...e,
@@ -94,7 +94,7 @@ const getAllScheduled = async (): Promise<FBooking[]> => {
     (select count(*) from trainer_schedules as ts where ts.booking_id=b.booking_id) as trainer_count
     
     from bookings as b
-    join classes as c on b.class_id=c.class_id
+    left join classes as c on b.class_id=c.class_id
     join rooms as r on b.room_id=r.room_id
     where status='${BookingStatus.SCHEDULED}'`,
   );
@@ -103,6 +103,7 @@ const getAllScheduled = async (): Promise<FBooking[]> => {
     trainer_count: Number(e.trainer_count),
   }));
 };
+
 /**
  * Gets one booking using the id
  * @param id id of the booking
@@ -116,7 +117,7 @@ const getOne = async (id: number): Promise<FBooking | null> => {
     (select count(*) from trainer_schedules as ts where ts.booking_id=b.booking_id) as trainer_count
     
     from bookings as b
-    join classes as c on b.class_id=c.class_id
+    left join classes as c on b.class_id=c.class_id
     join rooms as r on b.room_id=r.room_id
     where booking_id=${id}`);
   return booking.length == 0 ? null : booking.map(e => ({...e,
@@ -137,7 +138,7 @@ const getByRoom = async (id: number): Promise<FBooking[]> => {
     (select count(*) from trainer_schedules as ts where ts.booking_id=b.booking_id) as trainer_count
     
     from bookings as b
-    join classes as c on b.class_id=c.class_id
+    left join classes as c on b.class_id=c.class_id
     join rooms as r on b.room_id=r.room_id
     where r.room_id=${id}`);
   return bookings.map(e => ({...e,
