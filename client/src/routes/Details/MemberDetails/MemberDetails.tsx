@@ -13,6 +13,8 @@ import PersonalInfo from "../../../components/PersonalInfo/PersonalInfo";
 import HealthGoals from "../../../components/HealthGoals/HealthGoals";
 import Payments from "../../../components/Payments/Payments";
 import Routines from "../../../components/Routines/Routines";
+import FitnessAchievements from "../../../components/FitnessAchievements/FitnessAchievements";
+
 
 
 const MemberDetails = () => {
@@ -70,6 +72,11 @@ const MemberDetails = () => {
             {isProfileOwner ?
               <Tab title="Health Goals">
                 <HealthGoals />
+              </Tab>
+              : <></>}
+            {isProfileOwner ?
+              <Tab title="Fitness Achievements">
+                <FitnessAchievements/>
               </Tab>
               : <></>}
             {isProfileOwner ?

@@ -23,6 +23,13 @@ export default {
     Update: '/update',
     Delete: '/delete/:id',
   },
+  FitnessAchievements: {
+    Base: '/fitness-achievements',
+    All: '/all',
+    Add: '/add',
+    Update: '/update',
+    Delete: '/delete/:id',
+  },
   Payments: {
     Base: '/payments',
     All: '/all/:member_email',

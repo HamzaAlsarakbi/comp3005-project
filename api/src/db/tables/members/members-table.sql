@@ -33,3 +33,11 @@ create table payments (
     due_date date not null default current_date + interval '14 day',
     foreign key (member_email) references members(member_email) on delete set null
 );
+
+drop table if exists fitness_achievements;
+create table fitness_achievements (
+    fitness_achievements_id serial primary key,
+    member_email varchar(255),
+    description text not null,
+    foreign key (member_email) references members(member_email) on delete cascade
+);

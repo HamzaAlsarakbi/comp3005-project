@@ -11,6 +11,7 @@ import TrainerRoutes from './TrainerRoutes';
 import RoomRoutes from './RoomRoutes';
 import ClassRoutes from './ClassRoutes';
 import HealthGoalRoutes from './HealthGoalRoutes';
+import FitnessAchievementRoutes from './FitnessAchievementRoutes';
 import PaymentRoutes from './PaymentRoutes';
 import RoutineRoutes from './RoutineRoutes';
 import BookingRoutes from './BookingRoutes';
@@ -29,6 +30,7 @@ const trainerRouter = Router();
 const roomRouter = Router();
 const memberRouter = Router();
 const healthGoalRouter = Router();
+const fitnessAchievementRouter = Router(); 
 const paymentRouter = Router();
 const routineRouter = Router();
 const bookingRouter = Router();
@@ -89,6 +91,12 @@ healthGoalRouter.post(Paths.HealthGoals.Add, HealthGoalRoutes.addOne);
 healthGoalRouter.put(Paths.HealthGoals.Update, HealthGoalRoutes.updateOne);
 healthGoalRouter.delete(Paths.HealthGoals.Delete, HealthGoalRoutes.deleteOne);
 
+// ==== Fitness Achievements ==== //
+fitnessAchievementRouter.get(Paths.FitnessAchievements.All, FitnessAchievementRoutes.getAll);
+fitnessAchievementRouter.post(Paths.FitnessAchievements.Add, FitnessAchievementRoutes.addOne); 
+fitnessAchievementRouter.put(Paths.FitnessAchievements.Update, FitnessAchievementRoutes.updateOne); 
+fitnessAchievementRouter.delete(Paths.FitnessAchievements.Delete, FitnessAchievementRoutes.deleteOne);
+
 // ==== Payments ==== //
 paymentRouter.get(Paths.Payments.All, PaymentRoutes.getAll);
 paymentRouter.post(Paths.Payments.Add, PaymentRoutes.addOne);
@@ -126,6 +134,7 @@ apiRouter.use(Paths.Login.Base, loginRouter);
 apiRouter.use(Paths.Sessions.Base, sessionRouter);
 apiRouter.use(Paths.Members.Base, memberRouter);
 apiRouter.use(Paths.HealthGoals.Base, healthGoalRouter);
+apiRouter.use(Paths.FitnessAchievements.Base, fitnessAchievementRouter)
 apiRouter.use(Paths.Equipment.Base, equipmentRouter);
 apiRouter.use(Paths.Classes.Base, classRouter);
 apiRouter.use(Paths.Bookings.Base, bookingRouter);
