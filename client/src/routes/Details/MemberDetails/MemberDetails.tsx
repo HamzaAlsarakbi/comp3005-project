@@ -14,6 +14,7 @@ import HealthGoals from "../../../components/HealthGoals/HealthGoals";
 import Payments from "../../../components/Payments/Payments";
 import Routines from "../../../components/Routines/Routines";
 import FitnessAchievements from "../../../components/FitnessAchievements/FitnessAchievements";
+import { formatDate } from "../../../lib/utils";
 
 
 
@@ -46,18 +47,43 @@ const MemberDetails = () => {
         <div className="details-content">
           <div className="content-item" id="details-title">Details</div>
           <Tabs id="member-details">
-            <Tab title="Summary">
+            <Tab title="About">
               <div className="content-item" id="details-body">
-                <div className="details-body-item" id="member-name">Name: {member?.first_name} {member?.last_name}</div>
-                <div className="details-body-item" id="member-email">Email: {member?.member_email}</div>
-                <div className="details-body-item" id="member-phone">Phone: {member?.phone}</div>
-                <div className="details-body-item" id="member-gender">Gender: {member?.gender}</div>
+                <h2 className="details-body-title" id="personal-details">About</h2>
+                <h3 className="details-body-subtitle" id="personal-details">Personal Details</h3>
+                <div className="details-body-item" id="member-name">
+                  <h4 className="details-body-item-header" id="member-name">Name</h4>
+                  <p className="details-body-item-body" id="member-name">{member?.first_name} {member?.last_name}</p>
+                </div>
+                <div className="details-body-item" id="member-email">
+                  <h4 className="details-body-item-header" id="member-email">Email</h4>
+                  <p className="details-body-item-body" id="member-email"><a href={`mailto:${member?.member_email}`}>{member?.member_email}</a></p>
+                </div>
+                <div className="details-body-item" id="member-phone">
+                  <h4 className="details-body-item-header" id="member-phone">Phone</h4>
+                  <p className="details-body-item-body" id="member-phone">
+                    <a href={`tel:${member?.phone}`}>{member?.phone}</a>
+                  </p>
+                </div>
+                <div className="details-body-item" id="member-gender">
+                  <h4 className="details-body-item-header" id="member-gender">Gender</h4>
+                  <p className="details-body-item-body" id="member-gender">{member?.gender}</p>
+                </div>
                 {isProfileOwner ?
                   <>
-                    <div className="details-body-item" id="member-height">Birthday: {member?.birthday.toString()}</div>
-                    <p>Health Metrics</p>
-                    <div className="details-body-item" id="member-weight">Weight: {member?.current_weight} lb</div>
-                    <div className="details-body-item" id="member-height">Height: {member?.current_height} cm</div>
+                    <h3 className="details-body-subtitle" id="health-metrics">Health Metrics</h3>
+                    <div className="details-body-item" id="member-birthday">
+                      <h4 className="details-body-item-header" id="member-birthday">Birthday</h4>
+                      <p className="details-body-item-body" id="member-birthday">{formatDate(member!.birthday)}</p>
+                    </div>
+                    <div className="details-body-item" id="member-weight">
+                      <h4 className="details-body-item-header" id="member-weight">Weight</h4>
+                      <p className="details-body-item-body" id="member-weight">{member?.current_weight} lb</p>
+                    </div>
+                    <div className="details-body-item" id="member-height">
+                      <h4 className="details-body-item-header" id="member-height">Height</h4>
+                      <p className="details-body-item-body" id="member-height">{member?.current_height} cm</p>
+                    </div>
                   </>
                   :
                   <></>
@@ -76,7 +102,7 @@ const MemberDetails = () => {
               : <></>}
             {isProfileOwner ?
               <Tab title="Fitness Achievements">
-                <FitnessAchievements/>
+                <FitnessAchievements />
               </Tab>
               : <></>}
             {isProfileOwner ?

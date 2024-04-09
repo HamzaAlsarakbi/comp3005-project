@@ -32,7 +32,7 @@ const Tabs: React.FC<TabsProps> = ({ id, children }) => {
       <div className="tabs-wrapper">
         <div className="tabs-selector">
         {tabs.map((tab, index) => (
-          <div className="tabs-selector-item" id={`tab-${index}`} key={index} onClick={(e) => setVisible(e.target, index)}>
+          <div className={`tabs-selector-item ${visibleTabs[index] && 'selected'}`} id={`tab-${index}`} key={index} onClick={(e) => setVisible(e.target, index)}>
             {/* Title */}
             {React.cloneElement(tab as React.ReactElement<any>, { key: index }).props.title}
           </div>

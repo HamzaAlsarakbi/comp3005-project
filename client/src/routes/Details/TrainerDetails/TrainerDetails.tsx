@@ -36,12 +36,28 @@ const TrainerDetails = () => {
         <div className="details-content">
           <div className="content-item" id="details-title">Details</div>
           <Tabs id="trainer-details">
-            <Tab title="Summary">
+            <Tab title="About">
               <div className="content-item" id="details-body">
-                <div className="details-body-item" id="trainer-name">Name: {trainer?.first_name} {trainer?.last_name}</div>
-                <div className="details-body-item" id="trainer-email">Email: {trainer?.trainer_email}</div>
-                <div className="details-body-item" id="trainer-phone">Phone: {trainer?.phone}</div>
-                <div className="details-body-item" id="trainer-gender">Gender: {trainer?.gender}</div>
+                <div className="details-body-item" id="trainer-name">
+                  <h4 className="details-body-item-header" id="trainer-name">Name</h4>
+                  <p className="details-body-item-body" id="trainer-name">{trainer?.first_name} {trainer?.last_name}</p>
+                </div>
+                <div className="details-body-item" id="trainer-email">
+                  <h4 className="details-body-item-header" id="trainer-email">Email</h4>
+                  <p className="details-body-item-body" id="trainer-email">
+                    <a href={`mailto:${trainer?.trainer_email}`}>{trainer?.trainer_email}</a>
+                  </p>
+                </div>
+                <div className="details-body-item" id="trainer-phone">
+                  <h4 className="details-body-item-header" id="trainer-phone">Phone</h4>
+                  <p className="details-body-item-body" id="trainer-phone">
+                    <a href={`tel:${trainer?.phone}`}>{trainer?.phone}</a>
+                  </p>
+                </div>
+                <div className="details-body-item" id="trainer-gender">
+                  <h4 className="details-body-item-header" id="trainer-gender">Gender</h4>
+                  <p className="details-body-item-body" id="trainer-gender">{trainer?.gender}</p>
+                </div>
               </div>
             </Tab>
           </Tabs>

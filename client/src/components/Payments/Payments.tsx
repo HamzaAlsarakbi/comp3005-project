@@ -22,7 +22,7 @@ const Payments: React.FC<PaymentProps> = ({ member_email }) => {
   }, []);
 
   const fetchPayments = () => {
-    axios.get(api.path('/payments/all/'+member_email), { withCredentials: true }).then((res) => {
+    axios.get(api.path('/payments/all/' + member_email), { withCredentials: true }).then((res) => {
       const payments: Payment[] = res.data;
       for (const p of payments) p.due_date = new Date(p.due_date);
       console.log(payments);
@@ -56,16 +56,18 @@ const Payments: React.FC<PaymentProps> = ({ member_email }) => {
       {session?.role === UserRole.ADMIN ?
         <div className="new-payment">
           <h2>New Bill</h2>
-          <InputBox ref={amountRef} id="description" inputType={InputType.INPUT} inputPolicy={InputPolicy.NUMBERS} placeholder="Amount" />
+          <InputBox ref={amountRef} id="description" inputType={InputType.INPUT} inputPolicy={InputPolicy.NUMBERS} placeholder="Amount $" />
           <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={addHandler}>Add</IconButton>
         </div> : <></>}
+      <h2>{session?.role === UserRole.MEMBER ? 'My' : `Member's`} Bills</h2>
       {payments.length > 0 ?
         <div className="current-payments">
-          <h2>My Bills</h2>
           {payments.map((payment) => (
             <PaymentC payment={payment} id={payment.payment_id} key={payment.payment_id} onUpdate={fetchPayments} />
           ))}
-        </div> : <></>}
+        </div> :
+        <p>{session?.role === UserRole.MEMBER ? 'You have' : `Member has`} no bills</p>
+      }
     </div>
   );
 };

@@ -66,11 +66,12 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onUpdate }) => {
   }
   return (
     <>
+      <h2>Personal info</h2>
       <InputBox ref={firstnameRef} id="first-name" inputType={InputType.INPUT} inputPolicy={InputPolicy.WORDS} optional placeholder="First name" />
       <InputBox ref={lastnameRef} id="last-name" inputType={InputType.INPUT} inputPolicy={InputPolicy.WORDS} optional placeholder="Last name" />
       <InputBox ref={passwordRef} id="password" inputType={InputType.INPUT} inputPolicy={InputPolicy.PASSWORD} optional placeholder="Password" />
       <InputBox ref={phoneRef} id="phone" inputType={InputType.INPUT} inputPolicy={InputPolicy.PHONE_NUMBER} optional placeholder="Phone" />
-      <p>Health Metrics</p>
+      <h3>Health Metrics</h3>
       <InputBox ref={weightRef} id="weight" inputType={InputType.INPUT} inputPolicy={InputPolicy.NUMBERS} optional placeholder="Weight" />
       <InputBox ref={heightRef} id="height" inputType={InputType.INPUT} inputPolicy={InputPolicy.NUMBERS} optional placeholder="Height" />
       <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={updateHandler}>Update</IconButton>

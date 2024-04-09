@@ -18,6 +18,7 @@ const EquipmentDetails = () => {
   const [equipment, setEquipment] = useState<Equipment | null>(null);
   const conditionRef = useRef<InputBox>(null);
   useEffect(() => {
+    document.title = `${equipment?.name} details`;
     fetchEquipment();
   }, [equipment?.condition]);
 
@@ -60,7 +61,7 @@ const EquipmentDetails = () => {
   };
 
   const updateHandler = () => {
-    if(conditionRef.current!.hasError()) {
+    if (conditionRef.current!.hasError()) {
       conditionRef.current!.emphasizeText();
       return;
     }
@@ -102,18 +103,20 @@ const EquipmentDetails = () => {
           </div>
           <div className="content-item" id="details-body">
             <div className="details-body-item" id="equipment-name">
-              Name: {equipment?.name}
+              <h4 className="details-body-item-header" id="equipment-name">Name</h4>
+              <p className="details-body-item-body" id="equipment-name">{equipment?.name}</p>
             </div>
-            <InputBox
-              onInput={validateInput}
-              ref={conditionRef}
-              id="equipment-condition"
-              inputType={InputType.INPUT}
-              inputPolicy={InputPolicy.NUMBERS}
-              placeholder="New Condition"
-            />
             <div className="details-body-item" id="equipment-condition">
-              Condition: {equipment?.condition}%
+              <h4 className="details-body-item-header" id="equipment-condition">Condition</h4>
+              <p className="details-body-item-body" id="equipment-condition">{equipment?.condition}%</p>
+              <InputBox
+                onInput={validateInput}
+                ref={conditionRef}
+                id="equipment-condition"
+                inputType={InputType.INPUT}
+                inputPolicy={InputPolicy.NUMBERS}
+                placeholder="New Condition"
+              />
             </div>
             <IconButton
               icon={Icons.TOAST_ORANGE}
