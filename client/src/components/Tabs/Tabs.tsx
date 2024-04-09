@@ -29,13 +29,15 @@ const Tabs: React.FC<TabsProps> = ({ id, children }) => {
 
   return (
     <div className="tabs" id={id}>
-      <div className="tabs-selector">
+      <div className="tabs-wrapper">
+        <div className="tabs-selector">
         {tabs.map((tab, index) => (
           <div className="tabs-selector-item" id={`tab-${index}`} key={index} onClick={(e) => setVisible(e.target, index)}>
             {/* Title */}
             {React.cloneElement(tab as React.ReactElement<any>, { key: index }).props.title}
           </div>
         ))}
+        </div>
       </div>
       <div className="tabs-content">
         {tabs.map((tab, index) => (
