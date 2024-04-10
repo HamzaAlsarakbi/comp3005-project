@@ -1,46 +1,46 @@
 [
   {
     "name": "Yoga",
-    "description": "description TODO class-names.json"
+    "description": "This class aims to help find your inner zen, strength, balance and peace by learning the fundemetals of Yoga"
   },
   {
     "name": "HIIT",
-    "description": "description TODO class-names.json"
+    "description": "High Intensity Interval Training gets you sweaty and ready for summer by fousing on muscle strength and endurance"
   },
   {
     "name": "Zumba",
-    "description": "description TODO class-names.json"
+    "description": "Combine your love for dancing to create a dynamic calorie burning workout for all fitness levels"
   },
   {
     "name": "Spin",
-    "description": "description TODO class-names.json"
+    "description": "Spin your wheels away with EDM and house music to get you pumpin, bumpin, and humpin"
   },
   {
     "name": "CrossFit",
-    "description": "description TODO class-names.json"
+    "description": "Has it ever CROSSED your mind to try out a Crossfit class? Participate in our multi-round workouts to get a real sweat going! "
   },
   {
     "name": "Swimming",
-    "description": "description TODO class-names.json"
+    "description": "Learn how to swim in case you find yourself on the titanic"
   },
   {
     "name": "Mobility",
-    "description": "description TODO class-names.json"
+    "description": "This class aims to help release tightness and prevent future injuries by fousing on mobility and passive stretching"
   },
   {
     "name": "Pilates",
-    "description": "description TODO class-names.json"
+    "description": "Pilates is a great social and unique class that has you working muscles you've never used!"
   },
   {
     "name": "Strength & Power",
-    "description": "description TODO class-names.json"
+    "description": "Join our class to increase your functional strength and lift as heavy as the hulk"
   },
   {
     "name": "Powerlifting",
-    "description": "description TODO class-names.json"
+    "description": "Learn the basics of powerlifting safely with our certified coaches. Open for all fitness levels"
   },
   {
     "name": "Boxing",
-    "description": "description TODO class-names.json"
+    "description": "Wanna be like Rocky Balboa? Try our immersive and collabrative boxing class"
   }
 ]
