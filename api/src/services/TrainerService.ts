@@ -1,4 +1,5 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
+import { Schedule } from '@src/models/Booking';
 import { ITrainer } from '@src/models/Trainer';
 
 
@@ -23,6 +24,14 @@ const getOne = async (email: string): Promise<ITrainer | null> => {
   return trainer.length == 0 ? null : trainer[0];
 };
 
+const getSchedule = async(trainer_email: string): Promise<Schedule[]> => {
+  const bookings = await postgresQuery<Schedule>(
+    `select b.booking_id, b.start_time, b.end_time from trainer_schedules as ts
+    join bookings as b on b.booking_id=ts.booking_id
+    where ts.trainer_email='${trainer_email}';`,
+  );
+  return bookings;
+};
 
 /**
  * gets all trainers by a booking
@@ -42,5 +51,6 @@ const getAllByBooking = async (booking_id: number): Promise<ITrainer[]> => {
 export default {
   getAll,
   getOne,
+  getSchedule,
   getAllByBooking,
 };

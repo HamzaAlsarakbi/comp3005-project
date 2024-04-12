@@ -30,7 +30,7 @@ const TrainerDetails = () => {
       <Spacer />
       <div className="details-container" >
         <div className="details-overview">
-          <img className="overview-item" id="details-icon" src={Icons.MEMBER} alt={trainer?.first_name ?? "Trainer Picture"} />
+          <img className="overview-item" id="details-icon" src={Icons.TRAINER} alt={trainer?.first_name ?? "Trainer Picture"} />
           <div className="overview-item" id="details-title">{trainer?.first_name ?? 'Unkown Trainer'} {trainer?.last_name}</div>
         </div>
         <div className="details-content">

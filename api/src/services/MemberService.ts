@@ -19,7 +19,7 @@ const getSchedule = async(member_email: string): Promise<Schedule[]> => {
     where ms.member_email='${member_email}';`,
   );
   return bookings;
-}
+};
 
 /**
  * gets all members by a booking

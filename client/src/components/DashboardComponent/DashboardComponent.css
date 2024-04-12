@@ -1,0 +1,61 @@
+.dashboard-component {
+  min-width: 400px;
+  padding: 1em;
+  border-radius: 20px;
+  border: 2px solid var(--neo-border);
+  background: hsla(0, 0%, 0%, 0.2);
+  animation: dc-draw-in 200ms ease-in-out;
+  height: fit-content;
+  box-shadow: 4px 4px 8px hsla(0, 0%, 0%, 0.3);
+}
+
+@keyframes dc-draw-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+.dc-title {
+  font-size: 36px;
+}
+
+.dc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.dc-item {
+  display: flex;
+  flex-direction: row;
+  min-height: 50px;
+  transition: 
+    background 100ms ease-in-out,
+    transform 100ms ease-in-out;
+  border-radius: 20px;
+}
+.dc-item:hover {
+  background: linear-gradient(to right, hsla(0, 0%, 0%, 0.2), transparent);
+  transform: translateX(5px);
+}
+
+.dc-item::before {
+  content: "";
+  width: 10px;
+  min-height: 100%;
+  background: hsl(220, 80%, 60%);
+  border-radius: 10px;
+}
+.dc-metadata {
+  margin: .5em .75em;
+}
+
+.dc-item-title {
+  font-weight: normal;
+  margin-top: 0;
+}
+.dc-item-body {
+  margin: .4em .5em;
+  color: var(--color-3)
+}

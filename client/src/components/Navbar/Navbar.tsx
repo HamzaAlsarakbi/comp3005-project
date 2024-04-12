@@ -46,8 +46,8 @@ const Navbar = () => {
     <div className='navbar' ref={navbarRef}>
       <div className='navbar-section' id='navbar-left'>
         <Link to={`/`} className='navbar-link-container'>
-          <img src={Icons.EYE} alt='logo' id='navbar-logo' />
-          <span className='navbar-link'>Fitness App</span>
+          <img src={Icons.LOGO} alt='logo' id='navbar-logo' />
+          <span className='navbar-link'>LBHaHC</span>
         </Link>
         {session?.role !== UserRole.ADMIN ?
           <Link to={`/${session?.role.toLowerCase()}s/${session?.email}`} className='navbar-link-container'>

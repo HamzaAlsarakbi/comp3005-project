@@ -58,7 +58,8 @@ const Login: React.FC<LoginProps> = () => {
   return (
     <div className="login-root">
       <div className="login-container">
-        <h1 className="login-container-item" id="app-name">Fitness App</h1>
+        <h3 className="login-container-item" id="welcome">Welcome Back to</h3>
+        <h1 className="login-container-item" id="app-name">La Boucchi Health and Fitness Club</h1>
         <h2 className="login-container-item" id="login">Login</h2>
         <InputBox id="email" inputType={InputType.INPUT} placeholder="Email" inputPolicy={InputPolicy.EMAIL} ref={emailRef} />
         <InputBox id="password" inputType={InputType.INPUT} placeholder="Password" hidden inputPolicy={InputPolicy.WORDS} ref={passwordRef} />
@@ -66,7 +67,7 @@ const Login: React.FC<LoginProps> = () => {
         <a href="/signup">Sign up</a>
       </div>
       <div className="login-design">
-        <img src="/img/temp.jpg" alt="background" className="login-design-item" id="login-design-img" />
+        <img src={Icons.LOGO} alt="background" className="login-design-item" id="login-design-img" />
       </div>
     </div>
   )

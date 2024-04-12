@@ -20,6 +20,11 @@ async function getOne(req: IReq, res: IRes) {
   return res.status(HttpStatusCodes.OK).json({ trainer: trainer });
 }
 
+const getSchedule = async (req: IReq, res: IRes) => {
+  const schedule = await TrainerService.getSchedule(req.params.email);
+  return res.status(HttpStatusCodes.OK).json({ schedule: schedule });
+};
+
 const getAllByBooking = async (req: IReq, res: IRes) => {
   const bookingId = Number(req.params.id);
   if (isNaN(bookingId)) return res.status(HttpStatusCodes.BAD_REQUEST).json({
@@ -118,6 +123,7 @@ const leave = async (req: IReq, res: IRes) => {
 export default {
   getAll,
   getOne,
+  getSchedule,
   getAllByBooking,
   enroll,
   leave,

@@ -24,10 +24,11 @@ const generateClasses = async () => {
     readFile(__dirname + '/class-names.json') as ClassName[];
   const values = [];
   for (const class0 of classesList) {
-    values.push(`('${class0.name}','${class0.description}')`);
+    values.push(`('${class0.name}','${class0.description.replaceAll('\'', '\'\'')}')`);
   }
   // eslint-disable-next-line max-len
   const insertionQuery = `insert into classes (name, description) values ${values.join(',')};`;
+
   console.log(`\tInserting ${values.length} records into classes table.`);
   const res = await client.query(insertionQuery);
   console.log(`\t\t${res.status}`);
