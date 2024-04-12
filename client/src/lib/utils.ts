@@ -22,7 +22,7 @@ export const WORDS_REGEX = /\p{L}/u;
  * @returns formatted date
  */
 export const formatDate = (date: Date): string => {
-  const newDate = new Date(new Date(date).getTime() + (5 * 60 * 60 * 1000));
+  const newDate = new Date(new Date(date).getTime() + (4 * 60 * 60 * 1000));
   console.log("date");
   console.log(newDate);
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -33,4 +33,18 @@ export const formatDate = (date: Date): string => {
   firstDigit = day < 20 && day > 10 ? 3 : firstDigit;
   let suffixList = ["st", "nd", "rd", "th"];
   return `${monthNames[newDate.getMonth()]} ${day}${suffixList[Math.min(firstDigit, suffixList.length - 1)]}, ${newDate.getFullYear()}`;
+}
+
+/**
+ * Changes Date and time to a human-readable format
+ * @param date the date and time
+ * @returns formatted date and time
+ */
+export const formatDateTime = (datetime: Date): string => {
+  const newDateTime = new Date(new Date(datetime).getTime() + (4 * 60 * 60 * 1000));
+  const dateString = formatDate(datetime);
+  const ampm = newDateTime.getHours() < 12 ? 'AM' : 'PM';
+  let hour = newDateTime.getHours() % 12;
+  hour = hour === 0 ? 12 : hour;
+  return `${dateString} @ ${hour}:${newDateTime.getMinutes()} ${ampm}`;
 }

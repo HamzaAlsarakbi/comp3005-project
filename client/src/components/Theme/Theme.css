@@ -1,8 +1,10 @@
 :root {
   --color-1--dark: hsl(0, 0%, 95%);
   --color-2--dark: hsl(0, 0%, 90%);
+  --color-3--dark: hsl(0, 0%, 80%);
   --color-1--light: hsl(0, 0%, 5%);
   --color-2--light: hsl(0, 0%, 10%);
+  --color-3--light: hsl(0, 0%, 20%);
   --bg-1--dark: hsl(0, 0%, 7%);
   --bg-2--dark: hsl(0, 0%, 2%);
   --bg-1--light: hsl(0, 0%, 93%);
@@ -24,6 +26,7 @@
   :root {
     --color-1: var(--color-1--dark);
     --color-2: var(--color-2--dark);
+    --color-3: var(--color-3--dark);
     --bg-1: var(--bg-1--dark);
     --bg-2: var(--bg-2--dark);
     --bg-1-glass: var(--bg-1-glass--dark);
@@ -39,6 +42,7 @@
   :root {
     --color-1: var(--color-1--light);
     --color-2: var(--color-2--light);
+    --color-3: var(--color-3--light);
     --bg-1: var(--bg-1--light);
     --bg-2: var(--bg-2--light);
     --bg-1-glass: var(--bg-1-glass--light);
@@ -53,6 +57,7 @@
 :root[color-scheme="dark"] {
   --color-1: var(--color-1--dark);
   --color-2: var(--color-2--dark);
+  --color-3: var(--color-3--dark);
   --bg-1: var(--bg-1--dark);
   --bg-2: var(--bg-2--dark);
   --bg-1-glass: var(--bg-1-glass--dark);
@@ -66,6 +71,7 @@
 :root[color-scheme="light"] {
   --color-1: var(--color-1--light);
   --color-2: var(--color-2--light);
+  --color-3: var(--color-3--light);
   --bg-1: var(--bg-1--light);
   --bg-2: var(--bg-2--light);
   --bg-1-glass: var(--bg-1-glass--light);

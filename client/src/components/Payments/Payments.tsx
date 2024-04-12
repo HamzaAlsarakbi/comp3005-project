@@ -57,7 +57,7 @@ const Payments: React.FC<PaymentProps> = ({ member_email }) => {
         <div className="new-payment">
           <h2>New Bill</h2>
           <InputBox ref={amountRef} id="description" inputType={InputType.INPUT} inputPolicy={InputPolicy.NUMBERS} placeholder="Amount $" />
-          <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={addHandler}>Add</IconButton>
+          <IconButton icon={Icons.TOAST_GREEN} id="update" onClick={addHandler}>Add</IconButton>
         </div> : <></>}
       <h2>{session?.role === UserRole.MEMBER ? 'My' : `Member's`} Bills</h2>
       {payments.length > 0 ?

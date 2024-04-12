@@ -23,6 +23,11 @@ export interface Booking {
   status: BookingStatus;
   capacity: number;
 }
+export interface Schedule {
+  booking_id: number;
+  start_time: Date;
+  end_time: Date;
+}
 export enum BookingType {
   PERSONAL = 'personal',
   GROUP = 'group',

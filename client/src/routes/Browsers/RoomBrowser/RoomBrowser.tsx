@@ -26,7 +26,7 @@ const RoomBrowser: React.FC<RoomBrowserProps> = () => {
             id: 'r-'+r.room_id,
             title: r.name,
             description: '',
-            href: '/rooms/'+r.room_id,
+            href: '/rooms',
           });
         }
         console.log(newTiles);

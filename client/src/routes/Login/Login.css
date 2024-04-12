@@ -1,3 +1,6 @@
+#root:has(.login-root) {
+  justify-content: center;
+}
 .login-root {
   box-shadow: 2px 2px 4px hsla(0, 0%, 90%, 0.2);
   background: var(--bg-1-glass);
@@ -16,8 +19,12 @@
   width: 60%;
   min-width: 400px;
 }
+.login-container-item#welcome,
 .login-container-item#app-name {
   align-self: center;
+}
+#app-name {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .login-design {
   width: 40%;
@@ -27,7 +34,8 @@
 }
 .login-design-item#login-design-img {
   object-fit: scale-down;
-  --size: 1000px;
+  --size: 600px;
+  width: 100%;
   max-width: var(--size);
   max-height: var(--size);
 }

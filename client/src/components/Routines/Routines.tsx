@@ -50,7 +50,7 @@ const Routines = () => {
       <div className="new-routine">
         <h2>New Routine</h2>
         <InputBox ref={descriptionRef} id="description" inputType={InputType.TEXTAREA} inputPolicy={InputPolicy.WORDS} placeholder="Routine Description" />
-        <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={addHandler}>Add</IconButton>
+        <IconButton icon={Icons.TOAST_GREEN} id="update" onClick={addHandler}>Add</IconButton>
       </div>
       {routines.length > 0 ?
         <div className="current-routines">

@@ -14,6 +14,8 @@ import BookingMembers from "../../../components/BookingMembers/BookingMembers";
 import Tile from "../../../components/Tile/Tile";
 import BookingTrainers from "../../../components/BookingTrainers/BookingTrainers";
 import { CANCELLED } from "dns";
+import { formatDate, formatDateTime } from "../../../lib/utils";
+import RescheduleBooking from "../../../components/RescheduleBooking/RescheduleBooking";
 
 
 const BookingDetails = () => {
@@ -80,7 +82,7 @@ const BookingDetails = () => {
       <Spacer />
       <div className="details-container" >
         <div className="details-overview">
-          <img className="overview-item" id="details-icon" src={Icons.MEMBER} alt={booking?.class_name ?? "Booking Picture"} />
+          {/* <img className="overview-item" id="details-icon" src={Icons.MEMBER} alt={booking?.class_name ?? "Booking Picture"} /> */}
           <div className="overview-item" id="details-title">{booking?.class_name ?? 'Regular Booking'} - {booking?.room_name}</div>
         </div>
         <div className="details-content">
@@ -89,20 +91,31 @@ const BookingDetails = () => {
             <Tab title="Summary">
               <div className="content-item" id="details-body">
                 {booking?.class_id &&
-                  <div className="details-body-item" id="booking-room">
-                    Class: <Link to={`/rooms/${booking?.class_id}`}>{booking?.class_name}</Link>
+                  <div className="details-body-item" id="booking-class">
+                    <h4 className="details-body-item-header" id="booking-class">Class</h4>
+                    <p className="details-body-item-body" id="booking-class">{booking?.class_name}</p>
                   </div>
                 }
-                <div className="details-body-item" id="booking-room" >
-                  Room: <Link to={`/rooms/${booking?.room_id}`}>{booking?.room_name}</Link>
+                <div className="details-body-item" id="booking-room">
+                  <h4 className="details-body-item-header" id="booking-room">Room</h4>
+                  <p className="details-body-item-body" id="booking-room">{booking?.room_name}</p>
                 </div>
                 {booking?.start_time &&
-                  <div className="details-body-item" id="booking-start">Start: {booking?.start_time.toString()}</div>
+                  <div className="details-body-item" id="booking-start">
+                    <h4 className="details-body-item-header" id="booking-start">Start</h4>
+                    <p className="details-body-item-body" id="booking-start">{formatDateTime(booking?.start_time)}</p>
+                  </div>
                 }
                 {booking?.end_time &&
-                  <div className="details-body-item" id="booking-end">End: {booking?.end_time.toString()}</div>
+                  <div className="details-body-item" id="booking-end">
+                    <h4 className="details-body-item-header" id="booking-end">End</h4>
+                    <p className="details-body-item-body" id="booking-end">{formatDateTime(booking?.end_time)}</p>
+                  </div>
                 }
-                <div className="details-body-item" id="booking-spaces-left">Spots left: {spacesLeft}</div>
+                <div className="details-body-item" id="booking-spaces-left">
+                  <h4 className="details-body-item-header" id="booking-spaces-left">Spots Left</h4>
+                  <p className="details-body-item-body" id="booking-spaces-left">{spacesLeft}</p>
+                </div>
                 {booking?.status === BookingStatus.CANCELLED ?
                   <h2 className="details-body-item" id="booking-spaces-left">Cancelled</h2>
                   : <>
@@ -139,7 +152,7 @@ const BookingDetails = () => {
             }
             {enrolled && booking?.type === BookingType.PERSONAL && booking.trainer_count > 0 &&
               <Tab title="Reschedule">
-                <BookingMembers booking_id={booking?.booking_id} />
+                <RescheduleBooking booking_id={booking?.booking_id} />
               </Tab>
             }
           </Tabs>

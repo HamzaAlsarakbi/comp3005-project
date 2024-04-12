@@ -46,7 +46,7 @@ const HealthGoalC: React.FC<HealthGoalProps> = ({ healthGoal, id, onUpdate }) =>
       <h4>Description</h4>
       <InputBox ref={descriptionRef} id="description" inputType={InputType.TEXTAREA} inputPolicy={InputPolicy.WORDS} placeholder="Description" value={healthGoal.description} />
       <IconButton icon={Icons.TOAST_ORANGE} id={`update-${id}`} onClick={updateHandler}>Update</IconButton>
-      <IconButton icon={Icons.TOAST_ORANGE} id={`delete-${id}`} onClick={deleteHandler}>Delete</IconButton>
+      <IconButton icon={Icons.TOAST_RED} id={`delete-${id}`} onClick={deleteHandler}>Delete</IconButton>
     </div>
   )
 }

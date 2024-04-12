@@ -48,6 +48,7 @@ export default {
     Base: '/trainers',
     One: '/:email',
     All: '/all',
+    Schedule: '/schedule/:email',
     AllByBooking: '/booking/:id',
     Enroll: '/booking/enroll/:id',
     Leave: '/booking/leave/:id',

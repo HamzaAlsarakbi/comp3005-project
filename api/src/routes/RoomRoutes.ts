@@ -2,7 +2,6 @@ import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { IReq, IRes } from './types/express/misc';
 import RoomService from '@src/services/RoomService';
 import { Period } from '@src/models/Booking';
-import { IRoom } from '@src/models/Room';
 
 const getAll = async (_: IReq, res: IRes) => {
   const rooms = await RoomService.getAll();
@@ -16,7 +15,6 @@ const getAllAvailable = async(req: IReq<{ period: Period }>, res: IRes) => {
   const endTime = new Date(new Date(period.end_time).getTime() - (4 * 60 * 60 * 1000));
   const roomBookings = (await RoomService.getAllRoomBookings());
   const allRooms = await RoomService.getAll();
-  const currentDate = new Date(); // Get the current date and time
   for(const rb of roomBookings) {
     console.log(rb.end_time, startTime, rb.end_time <= startTime);
     console.log(endTime, rb.start_time, rb.start_time >= endTime);

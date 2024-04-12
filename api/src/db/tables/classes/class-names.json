@@ -1,31 +1,31 @@
 [
   {
     "name": "Yoga",
-    "description": "This class aims to help find your inner zen, strength, balance and peace by learning the fundemetals of Yoga"
+    "description": "This class aims to help find your inner zen, strength, balance and peace by learning the fundemetals of Yoga."
   },
   {
     "name": "HIIT",
-    "description": "High Intensity Interval Training gets you sweaty and ready for summer by fousing on muscle strength and endurance"
+    "description": "High Intensity Interval Training gets you sweaty and ready for summer by fousing on muscle strength and endurance."
   },
   {
     "name": "Zumba",
-    "description": "Combine your love for dancing to create a dynamic calorie burning workout for all fitness levels"
+    "description": "Combine your love for dancing to create a dynamic calorie burning workout for all fitness levels."
   },
   {
     "name": "Spin",
-    "description": "Spin your wheels away with EDM and house music to get you pumpin, bumpin, and humpin"
+    "description": "Spin your wheels away with EDM and house music to get you pumpin, bumpin, and humpin."
   },
   {
     "name": "CrossFit",
-    "description": "Has it ever CROSSED your mind to try out a Crossfit class? Participate in our multi-round workouts to get a real sweat going! "
+    "description": "Has it ever CROSSED your mind to try out a Crossfit class? Participate in our multi-round workouts to get a real sweat going!"
   },
   {
     "name": "Swimming",
-    "description": "Learn how to swim in case you find yourself on the titanic"
+    "description": "Learn how to swim in case you find yourself on the titanic."
   },
   {
     "name": "Mobility",
-    "description": "This class aims to help release tightness and prevent future injuries by fousing on mobility and passive stretching"
+    "description": "This class aims to help release tightness and prevent future injuries by fousing on mobility and passive stretching."
   },
   {
     "name": "Pilates",
@@ -33,14 +33,14 @@
   },
   {
     "name": "Strength & Power",
-    "description": "Join our class to increase your functional strength and lift as heavy as the hulk"
+    "description": "Join our class to increase your functional strength and lift as heavy as the hulk."
   },
   {
     "name": "Powerlifting",
-    "description": "Learn the basics of powerlifting safely with our certified coaches. Open for all fitness levels"
+    "description": "Learn the basics of powerlifting safely with our certified coaches. Open for all fitness levels."
   },
   {
     "name": "Boxing",
-    "description": "Wanna be like Rocky Balboa? Try our immersive and collabrative boxing class"
+    "description": "Wanna be like Rocky Balboa? Try our immersive and collabrative boxing class."
   }
 ]

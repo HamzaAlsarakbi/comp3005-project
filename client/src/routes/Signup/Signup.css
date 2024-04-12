@@ -1,3 +1,6 @@
+#root:has(.signup-root) {
+  justify-content: center;
+}
 .signup-root,
 .form {
   box-shadow: 2px 2px 4px hsla(0, 0%, 90%, 0.2);

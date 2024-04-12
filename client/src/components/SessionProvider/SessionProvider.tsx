@@ -40,7 +40,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children, sessionCall
     }).catch((err) => {
       setSession(null);
       sessionCallback(false, null);
-      if(document.location.pathname !== '/login')
+      if(document.location.pathname !== '/login' && document.location.pathname !== '/signup')
         document.location.replace('/login');
     });
   }, [sessionCallback]);
