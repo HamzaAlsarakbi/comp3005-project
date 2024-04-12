@@ -1,7 +1,7 @@
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 import { IReq, IRes } from './types/express/misc';
 import BookingService from '@src/services/BookingService';
-import { ABooking, BookingType, Schedule } from '@src/models/Booking';
+import { ABooking, BookingType, Schedule, UBooking } from '@src/models/Booking';
 import MemberScheduleService from '@src/services/MemberScheduleService';
 import TrainerScheduleService from '@src/services/TrainerScheduleService';
 
@@ -43,7 +43,7 @@ const addOne = async (req: IReq<{ booking: ABooking }>, res: IRes) => {
   res.status(HttpStatusCodes.OK).json({ message: 'Added booking.' });
 };
 
-const updateOne = async (req: IReq<{ booking: Schedule }>, res: IRes) => {
+const updateOne = async (req: IReq<{ booking: UBooking }>, res: IRes) => {
   const { booking: booking } = req.body;
   await BookingService.updateOne(booking);
   res.status(HttpStatusCodes.OK).json({ message: 'Updated booking.' });

@@ -1,5 +1,5 @@
 import { postgresQuery } from '../db/postgres-helpers';
-import { ABooking, BookingStatus, BookingType, FBooking, Schedule } from '../models/Booking';
+import { ABooking, BookingStatus, BookingType, FBooking, Schedule, UBooking } from '../models/Booking';
 import { toSQLTimestamp } from '../util/misc';
 
 const addClassBooking = async (booking: ABooking): Promise<void> => {
@@ -27,12 +27,12 @@ const addRegularBooking = async (booking: ABooking): Promise<void> => {
   );
 };
 
-const updateOne = async (booking: Schedule): Promise<void> => {
+const updateOne = async (booking: UBooking): Promise<void> => {
   const start = toSQLTimestamp(new Date(booking.start_time));
   const end = toSQLTimestamp(new Date(booking.end_time));
-  await postgresQuery<Schedule>(
+  await postgresQuery<UBooking>(
     `update bookings
-      set start_time='${start}', end_time='${end}'
+      set start_time='${start}', end_time='${end}', room_id=${booking.room_id}
       where booking_id=${booking.booking_id}`,
   );
 };

@@ -42,7 +42,7 @@
 
 .dc-item::before {
   content: "";
-  width: 10px;
+  width: 7.5px;
   min-height: 100%;
   background: hsl(220, 80%, 60%);
   border-radius: 10px;

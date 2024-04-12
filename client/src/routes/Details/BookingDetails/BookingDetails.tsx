@@ -15,6 +15,7 @@ import Tile from "../../../components/Tile/Tile";
 import BookingTrainers from "../../../components/BookingTrainers/BookingTrainers";
 import { CANCELLED } from "dns";
 import { formatDate, formatDateTime } from "../../../lib/utils";
+import RescheduleBooking from "../../../components/RescheduleBooking/RescheduleBooking";
 
 
 const BookingDetails = () => {
@@ -81,7 +82,7 @@ const BookingDetails = () => {
       <Spacer />
       <div className="details-container" >
         <div className="details-overview">
-          <img className="overview-item" id="details-icon" src={Icons.MEMBER} alt={booking?.class_name ?? "Booking Picture"} />
+          {/* <img className="overview-item" id="details-icon" src={Icons.MEMBER} alt={booking?.class_name ?? "Booking Picture"} /> */}
           <div className="overview-item" id="details-title">{booking?.class_name ?? 'Regular Booking'} - {booking?.room_name}</div>
         </div>
         <div className="details-content">
@@ -151,7 +152,7 @@ const BookingDetails = () => {
             }
             {enrolled && booking?.type === BookingType.PERSONAL && booking.trainer_count > 0 &&
               <Tab title="Reschedule">
-                <BookingMembers booking_id={booking?.booking_id} />
+                <RescheduleBooking booking_id={booking?.booking_id} />
               </Tab>
             }
           </Tabs>

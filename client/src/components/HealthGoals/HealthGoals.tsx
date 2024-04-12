@@ -50,7 +50,7 @@ const HealthGoals = () => {
       <div className="new-health-goal">
         <h2>New Health Goal</h2>
         <InputBox ref={descriptionRef} id="description" inputType={InputType.TEXTAREA} inputPolicy={InputPolicy.WORDS} placeholder="Health Goal Description" />
-        <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={addHandler}>Add</IconButton>
+        <IconButton icon={Icons.TOAST_GREEN} id="update" onClick={addHandler}>Add</IconButton>
       </div>
       {healthGoals.length > 0 ?
         <div className="current-health-goal">

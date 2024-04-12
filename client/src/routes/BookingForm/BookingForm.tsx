@@ -11,11 +11,8 @@ import api from '../../lib/api';
 import axios from 'axios';
 import { Room } from '../../lib/models/Room';
 import { start } from 'repl';
+import { Time } from '../../lib/models/Time';
 
-interface Time {
-  hour: number;
-  minute: number;
-}
 
 const BookingForm = () => {
   const [classOptions, setClassOptions] = useState<ComboBoxOption[]>([]);
@@ -36,7 +33,7 @@ const BookingForm = () => {
     axios.get(api.path('/classes/all')).then((res) => {
       console.log(res.data.classes);
       const newClasses: ComboBoxOption[] = [{ name: 'No Class', value: '-1' }];
-      for(const c of res.data.classes) {
+      for (const c of res.data.classes) {
         newClasses.push({
           name: c.name,
           value: '' + c.class_id
@@ -48,7 +45,7 @@ const BookingForm = () => {
   }, []);
 
   useEffect(() => {
-    if(bookingType === BookingType.OTHER) {
+    if (bookingType === BookingType.OTHER) {
       classRef.current?.clearValue();
       setClassId(-1);
     }
@@ -83,7 +80,7 @@ const BookingForm = () => {
     // verify new date
     const tmr = new Date();
     tmr.setDate(tmr.getDate());
-    if(newDate < tmr) {
+    if (newDate < tmr) {
       onRef.current!.showText("Date must be from tomorrow onwards", Color.Red);
     } else {
       onRef.current!.hideText();
@@ -102,9 +99,9 @@ const BookingForm = () => {
   }
 
   const fetchRooms = () => {
-    if(onRef.current!.hasError() || !date) return;
-    if(fromRef.current!.hasError() || !from) return;
-    if(toRef.current!.hasError() || !to) return;
+    if (onRef.current!.hasError() || !date) return;
+    if (fromRef.current!.hasError() || !from) return;
+    if (toRef.current!.hasError() || !to) return;
     // clear room option
     setRoomId(-1);
     roomRef.current!.clearValue();
@@ -131,29 +128,29 @@ const BookingForm = () => {
   const addBookingHandler = () => {
     // make sure rooms are selected
     const classId = Number(classRef.current!.value() === '' ? -1 : classRef.current!.value());
-    if(isNaN(classId)) {
+    if (isNaN(classId)) {
       classRef.current!.setText('You must choose a class.', Color.Red);
       return;
     } else {
       roomRef.current!.hideText();
     }
     const roomId = Number(roomRef.current!.value() === '' ? -1 : roomRef.current!.value());
-    if(isNaN(roomId) || roomId < 0) {
+    if (isNaN(roomId) || roomId < 0) {
       roomRef.current!.setText('You must choose a room.', Color.Red);
       return;
     } else {
       roomRef.current!.hideText();
     }
-    if(!date || onRef.current!.hasError()) {
+    if (!date || onRef.current!.hasError()) {
       onRef.current!.emphasizeText();
       return;
     }
 
-    if(!from || fromRef.current!.hasError()) {
+    if (!from || fromRef.current!.hasError()) {
       fromRef.current!.emphasizeText();
       return;
     }
-    if(!to || toRef.current!.hasError()) {
+    if (!to || toRef.current!.hasError()) {
       toRef.current!.emphasizeText();
       return;
     }
@@ -170,7 +167,7 @@ const BookingForm = () => {
         end_time: new Date(endTime.getTime() - (4 * 60 * 60 * 1000)),
       }
     };
-    axios.post(api.path('/bookings/add'), body, { withCredentials: true}).then((res) => {
+    axios.post(api.path('/bookings/add'), body, { withCredentials: true }).then((res) => {
       window.location.replace('/bookings');
     })
   }
@@ -182,12 +179,12 @@ const BookingForm = () => {
         <h2 className="new-booking-container-item" id="new-booking">New Booking</h2>
         <ComboBox id="type" name="Booking Type" options={bookingTypeOptions} onChange={bookingTypeHandler} />
         {bookingType !== BookingType.OTHER &&
-          <ComboBox ref={classRef} id="class" name="Class" options={classOptions} onChange={classHandler}/>}
+          <ComboBox ref={classRef} id="class" name="Class" options={classOptions} onChange={classHandler} />}
         <InputBox ref={onRef} id="on" inputType={InputType.DATE} placeholder="On" onInput={dateHandler} />
         <InputBox ref={fromRef} id="from" inputType={InputType.TIME} placeholder="From" onInput={fromHandler} />
         <InputBox ref={toRef} id="to" inputType={InputType.TIME} placeholder="To" onInput={toHandler} />
-        <ComboBox ref={roomRef} id="room" name="Room" options={roomOptions} onChange={roomHandler}/>
-        <IconButton icon={Icons.ARROW_DOWN} id="submit" onClick={addBookingHandler}>Add</IconButton>
+        <ComboBox ref={roomRef} id="room" name="Room" options={roomOptions} onChange={roomHandler} />
+        <IconButton icon={Icons.TOAST_GREEN} id="submit" onClick={addBookingHandler}>Add</IconButton>
       </div>
     </div>
   );

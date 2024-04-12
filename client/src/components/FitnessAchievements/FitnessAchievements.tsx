@@ -50,7 +50,7 @@ const FitnessAchievements = () => {
       <div className="new-fitness-achievements">
         <h2>New Fitness Achievements</h2>
         <InputBox ref={descriptionRef} id="description" inputType={InputType.TEXTAREA} inputPolicy={InputPolicy.WORDS} placeholder="Fitness Achievements Description" />
-        <IconButton icon={Icons.TOAST_ORANGE} id="update" onClick={addHandler}>Add</IconButton>
+        <IconButton icon={Icons.TOAST_GREEN} id="update" onClick={addHandler}>Add</IconButton>
       </div>
       {fitnessAchievement.length > 0 ?
         <div className="current-fitness-achievement">

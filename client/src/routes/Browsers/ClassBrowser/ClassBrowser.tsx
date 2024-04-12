@@ -28,7 +28,7 @@ const ClassBrowser: React.FC<ClassBrowserProps> = () => {
             id: 'c-'+c.class_id,
             title: c.name,
             description: c.description,
-            href: '/classes/'+c.class_id,
+            href: '/classes',
           });
         }
         console.log(newTiles);

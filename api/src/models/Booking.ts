@@ -46,13 +46,16 @@ export interface ABooking {
   start_time: Date;
   end_time: Date;
 }
-/**
- * Schedule/UBooking
- */
 export interface Schedule {
   booking_id: number;
   start_time: Date;
   end_time: Date;
+}
+export interface UBooking {
+  booking_id: number;
+  start_time: Date;
+  end_time: Date;
+  room_id: number;
 }
 
 export interface Period {
