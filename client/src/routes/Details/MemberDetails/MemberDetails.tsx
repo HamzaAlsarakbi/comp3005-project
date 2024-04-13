@@ -48,7 +48,7 @@ const MemberDetails = () => {
           <div className="content-item" id="details-title">Details</div>
           <Tabs id="member-details">
             <Tab title="About">
-              <div className="content-item" id="details-body">
+              {member && <div className="content-item" id="details-body">
                 <h2 className="details-body-title" id="personal-details">About</h2>
                 <h3 className="details-body-subtitle" id="personal-details">Personal Details</h3>
                 <div className="details-body-item" id="member-name">
@@ -88,7 +88,7 @@ const MemberDetails = () => {
                   :
                   <></>
                 }
-              </div>
+              </div>}
             </Tab>
             {isProfileOwner ?
               <Tab title="Update Personal Info">
