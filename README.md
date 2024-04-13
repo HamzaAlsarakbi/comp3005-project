@@ -1,4 +1,4 @@
-# Fitness App (Need a Better Name)
+# La Boucchi Health and Fitness Club
 
 This is the final project for COMP3005 (Database Systems).
 
@@ -20,11 +20,18 @@ cd comp3005-project
 
 ### 2. Setup and Run API
 
-Assuming you are in the project root
+Assuming you are in the project root.
 
 ```bash
 cd api
 npm install
+```
+
+1. Create a database named "comp3005proj" in PostgresSQL
+2. Update DB credentials in `/api/constants/DBConfig.ts`
+
+```bash
+npm run generate-db
 npm run dev
 ```
 

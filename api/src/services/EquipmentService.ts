@@ -1,12 +1,11 @@
 import { postgresQuery } from '@src/db/postgres-helpers';
 import { IEquipment, UEquipment } from '@src/models/Equipment';
-import { toSQLDate } from '@src/util/misc';
 
 /**
  * gets all equipment
  * @returns all equipment
  */
-const getAll = async(): Promise<IEquipment[]> => {
+const getAll = async (): Promise<IEquipment[]> => {
   const equipment = await postgresQuery<IEquipment>('select * from equipment');
   return equipment;
 };
@@ -28,11 +27,11 @@ const getOne = async (id: number): Promise<IEquipment | null> => {
  * gets all equipment
  * @returns all equipment
  */
-const updateOne = async(e: UEquipment): Promise<UEquipment[]> => {
+const updateOne = async (e: UEquipment): Promise<UEquipment[]> => {
   const equipment = await postgresQuery<UEquipment>(
     `update equipment set condition=${e.condition}
-      where equipment_id=${e.equipment_id}`
-    );
+      where equipment_id=${e.equipment_id}`,
+  );
   return equipment;
 };
 
